@@ -1,0 +1,106 @@
+---
+title: "How the GEO Readiness Score Is Calculated"
+sidebarTitle: "GEO Score"
+description: "The GEO Readiness Score is a 0–100 composite of 6 weighted dimensions. Learn the formula, the weights, and which signals actually move AI visibility."
+---
+
+Your AI Readiness Score — also called the GEO Readiness Score — is not a single measurement. It is a weighted composite of six distinct dimensions, each targeting a different layer of the signals AI engines use to decide whether to trust and name a business. Every dimension is scored 0–100; the composite is the weighted sum of all six. The same weights apply on every scan, so scores across different businesses and different points in time are directly comparable.
+
+## The Six Dimensions
+
+<CardGroup cols={2}>
+  <Card title="AI Citability" icon="quote-left">
+    **25% — highest weight**
+
+    Measures how quotable and self-contained your content is. AI answers are assembled from passages an engine can lift cleanly into a response. Thin, vague, or promotional copy gives the model nothing useful; a competitor who wrote a direct answer wins instead.
+
+    **Win it:** Answer real buyer questions directly, lead with the conclusion, use headings and lists, back claims with statistics and specifics. Write the paragraph you'd want quoted verbatim.
+  </Card>
+  <Card title="Brand Authority" icon="building">
+    **20%**
+
+    Measures whether AI recognises your business as a real, distinct entity — and whether trusted third parties (Wikipedia, Wikidata, Reddit, YouTube, LinkedIn, industry directories, press) reference you independently.
+
+    **Win it:** Earn citations off your own domain — authoritative directory listings, association profiles, genuine reviews, press mentions, and a consistent entity (same name, address, links) everywhere.
+  </Card>
+  <Card title="Content E-E-A-T" icon="user-check">
+    **20%**
+
+    Measures Experience, Expertise, Authoritativeness, and Trustworthiness signals: named authors and credentials, a real About page, visible contact details, privacy policy, and provenance.
+
+    **Win it:** Name your people and their credentials, show how you know what you claim, and make it obvious you are a real, contactable operation.
+  </Card>
+  <Card title="Technical GEO" icon="gear">
+    **15%**
+
+    Measures whether AI crawlers can cleanly access and read you: HTTPS, sitemaps, canonical URLs, mobile-friendliness, security headers, server-side rendering, and Core Web Vitals.
+
+    **Win it:** Serve content in the initial HTML response, keep the site fast and crawlable, and fix the underlying plumbing. If content only appears after JavaScript runs, crawlers never see it.
+  </Card>
+  <Card title="Schema & Structured Data" icon="code">
+    **10%**
+
+    Measures structured data (JSON-LD) correctness and delivery: Organization, LocalBusiness, Product, FAQ, and similar types that state what you are, where you operate, and what you offer in machine-readable form.
+
+    **Win it:** Add valid Organization + LocalBusiness JSON-LD with `sameAs` links to verified profiles. Deliver it server-side — AI crawlers read raw HTML and do not execute JavaScript.
+  </Card>
+  <Card title="Platform Optimization" icon="sliders">
+    **10%**
+
+    Measures per-surface readiness: AI crawler access in `robots.txt` (GPTBot, Google-Extended, PerplexityBot, ClaudeBot), a published `llms.txt`, and answer-shaped content tuned to how each engine retrieves.
+
+    **Win it:** Open the right crawlers, publish an `llms.txt`, and structure pages as direct answers to the questions buyers actually ask AI engines.
+  </Card>
+</CardGroup>
+
+## The Formula
+
+```
+GEO_Score = (Citability × 0.25) + (Brand × 0.20) + (EEAT × 0.20)
+          + (Technical × 0.15) + (Schema × 0.10) + (Platform × 0.10)
+```
+
+Each dimension sub-score is 0–100. The composite output is also 0–100. Because the formula is fixed, a score of 67 on one scan and 71 on a re-scan represents real movement — not a change in methodology.
+
+## Score Bands
+
+| Score | Band | What it means |
+|-------|------|---------------|
+| 0–39 | **Critical** | Fundamental signals are missing; AI cannot reliably read, trust, or cite you |
+| 40–59 | **Needs Work** | Foundation gaps are directly suppressing AI recommendations |
+| 60–79 | **Good** | Core signals are in place; focus now shifts to building brand footprint |
+| 80–100 | **Excellent** | Well-positioned to earn AI recommendations across all major engines |
+
+## What the Research Actually Shows
+
+<Note>
+The following findings come from 2,354 real businesses measured live on Found by AI, not a survey or a lab study. Scores are recalculated from the live index.
+</Note>
+
+**Brand is the dominant lever — by an 11× margin.**
+
+When the dataset is split by Brand sub-score, the visibility outcomes are stark:
+
+| Brand sub-score bucket | Average AI Visibility score |
+|------------------------|-----------------------------|
+| Brand ≥ 70 | **59.5** |
+| Brand 40–69 | **33.0** |
+| Brand < 40 | **5.3** |
+
+Businesses scoring 70 or above on Brand average **11 times the AI visibility** of those scoring below 40. That gap — measured across 3,268 scored scans — is why Brand carries the second-highest weight in the formula.
+
+E-E-A-T shows a real but smaller lift: businesses named by AI average 75/100 on E-E-A-T; businesses AI ignores average 59/100.
+
+<Warning>
+**Schema alone is not a lever.** Schema sub-scores are nearly flat across visibility buckets (42–47.5), confirming it as a C-tier tactic. Valid structured data removes ambiguity for an engine that already trusts you — it does not make an engine trust you in the first place. Brand does that.
+
+This conclusion matches Google's own published guidance (May 2026), which states there are "no additional requirements to appear in AI Overviews or AI Mode" and explicitly excludes the need for special schema or `llms.txt` files.
+</Warning>
+
+<Tip>
+The Aggarwal et al. GEO study (ACM SIGKDD 2024), tested across ~10,000 queries, confirms the same hierarchy: citing sources (+115%), adding statistics (+40%), and adding quotations from named sources (+28%) move AI visibility. Keyword stuffing actively hurts (−10%). Length alone does nothing (~0%).
+</Tip>
+
+## Full Methodology
+
+For the complete scoring methodology, provenance tags, and the research citations behind each dimension's weight, see the [THL GEO Framework](/research/framework).

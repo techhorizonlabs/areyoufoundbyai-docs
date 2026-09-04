@@ -1,0 +1,86 @@
+---
+title: 'Share AI Access with Clients Using Scoped Keys'
+sidebarTitle: 'Scoped Keys'
+description: 'Create read-only MCP access keys scoped to specific client sites, hand them off in seconds, and revoke them instantly — no passwords to manage.'
+---
+
+Scoped keys let you share Found by AI data with clients, contractors, or team members without giving them access to your whole agency console. Each key is a URL that grants read-only MCP access to a specific set of client sites and nothing else. There are no logins to create, no passwords to manage, and no risk of one person seeing data that belongs to another client. This page explains what scoped keys can and cannot do, how to create and hand them off, and how to revoke them when you no longer need them.
+
+## What scoped keys are
+
+A scoped key is a read-only API token embedded in a URL. The URL itself is the credential — whoever holds it can connect their AI assistant to the client sites that key covers, and nothing beyond that set.
+
+```
+https://areyoufoundbyai.com/mcp/KEY-TOKEN
+```
+
+Scoped keys are distinct from your main account MCP token. Your account token covers your entire network. A scoped key covers only the sites you tick when you create it.
+
+## What clients can do with a scoped key
+
+A scoped key holder can:
+- Read AI Visibility Scores for their domain
+- Read AI Readiness Scores and subcore breakdowns
+- Read the prioritised fix list for their site
+- Ask questions through any MCP-compatible AI assistant using live measurements
+- Read question trajectories, competitor mentions, and share of voice — all for their domain only
+
+## What clients cannot do
+
+A scoped key is strictly read-only and strictly scoped. It cannot:
+- Scan new domains not already in your network
+- Access data for any other client in your fleet
+- Modify account settings, billing, or monitoring configuration
+- Trigger rescans (the `request_rescan` action is not available on scoped keys)
+- See your agency-level console or fleet overview
+
+## How to create a scoped key
+
+<Steps>
+  <Step title="Open the client's network page">
+    Log in to your Fleet console and navigate to the network page for the client you want to create a key for.
+  </Step>
+  <Step title="Click 'AI access'">
+    Find the **AI access** section on the network page and open it. Name the key after the person or team who will use it — this makes auditing and revocation straightforward later.
+  </Step>
+  <Step title="Select the sites the key should cover">
+    Tick the client sites this key should be able to read. You can scope it to a single site, a subset, or the entire client network. If you choose the whole network, the key automatically picks up new sites you add later.
+  </Step>
+  <Step title="Copy the generated key URL and hand it off">
+    Press **Copy setup** next to the newly created key. This copies a complete handoff message — the key URL plus step-by-step instructions for connecting it in the Claude app, Claude Code, and Cursor — ready to paste directly into an email or chat message to your client.
+  </Step>
+</Steps>
+
+## Using a scoped key with an AI assistant
+
+Scoped keys work with any MCP-compatible AI assistant. The key format is identical to the main MCP endpoint format — only the token differs:
+
+```
+https://areyoufoundbyai.com/mcp/KEY-TOKEN
+```
+
+To add it to Claude Code:
+
+```bash
+claude mcp add --transport http found-by-ai-client https://areyoufoundbyai.com/mcp/KEY-TOKEN
+```
+
+Once connected, a client can ask their AI assistant natural questions like:
+- "What is my current AI visibility score?"
+- "Which competitors is AI naming instead of me this week?"
+- "What should I fix first to improve my AI Readiness Score?"
+- "Which of my buyer questions am I still invisible on?"
+
+<Note>
+  Scoped keys work with any MCP-compatible AI assistant — Claude, Cursor, ChatGPT (with a custom connector), Perplexity Spaces, Gemini Gems, and any other tool that supports HTTP-transport MCP servers. No special setup is required beyond pasting the URL.
+</Note>
+
+## Auditing and revoking keys
+
+Each key in your console shows:
+- **Use count:** how many times the key has been called
+- **Last used:** the timestamp of the most recent call
+
+A key that should be active but shows no recent usage is worth investigating — it may not have been connected correctly. A key that is no longer needed can be revoked in one click from the network page. Revocation takes effect immediately; the key stops working the moment you click revoke, with no delay and no other side effects.
+
+Scope is enforced on every call, not just at creation time. Remove a site from your network and every key that covered it loses access to that site at the same moment — you do not need to recreate or update any keys manually.

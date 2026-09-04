@@ -1,0 +1,207 @@
+---
+title: "Connect Found by AI to Claude, ChatGPT, Perplexity, Gemini"
+sidebarTitle: "Connect"
+description: "Step-by-step instructions for connecting the Found by AI MCP server to Claude Desktop, Claude Projects, ChatGPT, Perplexity Spaces, and Gemini Gems."
+---
+
+Connecting the Found by AI MCP server to your AI assistant takes less than two minutes. Once connected, your assistant can query your live visibility scores, fix lists, and competitor data mid-conversation — no copy-pasting required. Follow the tab for whichever AI assistant you use.
+
+<Note>
+  **No account yet?** Use the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to test the connection against Found by AI's own live data before you run your first scan. The demo endpoint requires no token and no signup.
+</Note>
+
+## Connect your assistant
+
+<Tabs>
+  <Tab title="Claude (Desktop)">
+    Claude Desktop supports MCP servers via a single terminal command. This is the fastest way to connect.
+
+    <Steps>
+      <Step title="Run the setup command">
+        Open your terminal and run:
+
+        ```bash
+        claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/YOUR-TOKEN
+        ```
+
+        Replace `YOUR-TOKEN` with the token from your console (**Settings → Live MCP endpoint**). The token is embedded in the URL — there is no separate API key field.
+      </Step>
+      <Step title="Restart Claude Desktop">
+        Quit and relaunch Claude Desktop so it picks up the new server configuration.
+      </Step>
+      <Step title="Test the connection">
+        Start a new conversation and ask:
+
+        ```
+        What is the AI visibility score for example.com?
+        ```
+
+        Claude will call the MCP server and return your live score. If it answers from its training knowledge instead, check that the server name `found-by-ai` appears in Claude's settings under **MCP Servers**.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Claude (Projects)">
+    Claude Projects let you add standing instructions that apply to every new conversation inside the project. This approach works even if you do not have Claude Desktop installed.
+
+    <Steps>
+      <Step title="Create or open a Project">
+        In the Claude web app, open an existing Project or create a new one dedicated to your business.
+      </Step>
+      <Step title="Open Project Instructions">
+        Inside the project, look for **Project Instructions** or **Custom Instructions** (the label varies by Claude version). Open the instructions field.
+      </Step>
+      <Step title="Add the standing instruction">
+        Paste the following, replacing `YOUR-TOKEN` with your token:
+
+        ```
+        You have access to Found by AI data via MCP at https://areyoufoundbyai.com/mcp/YOUR-TOKEN.
+        Use it to answer questions about AI visibility and readiness for my sites. At the start of
+        every new conversation, call get_visibility to load my current scores before answering
+        anything about my AI visibility, competitors, or what to do next.
+        ```
+      </Step>
+      <Step title="Save and test">
+        Save the instructions, then start a new conversation inside the project and ask:
+
+        ```
+        What is my current AI readiness score and what should I fix first?
+        ```
+      </Step>
+    </Steps>
+
+    <Tip>
+      Every new chat inside the project will open with your latest data already loaded, so you never need to paste a report or set context again.
+    </Tip>
+  </Tab>
+
+  <Tab title="ChatGPT Projects">
+    ChatGPT supports MCP-style connectors inside Projects, letting you wire Found by AI data into any conversation you start in that project.
+
+    <Steps>
+      <Step title="Open Settings → Connected Apps">
+        In ChatGPT, click your profile icon, then open **Settings**. Navigate to **Connected Apps** (also labelled **Connectors** in some versions).
+      </Step>
+      <Step title="Add a new connector">
+        Click **Add** and choose the **MCP** connector type when prompted.
+      </Step>
+      <Step title="Paste your MCP URL">
+        Enter the following URL, replacing `YOUR-TOKEN` with your token:
+
+        ```
+        https://areyoufoundbyai.com/mcp/YOUR-TOKEN
+        ```
+      </Step>
+      <Step title="Name and save">
+        Set the display name to **Found by AI** and save. The connector now appears in your Connected Apps list.
+      </Step>
+      <Step title="Test the connection">
+        Open a new conversation in the project and ask:
+
+        ```
+        What is my AI visibility score and who is AI naming instead of me?
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Perplexity Spaces">
+    Perplexity Spaces support custom MCP connectors, so you can dedicate a Space to your business and have Found by AI data available in every search and conversation inside it.
+
+    <Steps>
+      <Step title="Open or create a Space">
+        Go to [perplexity.ai](https://perplexity.ai), open **Spaces** in the sidebar, and create a new Space (or open an existing one) for your business.
+      </Step>
+      <Step title="Add a Connector">
+        Inside the Space settings, find the **Connectors** section and click **Add Connector**.
+      </Step>
+      <Step title="Configure the MCP connector">
+        Set the connector type to **MCP** and paste your endpoint URL:
+
+        ```
+        https://areyoufoundbyai.com/mcp/YOUR-TOKEN
+        ```
+
+        Save the connector. No additional authentication fields are required — your token is in the URL.
+      </Step>
+      <Step title="Test the connection">
+        Start a new conversation inside the Space and ask:
+
+        ```
+        What buyer questions am I invisible on, and who does AI name instead?
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Gemini Gems">
+    Gemini Gems support persistent instructions, so you can create a dedicated Gem that always queries your Found by AI data when you ask about visibility or readiness.
+
+    <Steps>
+      <Step title="Open Gems">
+        In the Gemini app, open **Gems** from the left sidebar, then click **New Gem**.
+      </Step>
+      <Step title="Name your Gem">
+        Give the Gem a recognisable name, such as **AI Visibility — [Your Business Name]**.
+      </Step>
+      <Step title="Add the Gem instructions">
+        In the Gem instructions field, paste the following, replacing `YOUR-TOKEN` with your token:
+
+        ```
+        Query https://areyoufoundbyai.com/mcp/YOUR-TOKEN for visibility data when answering
+        questions about AI visibility, AI readiness scores, competitors, or site improvements.
+        Always fetch fresh data before answering rather than relying on cached responses.
+        ```
+      </Step>
+      <Step title="Save and test">
+        Save the Gem, then open it and ask:
+
+        ```
+        What is my AI readiness score breakdown by dimension?
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Verifying the connection
+
+Regardless of which assistant you use, the simplest verification is to ask a question that requires a live tool call:
+
+```
+What is the AI visibility score for [your domain]?
+```
+
+A successful connection returns a specific numeric score drawn from your latest scan. If your assistant responds with a generic answer about AI visibility in general, the MCP server is not yet connected — revisit the setup steps for your assistant and confirm the endpoint URL is correct.
+
+You can also ask:
+
+```
+List the MCP tools you have access to from Found by AI.
+```
+
+A connected assistant will enumerate the 15 available tools. If it cannot, the server has not been registered.
+
+<Warning>
+  Keep your MCP endpoint URL private. Anyone who holds your token can read your measurement data. Never paste it into a public document, a shared Notion page, or a public GitHub repository. Sharing it with your own AI assistant, or a trusted team member, is exactly what it is for.
+</Warning>
+
+## Troubleshooting
+
+<Accordion title="My assistant answers from its training knowledge instead of calling the MCP server">
+  This usually means the MCP server registration did not complete. For Claude Desktop, re-run the `claude mcp add` command and restart the app. For other assistants, confirm the connector URL is saved correctly — check that the `/mcp/YOUR-TOKEN` portion is present and that you replaced `YOUR-TOKEN` with your actual token.
+</Accordion>
+
+<Accordion title="The connection works but returns no data for my domain">
+  The MCP tools query your existing scan history. If you have not yet run a scan for the domain, call `scan_website(url)` first to generate an initial measurement, then re-query the score or fix tools.
+</Accordion>
+
+<Accordion title="I want to test without creating an account">
+  Use the demo endpoint:
+
+  ```
+  https://areyoufoundbyai.com/mcp/demo
+  ```
+
+  This is connected to Found by AI's own live monitoring of areyoufoundbyai.com — all 15 read tools are available, and `rescan_website` is disabled. It requires no token and no signup.
+</Accordion>

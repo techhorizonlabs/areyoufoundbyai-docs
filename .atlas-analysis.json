@@ -1,0 +1,129 @@
+{
+  "projectType": "saas",
+  "projectName": "Found by AI — Tech Horizon Labs",
+  "projectDescription": "Found by AI measures and improves how often AI assistants name your business when buyers ask questions, using a 7-engine visibility layer, a GEO readiness score, MCP integration, and an open-source Claude Code skill suite.",
+  "theme": "almond",
+  "primaryColor": "#e07323",
+  "lightColor": "#f4e9da",
+  "darkColor": "#482323",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "how-it-works"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/visibility-vs-readiness",
+              "concepts/geo-score",
+              "concepts/ai-engines",
+              "concepts/glossary"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/run-your-first-scan",
+              "guides/fix-your-score",
+              "guides/mcp-integration",
+              "guides/claude-code-skills",
+              "guides/agency-fleet",
+              "guides/scoped-keys"
+            ]
+          },
+          {
+            "group": "Free Tools",
+            "pages": [
+              "tools/overview",
+              "tools/ai-crawler-checker",
+              "tools/dns-aid-checker",
+              "tools/indexnow",
+              "tools/llmstxt-generator",
+              "tools/schema-generator"
+            ]
+          },
+          {
+            "group": "Research",
+            "pages": [
+              "research/framework",
+              "research/findings",
+              "research/benchmarks"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API & MCP",
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": [
+              "api/overview",
+              "api/scan",
+              "api/authentication"
+            ]
+          },
+          {
+            "group": "MCP Server",
+            "pages": [
+              "mcp/overview",
+              "mcp/tools",
+              "mcp/connect"
+            ]
+          },
+          {
+            "group": "Open-Source Skills",
+            "pages": [
+              "skills/overview",
+              "skills/geo-audit",
+              "skills/agent-readiness-scan",
+              "skills/found-by-ai-skill",
+              "skills/audit-report-kit"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "7-engine AI visibility measurement (ChatGPT, Perplexity, Gemini, Claude, Grok, DeepSeek, Google AI Overviews)",
+    "Composite GEO Readiness Score (0–100) across 6 weighted dimensions",
+    "MCP server integration for AI assistants (Claude, ChatGPT, Perplexity, Gemini)",
+    "Live areyoufoundbyai.com scan API — free tier, no auth required",
+    "Open-source Claude Code skill suite (17 skills, npx installable)",
+    "Branded PDF audit reports via audit-report-kit (TypeScript/React PDF)",
+    "Agency Fleet plan with white-label reports and scoped client keys",
+    "Free tools: AI crawler checker, DNS-AID checker, IndexNow submitter, llms.txt generator, JSON-LD schema generator",
+    "AI traffic beacon for measuring AI-driven site visits",
+    "Majority-voted sampling across multiple scan runs for statistical accuracy",
+    "Australian, UK, and US benchmark indexes (3,800+ businesses measured)",
+    "Verbatim answer receipts showing exactly what each AI engine said"
+  ],
+  "publicApiSurface": [
+    "POST https://areyoufoundbyai.com/api/scan — run a visibility + readiness scan",
+    "GET https://areyoufoundbyai.com/mcp/YOUR-TOKEN — MCP server endpoint",
+    "claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/demo",
+    "npx skills add techhorizonlabs/thl-open — install Claude Code skill suite",
+    "MCP tool: scan_website(url) — trigger a fresh scan",
+    "MCP tool: get_visibility_score(url) — retrieve latest visibility score",
+    "MCP tool: get_readiness_score(url) — retrieve latest readiness score",
+    "MCP tool: get_fixes(url) — retrieve prioritised fix list",
+    "MCP tool: get_verbatim_answers(url, engine) — retrieve raw AI engine answers",
+    "MCP tool: list_competitors(url) — retrieve competitor share-of-voice",
+    "skills/found-by-ai SKILL.md — Claude Code wrapper for areyoufoundbyai.com API",
+    "skills/agent-readiness-scan run_scan.sh — POST to isitagentready.com/api/scan",
+    "skills/agent-readiness-scan scan_to_csv.py — convert JSON scan to CSV",
+    "tools/audit-report-kit CLI: npm run report — generate branded PDF + JSON-LD",
+    "geo-audit skill: /geo audit <url> — 5-subagent parallel GEO audit",
+    "geo-llmstxt skill: validate and generate llms.txt",
+    "geo-schema skill: detect, validate, and generate Schema.org JSON-LD"
+  ]
+}

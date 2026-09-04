@@ -1,0 +1,77 @@
+---
+title: "Check Your DNS-AID Record for Agent Readiness"
+sidebarTitle: "DNS-AID Checker"
+description: "Verify your DNS-AID HTTPS record so AI agents can discover your site's machine entry point before crawling — takes 5 minutes to add."
+---
+
+AI agents — software that researches, books, and transacts on a person's behalf — need to find your site's machine entry point before they can act on it. DNS-AID (Agent Interface Discovery) solves this the same way the internet has always solved discovery: with DNS. One HTTPS record at `_index._agents.yourdomain.com`, built on the standard HTTPS/SVCB record type (RFC 9460), tells agents where to start before they crawl a single page. The DNS-AID Checker verifies whether your domain publishes this record and shows you the exact steps to add it if it's missing.
+
+## What DNS-AID is
+
+DNS-AID is an IETF Internet-Draft ([draft-mozleywilliams-dnsop-dnsaid](https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/)) that standardises how AI agents discover a website's machine interface from DNS alone. Instead of crawling your entire site to find your `llms.txt`, `ai-plugin.json`, or MCP endpoint, an agent queries `_index._agents.yourdomain.com` and gets a direct pointer to your entry point.
+
+Agent-readiness scanners — including the Found by AI full scan — already check for this record. Fewer than 1% of sites have it today, so adding it now places you ahead of the field before the record becomes table-stakes.
+
+## How to use the checker
+
+Go to [areyoufoundbyai.com/tools/dns-aid-checker](https://areyoufoundbyai.com/tools/dns-aid-checker), enter your domain, and click **Check**. The tool performs a live DNS lookup and returns either a **Pass** (record found) or **Fail** (record missing or misconfigured), along with whether the record is DNSSEC-authenticated.
+
+## How to add a DNS-AID record
+
+<Steps>
+  <Step title="Create your llms.txt file">
+    Publish a valid `llms.txt` at the root of your domain: `https://yourdomain.com/llms.txt`. This is what the DNS record will point to. If you don't have one yet, use the [llms.txt Generator](/tools/llmstxt-generator) to build one from your sitemap in minutes.
+  </Step>
+  <Step title="Add the HTTPS record in your DNS provider">
+    In Cloudflare, go to **DNS → Records → Add record** and fill in:
+
+    | Field | Value |
+    |---|---|
+    | Type | HTTPS |
+    | Name | `_index._agents` |
+    | TTL | Auto |
+    | Priority | 1 |
+    | Target | `yourdomain.com` (your apex domain) |
+    | Value | `alpn="h2"` |
+
+    Cloudflare appends your domain to the Name automatically — do not add it yourself. On other DNS providers, look for record type **HTTPS**, **SVCB**, or **Type 65**. Route 53, Google Cloud DNS, and most modern hosts support it. If your panel doesn't offer the type, you can move just your DNS to a free Cloudflare plan and add it there without changing your hosting or registrar.
+  </Step>
+  <Step title="Verify the record is live">
+    Use the DNS-AID Checker above, or verify directly via DNS-over-HTTPS:
+
+    ```
+    https://dns.google/resolve?name=_index._agents.yourdomain.com&type=HTTPS
+    ```
+
+    A JSON response containing a type-65 record confirms the record is live. Note: older versions of `dig` cannot render type-65 records — a blank `dig +short` result does **not** mean the record is missing. Always use the DNS-over-HTTPS check above to confirm.
+
+    You can also query via Cloudflare's DoH endpoint from your terminal:
+
+    ```bash
+    curl -s -H "accept: application/dns-json" \
+      "https://cloudflare-dns.com/dns-query?name=_index._agents.yourdomain.com&type=HTTPS"
+    ```
+  </Step>
+</Steps>
+
+## Why it matters
+
+DNS-AID positions your site at **Level 3** on the agent-readiness ladder (the point at which agents can discover and navigate your site without any prior knowledge). Without it, agents either miss your site entirely or must crawl blindly to find your machine-readable content. With it, any compliant agent can resolve your entry point from a single DNS query.
+
+As AI agents increasingly handle research and purchasing workflows, DNS discoverability becomes the equivalent of being listed in a directory — the prerequisite for everything else.
+
+<Accordion title="What are the other agent-specific record names I should know about?">
+  The DNS-AID draft also defines service-specific sub-records:
+  - `_mcp._agents.yourdomain.com` — points to your MCP (Model Context Protocol) server endpoint
+  - `_a2a._agents.yourdomain.com` — points to your agent-to-agent interface
+
+  Only publish these if you actually operate the surface behind them. An `_mcp._agents` record pointing at nothing is treated as broken by agent scanners — worse than having no record at all. Publish `_index._agents` now (since it points at your real site), and add the others as you build those capabilities.
+</Accordion>
+
+<Accordion title="Should I also enable DNSSEC?">
+  Yes, if your DNS provider supports it. DNSSEC allows resolvers to cryptographically verify that your DNS record is genuine and hasn't been tampered with. In Cloudflare, enable it under **DNS → Settings → DNSSEC**. The DNS-AID Checker reports whether your record is DNSSEC-authenticated.
+</Accordion>
+
+<Tip>
+  Even without a DNS-AID record, having a valid `llms.txt` at your domain root gives you most of the discoverability benefit — AI crawlers that check for it will still find your content map. The DNS-AID record adds the next layer of machine-discoverability on top.
+</Tip>

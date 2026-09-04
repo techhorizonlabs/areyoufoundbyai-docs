@@ -1,47 +1,62 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Found by AI in 5 Minutes"
+sidebarTitle: "Quick Start"
+description: "Run your first AI visibility scan, read your Visibility and Readiness scores, and get a prioritised fix plan — all in about 60 seconds."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+Running your first scan takes about sixty seconds and requires no account or credit card. You paste your domain, Found by AI reads your site and sends real buyer questions to AI engines, and you get two scores plus the verbatim answers the engines gave — including the names of any competitors they recommended instead of you.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+## Run your first scan
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
-
-    ```bash
-    npm install your-package
-    ```
+  <Step title="Go to areyoufoundbyai.com and enter your URL">
+    Open [areyoufoundbyai.com](https://areyoufoundbyai.com) and type or paste your domain into the scan field. That's the only input required. If your business serves specific suburbs or locations, you can add them so the questions localise to your area.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
-
-    ```bash
-    your-cli init
-    ```
+  <Step title="Wait about 60 seconds for the scan to complete">
+    ARGOS reads your site — crawling your content, schema, robots.txt, llms.txt, and AI crawler access rules — while NAVIGATOR writes the buyer questions and SOUNDER sends them to the AI engines. The whole pipeline runs in roughly sixty seconds.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
-
-    ```bash
-    your-cli start
-    ```
+  <Step title="Read your Visibility and Readiness scores">
+    Two scores appear at the top of your report, each out of 100. Your **AI Visibility Score** reflects how often the engines named your business across all questions asked. Your **AI Readiness Score** reflects how well your site is built to earn AI recommendations, measured across six weighted dimensions.
+  </Step>
+  <Step title="Review the verbatim answers from each AI engine">
+    Below your scores you'll find the actual replies each engine gave, word for word. You can see exactly which engine named you, which sentence contained the mention, and which competitors were named on the questions where you didn't appear.
+  </Step>
+  <Step title="Follow the fix plan">
+    PILOT orders your fixes by impact. The quickest copy-paste items (your Organization JSON-LD schema and llms.txt, generated specifically for your entity) appear at the top. Slower off-site actions — earning citations on directories and communities the engines already read — are listed with the specific platforms your category relies on.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+<Note>
+  The **free tier** runs 2 questions across 2 engines (ChatGPT and Google's Gemini) with one sampling pass each. This is a real measurement — not a demo — but it's shallower than a full scan. You'll see both scores, who was named, and a condensed fix list.
+</Note>
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+## What you'll see in your report
+
+| Section | What it shows |
+|---|---|
+| **AI Visibility Score** | Your 0–100 score: how often AI engines named your business across all sampled questions. |
+| **AI Readiness Score** | Your 0–100 composite score across six GEO dimensions, reflecting how AI-readable your site is. |
+| **Per-engine answers** | The verbatim reply from each engine, keyed to the exact question asked, so you can read what the engine actually said. |
+| **Competitor names** | Which businesses the engines recommended on questions where you didn't appear, and how often each competitor was named. |
+| **Fix priority list** | Ranked actions with estimated effort, copy-paste artefacts for the quick wins, and specific citation targets for your market. |
+
+<Tip>
+  Upgrade to **Monitoring (US$79/mo)** to run 25 questions across all 7 engines every week. The weekly re-measure is how you know whether a fix actually moved your scores — readiness responds within days of a site change; visibility moves more slowly as third-party pages start citing you. A 14-day free trial is included, with a 5-findings-or-refund guarantee on month one.
 </Tip>
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Understand Your Scores" icon="chart-bar" href="/concepts/visibility-vs-readiness">
+    Learn what the Visibility and Readiness scores measure and how to interpret them together.
+  </Card>
+  <Card title="Fix Your Score" icon="wrench" href="/guides/fix-your-score">
+    Step-by-step guidance on acting on your fix plan — from copy-paste schema to earning citations.
+  </Card>
+  <Card title="Use the API" icon="code" href="/api/overview">
+    Trigger scans programmatically and retrieve results via the public scan API.
+  </Card>
+  <Card title="Connect Your AI Assistant" icon="plug" href="/mcp/overview">
+    Point Claude, Cursor, or any MCP-compatible agent at your live Found by AI data.
+  </Card>
+</CardGroup>

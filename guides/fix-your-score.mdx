@@ -1,0 +1,108 @@
+---
+title: 'How to Fix Your AI Readiness Score'
+sidebarTitle: 'Fix Your Score'
+description: 'Improve your AI Readiness Score by working through all six GEO dimensions in priority order — from AI Citability to Platform Optimization.'
+---
+
+Your AI Readiness Score is a composite of six dimensions, each weighted by the impact it has on whether AI engines recommend you. The best way to improve it is to work through the dimensions in descending weight order — not alphabetically, and not by whatever feels easiest. This guide walks you through every dimension, tells you exactly what to fix, and explains two high-leverage opportunities that sit across multiple dimensions at once.
+
+## Fix priority order
+
+### 1. AI Citability — 25%
+
+AI Citability is the single largest dimension because it measures how directly quotable your content is when an engine is forming an answer. Thin pages, vague value propositions, and wall-of-text layouts all hurt this score.
+
+**What to fix:**
+- Rewrite thin pages as direct answers to real buyer questions. Identify the questions your buyers actually ask (your scan report lists them) and make sure each one has a page that answers it clearly.
+- Use descriptive headers that contain the question or topic, not generic labels like "Our Approach."
+- Lead with the answer, then explain. AI engines extract the first clear statement — bury your answer in paragraph three and you lose the citation.
+- Use numbered lists and short paragraphs wherever the content is instructional. Structured text is significantly more quotable than prose.
+
+### 2. Brand Authority — 20%
+
+Brand Authority measures how much independent third-party evidence exists for your business. This is primarily an off-page signal, which means you cannot improve it by editing your own website alone.
+
+**What to fix:**
+- Earn genuine third-party mentions. An editorial mention in an industry newsletter, a YouTube review by a creator in your space, or a Reddit thread where someone recommends you all count.
+- Get listed in authoritative directories relevant to your category. Focus on sources the engines actually cite — your scan report shows you which domains appeared in engine answers.
+- Pursue backlinks from .gov and .edu domains where a legitimate connection exists (local business associations, university research partnerships, government supplier directories).
+- Consider a Wikipedia presence only if you meet notability standards — see the Wikidata section below for the right path.
+
+### 3. Content E-E-A-T — 20%
+
+E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) is Google's framework for evaluating content quality, and AI engines apply similar signals when deciding what to cite. Thin author information and unsupported claims suppress this score.
+
+**What to fix:**
+- Add author bylines with genuine credentials to content pages. A brief bio that cites relevant experience (years in the industry, qualifications, direct work with customers) signals expertise.
+- Cite primary sources. Link to original research, official statistics, and authoritative external sources rather than secondary summaries.
+- Publish case studies with real, specific outcomes. "We reduced churn by 23% for a SaaS company with 400 seats" is quotable. "We help businesses grow" is not.
+- Ensure your business name, address, and phone number (NAP) are consistent everywhere they appear — on your website, in directories, and in schema markup. Inconsistent NAP is a trust signal that cuts against you.
+
+### 4. Technical GEO — 15%
+
+Technical GEO measures whether AI crawlers can actually access and read your content. A perfectly written page that crawlers cannot reach scores zero on every other dimension.
+
+**What to fix:**
+- Check your `robots.txt` file and make sure it does not block the major AI crawlers: `GPTBot`, `ClaudeBot`, `Google-Extended`, `PerplexityBot`, and `OAI-SearchBot`. Use the [free AI crawler checker](https://areyoufoundbyai.com/tools/ai-crawler-checker) to verify.
+- Ensure your key pages are server-side rendered. AI crawlers largely do not execute JavaScript, so content loaded by client-side JS is invisible to them.
+- Fix Core Web Vitals issues that cause slow or broken page loads. A page that returns errors or times out is worse than no page at all.
+- Add a `security.txt` file at `/.well-known/security.txt` — it is a minor trust signal, but it takes five minutes.
+- Add an `llms.txt` file at your domain root. This is the emerging standard for giving AI engines a clean map of your most important content. Use the [free llms.txt generator](https://areyoufoundbyai.com/tools/llms-txt-generator) to create one.
+
+### 5. Schema & Structured Data — 10%
+
+Schema markup tells AI engines (and search engines) exactly what kind of entity your business is, what you offer, and how to describe you. The most important schema type for most businesses is `Organization`.
+
+**What to fix:**
+- Add `Organization` JSON-LD to every page of your site. Include your name, URL, logo, description, and `sameAs` links to your verified social profiles and directory listings.
+- Deliver JSON-LD in server-rendered HTML. Client-side JavaScript injection means AI crawlers never see it.
+
+<Warning>
+  JS-injected schema is invisible to AI crawlers. Always deliver JSON-LD in server-rendered HTML — open View Source on your page and confirm the `<script type="application/ld+json">` tag is present in the raw HTML before any JavaScript executes.
+</Warning>
+
+- Validate your schema using the [free JSON-LD schema generator](https://areyoufoundbyai.com/tools/schema-generator) and confirm it appears in the served HTML, not just in your browser's developer tools.
+- Add `FAQPage` schema to pages that genuinely answer questions. Do not add fake FAQ blocks just to trigger the schema type — engines have seen thousands of them.
+
+### 6. Platform Optimization — 10%
+
+Platform Optimization measures how well your content is tailored to the way individual AI engines form answers. Different engines have different preferences for content structure, citation behaviour, and the type of sources they trust.
+
+**What to fix:**
+- Study the verbatim answers in your scan report for each engine. Note structural differences in what each one cited and how.
+- Perplexity leans heavily on structured, factual pages with clear citations. ChatGPT is more likely to synthesise from multiple sources. Gemini weights Google-indexed content heavily.
+- Ensure your content appears consistently across the web surfaces each engine draws from. A strong presence in one engine but absence in another usually reflects a gap in your off-site footprint, not your on-page content.
+
+## The comparison page opportunity
+
+Comparison searches — "you vs competitor" and "alternatives to you" — are among the highest-intent queries your buyers make. Analysis of 1,001 high-intent search results shows that 67% of "vs" searches and 84% of "alternatives" searches are won by a page the brand did not write. Those same pages feed AI assistants when someone asks "should I use X or Y?"
+
+**Build comparison pages that win:**
+- Put the intent keyword in the title: "YourBrand vs Rival: [Honest Frame]."
+- Include an honest both-ways feature table early on the page. List what each product genuinely does better.
+- Add a section called "Who should pick them" — write it honestly, with real reasons. This is the section AI engines quote, and it is what separates a comparison from an advertisement.
+- Place your CTA above the fold — a trial or demo link, not a popup.
+- Include a visible "last updated" date and honour it by actually updating the page when things change.
+- Use `Article` or `WebPage` schema. Skip `FAQPage` unless you have a genuinely useful FAQ block. Never use fabricated review stars on pages you wrote about yourself.
+
+For "alternatives to you" pages, write a numbered, dated roundup: "7 YourBrand Alternatives (and Who They're Right For)." Name real competitors, be honest about where they are a better fit. Counter-intuitive, and it works — you control the frame, you earn the citation, and AI learns the comparison from a page that includes you fairly.
+
+## Wikidata entity anchoring
+
+Being a recognised entity in Wikidata and Google's Knowledge Graph is one of the strongest signals AI engines use when deciding who to name. Both registries are also widely misunderstood — and a failed self-submission can set you back.
+
+<Warning>
+  Do not create a Wikidata item for your business until you have genuine independent coverage. Items created by single-purpose accounts citing only self-made directory listings are deleted within days. This is a documented pattern, not a hypothetical risk.
+</Warning>
+
+**The right path:**
+1. Build independent coverage first — real press, industry newsletters that chose to feature you, research citations. One genuine article outweighs ten self-made listings.
+2. Make a handful of genuinely useful edits to unrelated Wikidata items before touching your own brand. Single-purpose accounts are pattern-matched by admins.
+3. Create one minimal item for the organisation — label, description, `instance of: business`, country, official website, founder, and a registry identifier (e.g. your company registration number). Reference every claim with a retrieved date and an independent source.
+4. Wait 30+ days before adding a product item. If the organisation item survives, proceed with the same discipline.
+
+Google's Knowledge Graph forms from corroboration — Wikidata, your `Organization` schema, government registries, consistent NAP, and independent citations across the web. It lags your citation-building by weeks to months. Ship the on-page work first; the Knowledge Graph will follow.
+
+<Tip>
+  Connect the MCP integration to run your AI assistant through this fix list automatically. Your assistant can read your current fix plan from `get_fix_plan`, apply on-page fixes in your repository, and trigger a re-scan to measure the result — with your approval at every step. See [MCP Integration](/guides/mcp-integration) to get started.
+</Tip>

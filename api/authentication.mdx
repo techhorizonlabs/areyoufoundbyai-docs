@@ -1,0 +1,75 @@
+---
+title: 'Authenticate with the Found by AI API'
+sidebarTitle: 'Authentication'
+description: 'How to authenticate with the Found by AI API — free-tier access, Bearer token API keys for paid tiers, and scoped read-only keys for agencies.'
+---
+
+The Found by AI API uses straightforward Bearer-token authentication. The free tier requires no credentials at all, making it easy to run your first scan without any setup. Paid tiers unlock more engines, more questions, and higher rate limits by attaching an API key to each request.
+
+## Free tier — no authentication
+
+The `/api/scan` endpoint is publicly accessible without any API key. Submit a `POST` request with just the `url` body parameter and the scan runs immediately.
+
+<Note>
+  Free-tier scans are rate-limited to **2 scans per domain per month** and up to 15 scans per browser per day. On very busy days a server-wide queue may delay new scans — leave your email address during the scan and your result is emailed as soon as it clears.
+</Note>
+
+## Paid tier — API key
+
+Monitoring ($79/mo) and Fleet ($149/mo) plans include an API key. To create one:
+
+<Steps>
+  <Step title="Log in to your dashboard">
+    Go to [areyoufoundbyai.com](https://areyoufoundbyai.com) and sign in to your account.
+  </Step>
+  <Step title="Open API Keys">
+    Navigate to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a key">
+    Click **Create key**, give it a label, and copy the value — it is only shown once.
+  </Step>
+  <Step title="Pass the key in your requests">
+    Add an `Authorization: Bearer` header to every API request.
+  </Step>
+</Steps>
+
+Pass your key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -X POST https://areyoufoundbyai.com/api/scan \
+  -H 'Authorization: Bearer YOUR-API-KEY' \
+  -H 'Content-Type: application/json' \
+  -d '{"url": "https://example.com"}'
+```
+
+<Warning>
+  Keep your API key secret. Do not commit it to source control or expose it in client-side code. Rotate it immediately from **Settings → API Keys** if it is ever compromised.
+</Warning>
+
+## Scoped keys (for agencies)
+
+Fleet plan accounts can issue **scoped keys** — read-only credentials restricted to specific client domains. Scoped keys are designed so that team members and contractors can access only the sites assigned to them.
+
+To create a scoped key:
+
+1. Open your Fleet console and go to the **Network** page.
+2. Select the client site you want to grant access to.
+3. Click **AI access** to generate a scoped key for that domain.
+
+Scoped keys are used as the MCP endpoint URL, not as an `Authorization` header:
+
+```
+https://areyoufoundbyai.com/mcp/YOUR-SCOPED-KEY
+```
+
+<Warning>
+  Scoped keys grant **read-only MCP access** only. They cannot be used to trigger a new scan via `POST /api/scan`. Use a full API key (from Settings → API Keys) for write operations.
+</Warning>
+
+## Error responses
+
+| HTTP status | Meaning |
+|-------------|---------|
+| `401 Unauthorized` | The API key is missing or invalid. Check that the `Authorization` header is present and the key has not been revoked. |
+| `403 Forbidden` | The key is valid but not permitted for the requested domain. This applies to scoped keys used outside their assigned domain. |
+| `429 Too Many Requests` | The rate limit for your tier has been reached. Wait for the reset window or upgrade your plan. |

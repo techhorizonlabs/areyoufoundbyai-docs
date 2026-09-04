@@ -1,0 +1,161 @@
+---
+title: "AI Visibility Research: What the Data Shows"
+sidebarTitle: "Findings"
+description: "Data from 3,282 businesses: brand authority beats backlinks 3×, JS schema is AI-invisible, and comparison pages are an untapped citation source."
+---
+
+Found by AI measures real businesses against the questions real buyers ask across seven AI engines. The research on this page is drawn from that live corpus — not a survey, not a sample — and recomputes from the index on every visit. The findings below consistently point in one direction: AI recommends businesses it has seen talked about across the open web, not the ones with the cleanest technical markup. Here is what that means in practice for each dimension of your score.
+
+## Brand Authority Is the Primary Lever
+
+The single largest gap between businesses AI names and businesses AI ignores sits entirely off your website.
+
+Businesses AI names consistently average **79/100** on Brand Authority. Businesses AI ignores average **38/100**. That 41-point gap is not explained by site speed, schema presence, or content word count — it is explained entirely by whether independent third parties talk about you.
+
+**Third-party mentions outperform backlinks by ~3×:** Independent research by Oruesagasti ("Algorithmic Trust and Compliance," 2026) found that AI search systematically favours earned, third-party media over brand-owned content. Analyses of 75,000+ brands confirm that third-party mentions are approximately three times more correlated with AI citation than traditional backlinks alone.
+
+**Where AI finds the evidence it trusts:**
+
+<CardGroup cols={2}>
+  <Card title="YouTube Reviews" icon="play">
+    Video reviews on your brand's name create crawlable, third-party evidence that independent sources vouch for you. Businesses with YouTube coverage appear in AI answers significantly more often.
+  </Card>
+  <Card title="Reddit Threads" icon="comments">
+    Organic Reddit discussions naming your business are high-trust signals. Reddit's open indexing makes these pages highly retrievable by AI search layers.
+  </Card>
+  <Card title="Wikipedia / Wikidata" icon="book">
+    A Wikipedia entry or Wikidata entity record is the strongest single entity-anchoring signal available. Even a stub entry that links to your official domain helps AI distinguish you from namesakes.
+  </Card>
+  <Card title="LinkedIn & Industry Posts" icon="linkedin">
+    LinkedIn posts, industry association profiles, and professional directories create consistent entity signals across the platforms AI crawlers index most heavily.
+  </Card>
+</CardGroup>
+
+**Entity recognition across platforms:** AI engines build a model of your business from every place they encounter your name. Inconsistent name, address, or category information across directories creates entity collisions — the engine can't tell if two mentions refer to the same business. Keep your entity signal identical everywhere: same legal name, same address format, same primary URL.
+
+<Tip>
+  The free scan at [areyoufoundbyai.com](https://areyoufoundbyai.com) shows your Brand Authority score alongside the specific third-party sources AI is (and isn't) finding when it looks you up.
+</Tip>
+
+## What JS-Injected Schema Means for You
+
+Schema markup is only as useful as the delivery method you use to put it on the page. The AI crawlers that power ChatGPT, Claude, and Perplexity operate very differently from Google's crawler — and that difference has a concrete impact on whether your schema is visible at all.
+
+**The core issue:** Google's crawler renders JavaScript. Most AI crawlers don't. GPTBot, ClaudeBot, and PerplexityBot fetch your raw HTML and move on without executing any scripts. If your schema is added to the page by a JavaScript tag — including Google Tag Manager, third-party "schema injection" SaaS tools, or client-side SPA frameworks — those crawlers see a page with no schema at all.
+
+<Tabs>
+  <Tab title="How schema reaches AI crawlers">
+    | Delivery Method | How It Works | Google | AI Crawlers |
+    |---|---|---|---|
+    | **Server HTML** (CMS theme, SSR, hard-coded template) | JSON-LD is in the HTML your server sends | ✅ Read | ✅ Read |
+    | **Edge-injected** (CDN worker rewrites the response) | JSON-LD is added in transit as part of the response | ✅ Read | ✅ Read |
+    | **Client-side JS** (tag manager, SPA, "schema tag" SaaS) | A script adds JSON-LD after the page loads in a browser | Usually read | ❌ Invisible |
+
+    Gemini is the exception — it benefits from Google's rendered index, so it may see client-side schema. But that means you're structured-data-visible to one AI family out of four.
+  </Tab>
+  <Tab title="The 60-second self-check">
+    **View source — not Inspect Element.** "Inspect" shows the rendered page after JavaScript runs. "View source" shows what AI crawlers actually receive.
+
+    1. Open your homepage in a browser
+    2. Press `Ctrl+U` (Windows) or `Cmd+Option+U` (Mac) to view source
+    3. Search the source code for `application/ld+json`
+
+    **If you find it in source:** AI can read your schema. ✅
+
+    **If you only find it in Inspect (not source):** Your schema is JS-injected and invisible to the AI fleet. ❌
+
+    Terminal version: run `curl -s https://yoursite.com | grep -c "application/ld+json"` — a result of zero means zero schema visibility for every crawler that doesn't execute JavaScript.
+  </Tab>
+  <Tab title="How to fix it">
+    Fix in order of preference:
+
+    <Steps>
+      <Step title="Put it in the server HTML">
+        Every mainstream CMS can deliver schema server-side — via theme, a server-rendering plugin, or hard-coded in the template. This is the most reliable option.
+      </Step>
+      <Step title="Inject at the edge">
+        If your CMS is locked down, a CDN worker (for example, Cloudflare Workers' HTMLRewriter) can add JSON-LD to the response itself. This is crawler-visible by construction and requires no CMS access.
+      </Step>
+      <Step title="Understand the trade-off if you can't move it">
+        If client-side injection is genuinely your only option, know what it means: schema is visible to Google's renderer, invisible to the AI fleet. Prioritise moving it server-side as soon as you can.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Note>
+  The Found by AI scanner reads your site the way AI crawlers do — raw HTML first. If it reports "no schema" on a site whose SEO plugin shows schema, that disagreement is not a bug. It is the measurement.
+</Note>
+
+## The Comparison Page Opportunity
+
+When a buyer is actively deciding between you and a competitor, they ask AI directly: "should I use X or Y?" or "what are the alternatives to X?" The pages that appear in response to those queries are the raw material for AI's answer. Our analysis of 1,001 high-intent searches across 119 B2B brands reveals a clear pattern.
+
+**Who owns the high-intent search results:**
+
+| Buyer Searches | Brand's Own Page Wins | Someone Else Wins |
+|---|---|---|
+| "[brand] pricing" | **81%** | 19% |
+| "[brand] free trial" | **81%** | 19% |
+| "[brand] vs [rival]" | 33% | **67%** |
+| "[brand] alternatives" | 16% | **84%** |
+
+Brands own their own "buy now" searches almost entirely. They have surrendered their "choose me over someone else" searches almost entirely.
+
+**Why this matters for AI visibility:** When someone asks ChatGPT or Perplexity "should I use X or Y?", the AI's search layer runs exactly these comparison queries. Our scans log the searches engines fire while answering, and comparison queries appear consistently. The page that ranks #1 for "[you] vs [rival]" becomes the source material for the AI's answer about you. If that page belongs to your competitor or an affiliate, the AI's answer is written from their perspective.
+
+**The opportunity:** Publish honest comparison pages on your own domain — one for every significant "[you] vs [rival]" pairing AI names against you. The free scan shows you exactly which rivals AI names instead of you, so you know which pages to build first.
+
+<Tip>
+  The winning shape for a "vs" page: head-to-head comparison structure, honest both-ways analysis, a superlative in the title (74% of winners use one), and no FAQ schema (only 7% of winning "vs" pages use it). Page shape beats raw authority here.
+</Tip>
+
+## The Microsoft GEO Model Factors
+
+In January 2026, Microsoft Advertising published the first official platform playbook describing how an AI assistant actually chooses what to recommend. Their model describes three input layers and a reasoning phase that every AI visibility strategy needs to account for.
+
+<AccordionGroup>
+  <Accordion title="Fan-out queries">
+    The assistant doesn't answer from a single search. It breaks your buyer's question down and fans out its own sub-searches across related topics before assembling an answer. Our deep reports list the exact fan-out searches each engine ran before answering — those are the pages you need to win.
+  </Accordion>
+  <Accordion title="Freshness">
+    AI weighs how recently your content was updated. Visible publication dates and `dateModified` schema signals improve freshness scoring. Stale pages without visible dates are deprioritised.
+  </Accordion>
+  <Accordion title="Commercial signals">
+    Machine-readable price and availability data (Product/Offer schema) are explicit factors in Microsoft's model. Businesses on e-commerce stacks without this structured data are missing a direct commercial signal.
+  </Accordion>
+  <Accordion title="Text and contextual relevance">
+    The quotable-content signals from Citability: answer-shaped copy, concrete statistics, sourced claims, and direct answers to buyer questions. Content the AI can lift verbatim scores highest.
+  </Accordion>
+  <Accordion title="Knowledge graph (pre-trained knowledge)">
+    What the model already believes about you from its training data. Businesses with a clear entity record across Wikipedia, Wikidata, and major directories benefit from this pre-trained recognition. Our deep reports include real model answers that name (or confuse) your brand.
+  </Accordion>
+  <Accordion title="Real-time web search during reasoning">
+    AI Overviews and AI Mode issue live searches while composing answers. Whether bingbot and Googlebot can index your latest content — including IndexNow submission status — directly affects whether that real-time retrieval finds you.
+  </Accordion>
+  <Accordion title="Page-level rendered content and structure">
+    What the crawler actually receives, not what a browser renders. JavaScript-shell detection and server-side schema checks determine whether the AI gets clean content or an empty page.
+  </Accordion>
+  <Accordion title="Location and use info">
+    For local businesses, the buyer's location context matters. AI localises answers to city and region. A national SEO ranking does not automatically translate to a local AI recommendation.
+  </Accordion>
+  <Accordion title="Product feeds">
+    Feeds pushed directly to Merchant Center and platform consoles. The Found by AI scanner does not currently measure these — if you run a store, maintain your feeds. Microsoft's own guidance is clear: "completeness beats cleverness."
+  </Accordion>
+</AccordionGroup>
+
+## What Does Not Move AI Naming
+
+Understanding what fails to drive AI citations saves you time and budget. The research is consistent across multiple sources.
+
+**Keyword stuffing (actively harmful):** Not only does keyword stuffing fail to improve AI visibility — it actively damages it. One measured business's keyword-stuffed homepage title corrupted how AI reads its brand name, making every mention-counting system, including ours, struggle to attribute citations correctly. Aggarwal et al. (KDD 2024) measured a **−10% visibility impact** from keyword stuffing. It is the one tactic that moves the number in the wrong direction.
+
+**Exact-match domains (unmeasured benefit, measured risk):** No published research has demonstrated AI citation lift from exact-match domains. What the data does show: generic-word domain names create entity collisions our scanner flags regularly. A brand the AI cannot anchor as a distinct entity loses citation credit to its namesakes.
+
+**Technical SEO beyond baseline (diminishing returns):** The technical SEO gap between AI-named and AI-ignored businesses is 2 points (80 vs 78). The invisible businesses we measure have fast, crawlable, well-built sites. They are invisible because nobody else on the web talks about them — not because of technical problems.
+
+**Schema markup alone (necessary but insufficient):** Across every schema-score bucket in our corpus, AI Visibility ranges from 42 to 47.5 — essentially flat. Schema helps AI read you correctly; it does not make AI recommend you. It is a floor, not a lever.
+
+<Warning>
+  Adding schema, publishing an `llms.txt`, and fixing technical issues are all worthwhile — but none of them substitute for building the off-page brand recognition that is the primary driver of AI citation. Do both, but understand the order of magnitude: Brand Authority explains 11× the visibility difference that Schema does.
+</Warning>

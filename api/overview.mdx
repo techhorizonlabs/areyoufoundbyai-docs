@@ -1,0 +1,96 @@
+---
+title: 'Found by AI REST API: Overview and Base URL'
+sidebarTitle: 'Overview'
+description: 'A concise reference for the Found by AI REST API — base URL, authentication, content type, rate limits, endpoints, and error codes.'
+---
+
+The Found by AI REST API lets you trigger live AI-visibility scans programmatically, retrieve scores, and integrate results into your own tools, dashboards, and workflows. Every response is drawn from real-time queries to the AI engines — nothing is cached or estimated.
+
+## Base URL
+
+All API requests are made to:
+
+```
+https://areyoufoundbyai.com/api
+```
+
+## Authentication
+
+Pass your API key as a Bearer token in the `Authorization` header:
+
+```
+Authorization: Bearer YOUR-API-KEY
+```
+
+Alternatively, pass it as the `scoped-key` URL parameter for read-only MCP access (agencies only — see [Authentication](/api/authentication) for details). Content-type for all requests is `application/json`.
+
+## Rate limits
+
+| Tier | Limit |
+|------|-------|
+| Free | Up to 15 scans per browser per day; a server-wide queue may apply on very busy days |
+| Monitoring ($79/mo) | Unaffected by the free-tier queue; weekly automated re-measurement included |
+
+<Note>
+  Paid tiers are never affected by the free-tier server-wide cap. Leave your email during a queued scan and your result arrives as soon as it clears.
+</Note>
+
+## Available endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/scan` | Trigger a new AI Visibility + AI Readiness scan for a given URL |
+
+<Note>
+  The API currently exposes the scan endpoint. Full read endpoints for scores, verbatim answers, and fix lists are available via the MCP server — see [MCP Tools](/mcp/tools).
+</Note>
+
+## Error format
+
+All API errors return a JSON body with a human-readable message and a machine-readable code:
+
+```json
+{
+  "error": "message",
+  "code": "ERROR_CODE"
+}
+```
+
+### Common error codes
+
+| HTTP status | Code | Meaning |
+|-------------|------|---------|
+| `401` | `UNAUTHORIZED` | Missing or invalid API key |
+| `429` | `RATE_LIMITED` | Rate limit reached for your tier |
+| `422` | `INVALID_URL` | The `url` parameter is missing or malformed |
+| `500` | `SCAN_ENGINE_ERROR` | The scan engine encountered an unexpected error |
+
+<Tip>
+  A `422` response usually means the URL is missing a scheme (`https://`) or points to a private/non-public address. Always pass a fully-qualified public URL.
+</Tip>
+
+## Explore further
+
+<CardGroup cols={3}>
+  <Card
+    title="Scan API"
+    icon="radar"
+    href="/api/scan"
+  >
+    Full request and response reference for `POST /api/scan`, including all response fields and code examples.
+  </Card>
+  <Card
+    title="Authentication"
+    icon="key"
+    href="/api/authentication"
+  >
+    How to create and pass API keys, free-tier limits, and scoped keys for agencies.
+  </Card>
+  <Card
+    title="MCP Tools"
+    icon="plug"
+    href="/mcp/tools"
+  >
+    The MCP server exposes 15 tools for reading scores, verbatim answers, fix lists, and more.
+  </Card>
+</CardGroup>

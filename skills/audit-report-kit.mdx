@@ -1,0 +1,180 @@
+---
+title: "Generate Branded PDF Audit Reports with audit-report-kit"
+sidebarTitle: "Audit Report Kit"
+description: "Turn GEO audit data into a polished client PDF and compile-checked JSON-LD schema — ready to present and ready to paste into a site's head tag."
+---
+
+`audit-report-kit` is the deliverable layer of the THL GEO Method. It takes the structured data your GEO audit produces and outputs two artifacts: a **branded client PDF** with cover page, dimension scores, findings, and a ranked fix sequence — and a **compile-checked JSON-LD** file with the schema the audit recommends. Both come from a single `npm run report` command. The JSON-LD is generated, not hand-written, which means it can't drift from your audit's recommendation and can't ship with invalid property names.
+
+## Requirements
+
+- **Node 20+**
+- **npm**
+
+## Installation and Quick Run
+
+```bash
+cd tools/audit-report-kit
+npm install
+npm run report
+```
+
+This generates two files in the `out/` directory:
+
+```
+out/harborview-audit.pdf     # Branded client-ready PDF
+out/harborview.jsonld        # Compile-checked Organization JSON-LD
+```
+
+The included sample uses fictional data for a Gold Coast insurance broker — swap in your client's real data to generate a production report.
+
+<Note>
+  `audit-report-kit` uses `@react-pdf/renderer` (MIT) and `schema-dts` (Apache-2.0). The compile-time validation means **you cannot ship invalid schema** — `tsc` fails before the PDF is generated. If a property name or type is wrong, TypeScript compilation catches it.
+</Note>
+
+## What It Generates
+
+<CardGroup cols={2}>
+  <Card title="Branded PDF" icon="file-pdf">
+    A client-ready report with a cover page, per-dimension score bars with provenance tags, prioritised findings by severity, and a ranked fix sequence. Rendered by `@react-pdf/renderer` using Flexbox layout — no browser engine required.
+  </Card>
+  <Card title="Compile-Checked JSON-LD" icon="code">
+    Organization or LocalBusiness schema validated at compile time against `schema-dts` types. If a property is wrong, TypeScript fails. The output is ready for a developer to paste into the site's `<head>`.
+  </Card>
+</CardGroup>
+
+## The AuditReport Data Structure
+
+The `src/sampleAudit.ts` file defines the full data shape that the report renders. Replace the sample data with your client's real scores and findings:
+
+### Core Types
+
+<ParamField body="CategoryScore" type="object">
+  A single dimension score entry.
+
+  <Expandable title="Properties">
+    <ParamField body="key" type="string" required>
+      Dimension identifier, e.g. `citability`, `brand`, `eeat`, `technical`, `schema`, `platform`
+    </ParamField>
+    <ParamField body="label" type="string" required>
+      Display name shown in the PDF, e.g. `AI Citability`, `Brand Authority`
+    </ParamField>
+    <ParamField body="score" type="number | null" required>
+      The dimension score, 0–100. Set to `null` when the dimension is `[unmeasured]` — the report renders `—` instead of a bar
+    </ParamField>
+    <ParamField body="provenance" type="string">
+      One of `scan`, `partial-scan`, `heuristic`, or `unmeasured`. Renders as a small muted tag beside the score bar.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="Finding" type="object">
+  A single audit finding rendered in the findings section.
+
+  <Expandable title="Properties">
+    <ParamField body="severity" type="string" required>
+      One of `critical`, `high`, or `medium`
+    </ParamField>
+    <ParamField body="title" type="string" required>
+      Short, specific finding title, e.g. `No Organization or Service JSON-LD`
+    </ParamField>
+    <ParamField body="detail" type="string" required>
+      Evidence-backed explanation of why this matters and what it affects
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="FixStep" type="object">
+  One step in the ranked remediation sequence.
+
+  <Expandable title="Properties">
+    <ParamField body="rank" type="number" required>
+      Remediation order — 1 is the highest-priority fix
+    </ParamField>
+    <ParamField body="action" type="string" required>
+      The specific action to take, e.g. `Deploy Organization + Service JSON-LD`
+    </ParamField>
+    <ParamField body="impact" type="string" required>
+      Plain-language expected outcome, e.g. `Unlocks entity resolution; largest citability gain`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+### The Full AuditReport Shape
+
+```typescript
+export type AuditReport = {
+  client: { name: string; domain: string; location: string };
+  composite: number;      // 0–100 — the weighted average across all six dimensions
+  band: string;           // e.g. "Critical", "Fair", "Good", "Excellent"
+  summary?: string;       // Optional headline sentence for the cover page
+  generatedAt: string;    // ISO date, e.g. "2026-06-14"
+  categories: CategoryScore[];
+  findings: Finding[];
+  fixSequence: FixStep[];
+};
+```
+
+## Customising the Report
+
+Replace the sample audit data in `src/sampleAudit.ts` with your client's real scores and findings:
+
+<Steps>
+  <Step title="Open sampleAudit.ts">
+    Edit `tools/audit-report-kit/src/sampleAudit.ts`. The `sampleAudit` export is the only object you need to replace — the PDF renderer and JSON-LD generator both consume it automatically.
+  </Step>
+  <Step title="Fill in client details">
+    Set the `client` object with your client's real name, domain, and location.
+  </Step>
+  <Step title="Enter dimension scores">
+    Populate the `categories` array with scores from your `geo-audit` run. For any dimension that couldn't be measured, set `score: null` and `provenance: "unmeasured"` — the report renders `—` instead of a bar.
+  </Step>
+  <Step title="Add findings and fix steps">
+    Transfer the prioritised findings and fix sequence from `GEO-AUDIT-REPORT.md` into the `findings` and `fixSequence` arrays.
+  </Step>
+  <Step title="Run the generator">
+    ```bash
+    npm run report
+    ```
+    The PDF and JSON-LD are written to `out/`. If any schema property in the JSON-LD generation is invalid, `tsc` fails here and tells you exactly what's wrong before any file is written.
+  </Step>
+</Steps>
+
+## The generateOrgJsonLd() Function
+
+The `generateOrgJsonLd()` function in `src/jsonld.ts` accepts an `OrgType` and your organisation details, and produces schema.org-valid JSON-LD checked by `schema-dts` types at compile time:
+
+```typescript
+// Supported org types
+type OrgType = "Organization" | "LocalBusiness" | "FinancialService" | "ProfessionalService";
+
+const jsonld = generateOrgJsonLd({
+  name: "Example Business",
+  url: "https://example.com",
+  telephone: "+61 7 5000 0000",
+  description: "A description of the business.",
+  streetAddress: "1 Example Street",
+  locality: "Sydney",
+  region: "NSW",
+  postalCode: "2000",
+  areaServed: ["Sydney", "New South Wales"],
+  sameAs: [
+    "https://www.linkedin.com/company/example",
+    "https://www.google.com/maps?cid=000000000000",
+  ],
+});
+```
+
+The output is a JavaScript object ready for `JSON.stringify()` and insertion into a site's `<head>` as a `<script type="application/ld+json">` block.
+
+<Tip>
+  Choose the most specific `OrgType` for your client. A financial planning firm should use `FinancialService`, not bare `Organization`. The schema-dts types enforce correct properties for each subtype — you get a TypeScript error if you try to set a property that doesn't exist on that type.
+</Tip>
+
+## Validation: Why Compile-Time Matters
+
+```bash
+npm run build   # runs tsc --noEmit — also validates JSON-LD types
+```
+
+Because `schema-dts` provides full TypeScript types for every schema.org property, the compiler catches mistakes before they reach your client's site. A mistyped property name (e.g., `adress` instead of `address`) is a compile error, not a silent runtime bug that you only discover when an AI crawler can't resolve your client's entity.

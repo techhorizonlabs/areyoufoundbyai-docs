@@ -1,0 +1,219 @@
+---
+title: "Found by AI MCP Tools: Complete Reference for All 15"
+sidebarTitle: "MCP Tools"
+description: "Complete reference for every Found by AI MCP tool: scan_website, get_visibility_score, get_fixes, get_verbatim_answers, list_competitors, and 10 more."
+---
+
+The Found by AI MCP server exposes 15 tools your AI assistant can call mid-conversation. Fourteen of them are read-only queries against your live measurement data; one — `rescan_website` — triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain in a fleet.
+
+<Note>
+  **No account yet?** Point your assistant at the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to explore the tools against Found by AI's own live data before running your first scan.
+</Note>
+
+## The 15 tools
+
+### 1. `scan_website(url)`
+
+Triggers a fresh scan for the given URL and returns the resulting AI Visibility score, AI Readiness score, and an overall verdict. Use this when you need an up-to-date baseline for a domain that has not been scanned recently.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The full URL of the site to scan (e.g. `https://example.com`) |
+
+**Returns:** visibility score (0–100), readiness score (0–100), verdict string, and scan ID.
+
+---
+
+### 2. `get_visibility_score(url)`
+
+Retrieves the latest AI Visibility Score for the given domain. This score (0–100) reflects how often AI engines name the business when buyers ask questions in its category.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** current visibility score, previous week's score, and weekly trend direction.
+
+---
+
+### 3. `get_readiness_score(url)`
+
+Retrieves the latest AI Readiness Score for the given domain. This composite score (0–100) measures how well the site is built to earn AI recommendations, across six weighted dimensions.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** current readiness score, previous week's score, and weekly trend direction.
+
+---
+
+### 4. `get_fixes(url)`
+
+Retrieves the prioritised fix list from the most recent deep scan. Each finding includes a title, an impact rating (how much this fix is expected to move your score), and an effort rating (how much work it takes to implement).
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** array of findings ordered by expected impact, each with `title`, `impact`, and `effort` fields.
+
+---
+
+### 5. `get_verbatim_answers(url, engine)`
+
+Retrieves the exact, word-for-word answers a specific AI engine gave when buyers asked questions about the domain's category. Use this to see precisely what an engine says — and who it names — before answering a buyer question about your market.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain whose category to query |
+| `engine` | string | One of: `chatgpt`, `perplexity`, `gemini`, `claude`, `grok`, `deepseek`, `google_aio` |
+
+**Returns:** array of question/answer pairs with the verbatim engine response for each tracked buyer question.
+
+---
+
+### 6. `list_competitors(url)`
+
+Retrieves competitor share-of-voice data — the businesses AI engines named instead of the given domain when answering buyer questions. Shows you exactly who is winning the AI recommendations you are missing.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** list of competitor names with mention counts and the questions on which each competitor was named.
+
+---
+
+### 7. `get_sources(url)`
+
+Retrieves the third-party source domains that AI engines cited when answering questions in the given domain's category. These are the sites you need to appear on to earn more AI citations.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain whose category to query |
+
+**Returns:** list of cited domains with citation frequency, indicating how heavily each source is read in your market.
+
+---
+
+### 8. `get_score_breakdown(url)`
+
+Retrieves per-dimension scores across all six GEO readiness dimensions. Use this to identify which dimension is dragging your overall readiness score down the most.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** individual scores for AI Citability (25%), Brand Authority (20%), Content E-E-A-T (20%), Technical GEO (15%), Schema & Structured Data (10%), and Platform Optimization (10%).
+
+---
+
+### 9. `list_buyer_questions(url)`
+
+Lists all the buyer questions used in the most recent scan for the given domain. These are real questions carrying genuine search demand — the exact prompts the scanner put to each AI engine.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** array of question strings with the engine-by-engine named/not-named result for each.
+
+---
+
+### 10. `get_report_url(url)`
+
+Returns the shareable report URL for the given domain's latest scan. Use this to send a colleague or client a direct link to the full results without requiring them to log in.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** a public report URL string.
+
+---
+
+### 11. `compare_scans(url, scan_id_1, scan_id_2)`
+
+Compares two historical scans to show how scores and findings changed between them. Use this to measure the impact of a batch of fixes you shipped between two measurement dates.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+| `scan_id_1` | string | The ID of the earlier scan (baseline) |
+| `scan_id_2` | string | The ID of the later scan (comparison) |
+
+**Returns:** score delta for each dimension, new and resolved findings, and a summary of what changed.
+
+---
+
+### 12. `get_agent_readiness(url)`
+
+Returns the agent-readiness ladder level (1–5) for the given domain, along with details about what a headless agent browser can and cannot extract from the site. This reflects how well the site renders its core content to AI crawlers.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to query |
+
+**Returns:** ladder level (1–5), render status (full / partial / blank), extractable character count, and recommendations.
+
+---
+
+### 13. `list_network_sites()`
+
+_(Fleet plan only)_ Lists all sites in your network with their current AI Visibility and AI Readiness scores. Use this for a portfolio-wide view when managing multiple client or brand domains.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| _(none)_ | — | Requires a fleet-plan token |
+
+**Returns:** array of domain entries, each with visibility score, readiness score, and last-scan timestamp.
+
+---
+
+### 14. `get_scoped_key(domain)`
+
+_(Fleet plan only)_ Retrieves or creates a scoped key for a specific domain in your network. A scoped key grants read-only MCP access to that single domain, so you can give a client or agent access to their data without exposing your full fleet token.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `domain` | string | The domain to scope the key to (e.g. `example.com`) |
+
+**Returns:** a scoped endpoint URL for the given domain.
+
+---
+
+### 15. `rescan_website(url)`
+
+Forces an immediate rescan of the given domain, consuming one on-demand scan credit from your plan's weekly allowance. The weekly scheduled scan runs regardless of this call and is not affected by the credit balance.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | string | The domain to rescan |
+
+**Returns:** confirmation that the rescan is queued, the expected completion time, and the number of on-demand credits remaining this week.
+
+<Warning>
+  On-demand rescans are capped at 5 per rolling 7 days, with a 20-minute cooldown between consecutive calls. If the server refuses a rescan request, wait for the cooldown or the weekly scheduled scan rather than retrying immediately.
+</Warning>
+
+## Example prompts once connected
+
+After adding the MCP server to your AI assistant, ask questions like these in plain language:
+
+```
+@found-by-ai What is my current AI visibility score for example.com?
+@found-by-ai Show me what ChatGPT says when buyers ask about my category.
+@found-by-ai What should I fix first to improve my AI readiness score?
+@found-by-ai Which competitors is AI naming instead of me, and on which questions?
+@found-by-ai How did my readiness score change between my last two scans?
+```
+
+Your assistant translates each natural-language question into the appropriate tool call and returns a plain-English answer drawn from your live measurement data.
+
+## Key permissions
+
+- **Read-only tools** (`get_visibility_score`, `get_readiness_score`, `get_fixes`, `get_verbatim_answers`, `list_competitors`, `get_sources`, `get_score_breakdown`, `list_buyer_questions`, `get_report_url`, `compare_scans`, `get_agent_readiness`, `list_network_sites`, `get_scoped_key`): work with both personal tokens and scoped keys.
+- **Scan and rescan** (`scan_website`, `rescan_website`): require a full personal or fleet token; scoped keys cannot trigger new measurements.
+
+The MCP connection can never modify your account, change your plan, or access your billing details. The only side-effect available is queuing a rescan of your own domain, within your plan's stated cap.

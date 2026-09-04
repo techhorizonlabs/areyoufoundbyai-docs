@@ -1,0 +1,132 @@
+---
+title: "THL Open: 17 Claude Code Skills for GEO Auditing"
+sidebarTitle: "Overview"
+description: "Install Tech Horizon Labs' open-source skill suite — 17 Claude Code skills, two THL-original tools, and the audit method that ties them together."
+---
+
+Tech Horizon Labs' **THL Open** is the open layer of how we run GEO and AI-visibility audits — a complete Claude Code skill suite, two original tools built by THL, and the method document that keeps every audit reproducible and evidence-backed. Everything here is MIT-licensed and designed to slot into Claude Code, Codex, Cursor, Gemini CLI, or any agent that speaks SKILL.md. Start with a single command and you get 17 skills covering every GEO dimension, plus a branded PDF report generator and an independent agent-readiness benchmark.
+
+## Installation
+
+Choose the method that fits your workflow:
+
+<Tabs>
+  <Tab title="npx (Recommended)">
+    The fastest path — GitHub is the registry, this repo is the package:
+
+    ```bash
+    # Install the whole suite
+    npx skills add techhorizonlabs/thl-open
+
+    # Install only the live-measurement skill
+    npx skills add techhorizonlabs/thl-open --skill found-by-ai
+
+    # Preview what's included before installing
+    npx skills add techhorizonlabs/thl-open --list
+    ```
+  </Tab>
+  <Tab title="Claude Code Plugin">
+    Install via the Claude Code marketplace. Run these as **two separate commands** — paste the first, press Enter, then paste the second:
+
+    ```text
+    /plugin marketplace add https://github.com/techhorizonlabs/thl-open
+    ```
+
+    ```text
+    /plugin install thl-open@thl-open
+    ```
+
+    <Note>
+      Use the full `https://` URL. The short `owner/repo` form causes some setups to clone via SSH and fail without an SSH key configured.
+    </Note>
+  </Tab>
+  <Tab title="Manual Copy">
+    Clone the repo and copy any individual `SKILL.md` into your Claude Code project:
+
+    ```bash
+    # Copy a single skill
+    cp -R skills/agent-readiness-scan ~/.claude/skills/
+
+    # Or copy several at once
+    cp -R skills/geo-audit skills/geo-crawlers skills/geo-schema ~/.claude/skills/
+    ```
+
+    Then invoke the skills naturally in Claude Code:
+
+    ```text
+    run an agent-readiness scan on example.com
+    do a GEO audit of example.com
+    ```
+  </Tab>
+</Tabs>
+
+## What's Included
+
+The suite is organised into three groups:
+
+### THL-Original Tools
+
+These tools are built end-to-end by Tech Horizon Labs:
+
+| Skill / Tool | What it does |
+|---|---|
+| `found-by-ai` | Connects Claude Code to the live scan at areyoufoundbyai.com — measures whether AI engines actually name a business when buyers ask |
+| `agent-readiness-scan` | Turns the Cloudflare `isitagentready.com` check into audit-grade CSV artifacts with a tracked 0–100 score |
+| `audit-report-kit` | TypeScript/Node tool that generates a branded client PDF and compile-checked JSON-LD from any GEO audit's data |
+
+### GEO Audit Skills (17 total)
+
+An attributed fork of `geo-seo-claude` by Zubair Trabzada (MIT), improved and wired into the THL method:
+
+| Skill | What it does |
+|---|---|
+| `geo` | Umbrella dispatcher — routes `/geo audit`, `/geo citability`, `/geo schema`, and all other `/geo` commands |
+| `geo-audit` | Orchestrates 5 parallel subagents across all 6 GEO dimensions and produces a composite score |
+| `geo-citability` | Passage-level AI citation readiness scoring |
+| `geo-crawlers` | AI crawler access and `robots.txt` analysis |
+| `geo-llmstxt` | Analyses or generates an `llms.txt` file |
+| `geo-brand-mentions` | Scans brand presence across AI-cited platforms (Reddit, YouTube, Wikipedia, LinkedIn) |
+| `geo-platform-optimizer` | Platform-specific readiness for Google AI Overviews, ChatGPT, Perplexity, Gemini, Bing Copilot |
+| `geo-schema` | Structured-data detection, validation, and generation |
+| `geo-technical` | Technical SEO foundations — SSR, Core Web Vitals, crawlability, mobile, security |
+| `geo-content` | Content quality and E-E-A-T assessment |
+| `geo-report` | Client-ready markdown deliverable generation |
+| `geo-report-pdf` | Professional PDF report with charts and scores |
+| `geo-compare` | Monthly delta tracking — show score improvements over time |
+| `geo-prospect` | CRM-lite prospect and client pipeline management |
+| `geo-proposal` | Auto-generate client proposals from audit data |
+
+### Report Toolkit
+
+| Tool | What it does |
+|---|---|
+| `audit-report-kit` | TypeScript/Node — generates a branded PDF (`@react-pdf/renderer`) and compile-checked JSON-LD (`schema-dts`) from audit data |
+
+## Skill Pages
+
+<CardGroup cols={2}>
+  <Card title="GEO Audit Skill" icon="magnifying-glass-chart" href="/skills/geo-audit">
+    Run a full 6-dimension GEO audit with parallel subagents and a composite 0–100 score
+  </Card>
+  <Card title="Found by AI Skill" icon="satellite-dish" href="/skills/found-by-ai-skill">
+    Live AI Visibility scans from Claude Code via the areyoufoundbyai.com API
+  </Card>
+  <Card title="Agent Readiness Scan" icon="shield-check" href="/skills/agent-readiness-scan">
+    Independent Cloudflare benchmark with a tracked 0–100 score and fixed-schema CSV output
+  </Card>
+  <Card title="Audit Report Kit" icon="file-pdf" href="/skills/audit-report-kit">
+    Generate branded PDF reports and compile-checked JSON-LD from your audit data
+  </Card>
+</CardGroup>
+
+## License & Attribution
+
+THL Open is licensed under **MIT**. Two attribution notes apply:
+
+<Note>
+  The `geo-*` skills are an attributed fork of [`geo-seo-claude`](https://github.com/zubair-trabzada/geo-seo-claude) by **Zubair Trabzada** (MIT). Tech Horizon Labs de-rotted them, fixed portability, and wired them into the THL method — but the foundation is his open-source work, and we credit it fully. See `NOTICE.md` and `CHANGELOG.md` in the repo.
+
+  The THL-original tools (`found-by-ai`, `agent-readiness-scan`, `audit-report-kit`) are © Tech Horizon Labs.
+</Note>
+
+There is **no telemetry** — nothing in this repo phones home. Read `SECURITY.md` in the repo for details.

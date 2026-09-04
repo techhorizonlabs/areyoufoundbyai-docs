@@ -1,0 +1,108 @@
+---
+title: 'POST /api/scan — Trigger an AI Visibility Scan'
+sidebarTitle: 'POST /api/scan'
+description: 'Reference for the /api/scan endpoint — request parameters, authentication, code examples, and every field in the scan response object.'
+---
+
+The `/api/scan` endpoint triggers a live AI-visibility scan for any public URL. It reads your site, generates buyer questions from what it finds, asks those questions across real AI engines, and returns two scores plus a prioritised fix plan — all in a single response.
+
+## Endpoint
+
+```
+POST https://areyoufoundbyai.com/api/scan
+```
+
+## Authentication
+
+No API key is required for the free tier. Add an `Authorization: Bearer` header to use your paid-tier quota and unlock full results across all 7 engines and up to 25 buyer questions. See [Authentication](/api/authentication) for how to obtain a key.
+
+## Request body
+
+<ParamField body="url" type="string" required>
+  The fully-qualified public URL to scan. Must include the scheme (e.g. `https://example.com`). The scanner reads the page at this address and derives buyer questions from its content.
+</ParamField>
+
+## Code examples
+
+<Tabs>
+  <Tab title="cURL">
+    ```bash
+    curl -X POST https://areyoufoundbyai.com/api/scan \
+      -H 'Content-Type: application/json' \
+      -d '{"url": "https://example.com"}'
+    ```
+  </Tab>
+  <Tab title="TypeScript / JavaScript">
+    ```typescript
+    const res = await fetch('https://areyoufoundbyai.com/api/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: 'https://example.com' })
+    });
+    const data = await res.json();
+    ```
+  </Tab>
+</Tabs>
+
+## Response fields
+
+<ResponseField name="visibility" type="number">
+  AI Visibility score from 0 to 100. Measures how often the AI engines name your business right now, across the buyer questions asked during the scan.
+</ResponseField>
+
+<ResponseField name="readiness" type="number">
+  AI Readiness score from 0 to 100. Measures how well your site is built to earn AI recommendations — a composite of 6 weighted dimensions including AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
+</ResponseField>
+
+<ResponseField name="verdict" type="string">
+  A human-readable summary of the scan result. One of `present`, `weak`, or `absent`, indicating how consistently the AI engines name your business in their answers.
+</ResponseField>
+
+<ResponseField name="queries" type="array">
+  The buyer questions used during the scan. These are generated from what the scanner reads on your site — who your customers are, what they need, and where you operate.
+</ResponseField>
+
+<ResponseField name="competitors" type="array">
+  The businesses the AI engines named instead of (or alongside) you. Each item includes the competitor name and the questions on which they appeared.
+</ResponseField>
+
+<ResponseField name="agentReadiness" type="object">
+  Agent-readiness ladder level (0–5) and supporting details. Level 2 means the AI crawlers can reach you; Level 3 means structured data and an `llms.txt` let agents understand you; Level 4+ means agents can act (book, buy) on a customer's behalf.
+</ResponseField>
+
+<ResponseField name="fixes" type="array">
+  A prioritised list of fix items. Each fix contains:
+
+  <Expandable title="Fix item fields">
+    <ResponseField name="title" type="string">
+      Plain-language description of the fix.
+    </ResponseField>
+    <ResponseField name="impact" type="string">
+      Expected impact on your scores if applied.
+    </ResponseField>
+    <ResponseField name="effort" type="string">
+      Estimated effort, e.g. `15 min · copy-paste`.
+    </ResponseField>
+    <ResponseField name="category" type="string">
+      The GEO dimension this fix addresses, e.g. `Schema & Structured Data`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="report" type="string">
+  A shareable URL pointing to the full HTML report. Always surface this URL to the end user — it contains verbatim engine answers, the per-question visibility board, and copy-paste schema and `llms.txt` generated for your site.
+</ResponseField>
+
+## Free tier vs. paid tiers
+
+<Note>
+  The free tier scans 2 buyer questions across 2 engines (ChatGPT and Gemini), with each question asked twice. Paid tiers return full results for up to 25 questions across all 7 engines, each question sampled up to 3 times with a majority vote — up to 525 live AI answers per scan.
+</Note>
+
+## Scan duration
+
+Expect approximately **60 seconds** for a free-tier scan. Paid-tier scans take longer because they cover more engines, more questions, and run multiple sampling rounds for a stable majority-voted result.
+
+<Tip>
+  The open-source `found-by-ai` Claude Code skill (available via `npx skills add techhorizonlabs/thl-open`) is a thin wrapper around this endpoint — it uses the same request shape and returns the same response fields, then hands the `report` URL and fix plan back to the agent conversation.
+</Tip>

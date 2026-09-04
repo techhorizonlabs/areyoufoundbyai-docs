@@ -1,0 +1,137 @@
+---
+title: "Benchmark Your Site with the Agent Readiness Scan"
+sidebarTitle: "Agent Readiness Scan"
+description: "Use Cloudflare's isitagentready.com as an independent GEO benchmark — get a tracked 0–100 score and a fixed-schema CSV from every audit run."
+---
+
+The `agent-readiness-scan` skill gives your GEO audit an independent external benchmark. It connects to Cloudflare's public `isitagentready.com` scanner, runs a corroboration matrix of curl probes alongside the official API, captures the 0–100 score from the web UI via Playwright, and converts everything into a fixed-schema CSV you can track across re-audits. The delta between audit runs — not the first number — is the proof that your fixes are working.
+
+<Note>
+  The 0–100 score is only available in the `isitagentready.com` web UI, rendered in an SVG dial. The JSON API returns detailed per-check findings but **not** the composite score. The Playwright capture step is not optional if you want to track deltas.
+</Note>
+
+## How It Works
+
+The scan runs in two scripts that work together:
+
+<Steps>
+  <Step title="run_scan.sh — Official API + Corroboration Matrix">
+    `run_scan.sh` POSTs to the `isitagentready.com` API and then runs a series of curl probes to corroborate the findings independently:
+
+    ```bash
+    bash skills/agent-readiness-scan/scripts/run_scan.sh https://example.com ./raw-data
+    ```
+
+    **What the script captures:**
+
+    | Probe | What it checks |
+    |---|---|
+    | `POST https://isitagentready.com/api/scan` | Official scored results — level, per-check status, and embedded request/response evidence |
+    | HTTP headers | Homepage response headers including content-type and caching signals |
+    | Markdown negotiation | Whether the server responds to `Accept: text/markdown` requests |
+    | `robots.txt` | Full content for AI-crawler access analysis |
+    | `llms.txt` | Present / absent (supplementary, not scored by Cloudflare) |
+    | `security.txt` | Present / absent (supplementary, not scored) |
+    | MCP endpoint | `/.well-known/mcp.json` detection |
+    | OAuth discovery | `/.well-known/oauth-authorization-server` detection |
+
+    The script writes all raw artifacts to the output directory: `iar_scan.json`, `homepage_headers.txt`, `accept_markdown_headers.txt`, `robots.txt`, `supplementary.json`, and more.
+  </Step>
+  <Step title="Playwright — Capture the 0–100 Score">
+    After the API scan completes, navigate to `https://isitagentready.com/<your-domain>` in a Playwright-controlled browser and read the score from the SVG dial:
+
+    ```js
+    // The score is an aria-label attribute — not visible text.
+    // Text-based waits time out. Use the attribute selector instead:
+    document.querySelector('[aria-label*="Overall score"]')
+    ```
+
+    A fresh "Last scanned" timestamp on the page confirms the results are rendered. Save the page snapshot to your output directory as `isitagentready_<client-slug>_snapshot.txt`.
+  </Step>
+  <Step title="scan_to_csv.py — Convert to Fixed-Schema CSV">
+    Pass the scan JSON and the captured score to `scan_to_csv.py`:
+
+    ```bash
+    python3 skills/agent-readiness-scan/scripts/scan_to_csv.py \
+      ./raw-data/iar_scan.json --score 72 --out ./csv-base-data/agent_readiness_checks.csv
+    ```
+
+    The script maps Cloudflare's check keys to fixed display names and emits a CSV with consistent category headers across every client and every re-audit.
+  </Step>
+</Steps>
+
+## Using from Claude Code
+
+Invoke the skill directly from your Claude Code session:
+
+```text
+@agent-readiness-scan scan https://example.com
+```
+
+Or run the scripts manually from your terminal:
+
+```bash
+# Step 1: Run the API scan + corroboration matrix
+bash skills/agent-readiness-scan/scripts/run_scan.sh https://example.com ./raw-data
+
+# Step 2: Get the 0-100 score via Playwright (navigate to the URL, read the SVG dial)
+# Save the score as a number, e.g. 72
+
+# Step 3: Convert to fixed-schema CSV
+python3 skills/agent-readiness-scan/scripts/scan_to_csv.py \
+  ./raw-data/iar_scan.json --score 72 --out ./scan.csv
+```
+
+## Output CSV Schema
+
+The CSV uses a fixed schema so results stay comparable across clients and re-audits:
+
+| Column | Contents |
+|---|---|
+| `category` | Category name with pass/fail tally, e.g. `Discoverability (3/4)` |
+| `check` | Individual check name, e.g. `robots.txt`, `DNS for AI Discovery (DNS-AID)` |
+| `result` | `PASS`, `FAIL`, or `NOT CHECKED` |
+| `detail` | The scanner's message verbatim |
+| `source` | Data source and date, e.g. `isitagentready.com + curl 2026-06-14` |
+
+The first data row is always the **OVERALL** row:
+
+```
+OVERALL, Agent-readiness score, 72/100 - Level 2 "Discoverable", 8 pass / 3 fails; Commerce not applicable, isitagentready.com/example.com (Cloudflare) 2026-06-14
+```
+
+**Scored categories** (from the Cloudflare scanner):
+
+- Discoverability
+- Content Accessibility
+- Bot Access Control
+- API Auth MCP & Skill Discovery
+- Commerce (marked `NOT CHECKED` unless `isCommerce` is true)
+
+**Supplementary rows** (from `run_scan.sh` curl probes, not scored by Cloudflare):
+
+- `llms.txt` — `PRESENT` or `ABSENT`
+- `llms-full.txt` — `PRESENT` or `ABSENT`
+- `/.well-known/security.txt` — `PRESENT` or `ABSENT`
+
+<Warning>
+  Never mix supplementary checks into the scored category tallies. Cloudflare does not score `llms.txt` — tracking it separately preserves the accuracy of your scored pass/fail counts.
+</Warning>
+
+## Common Mistakes to Avoid
+
+<Accordion title="Reporting only the Level, not the 0–100 score">
+  The Cloudflare level name (e.g., "Discoverable") does not encode the numeric score precisely enough to track deltas. Always capture the 0–100 value from the web UI dial via Playwright. A site improving from 21 to 43 after fixes is the evidence your client wants to see.
+</Accordion>
+
+<Accordion title="Using WebFetch to scrape isitagentready.com">
+  The site is a JavaScript app — a WebFetch or plain curl returns only an empty shell with no results. Use the official `POST https://isitagentready.com/api/scan` API for check data, and Playwright for the score dial.
+</Accordion>
+
+<Accordion title="Renaming or inventing category names">
+  Cross-client comparability depends on exact category labels. Use the fixed names in `scan_to_csv.py` (e.g., `API Auth MCP & Skill Discovery`, not `Protocol Discovery`). The scanner adds new checks over time — emit whatever `.checks` returns, mapped through the fixed schema.
+</Accordion>
+
+## Placing This in the THL Method
+
+The agent-readiness scan is the second layer of the three-layer THL GEO Method, sitting between the dimensional `geo-audit` and the client deliverable from `audit-report-kit`. Its purpose is specifically to provide a score that your own dimensional audit cannot give itself — an independent external benchmark from Cloudflare's infrastructure. Record both scores (your dimensional composite and the Cloudflare 0–100), and on every re-audit, track the delta on each.

@@ -1,0 +1,106 @@
+---
+title: 'Run GEO Audits with Claude Code Skills'
+sidebarTitle: 'Claude Code Skills'
+description: 'Install the open-source thl-open skill suite to run GEO audits, live scans, and automated fix-deploy-rescan loops directly inside Claude Code.'
+---
+
+The Found by AI open-source skill suite brings AI visibility measurement directly into your coding workflow. Instead of switching between your terminal and a browser dashboard, you run GEO audits, read live scores, and apply fixes — all from inside Claude Code. The suite ships 17 skills via the `thl-open` package; this guide covers the three most important ones for improving your AI visibility.
+
+## Install the skill suite
+
+Run this command in your terminal to install the full suite:
+
+```bash
+npx skills add techhorizonlabs/thl-open
+```
+
+This installs all 17 skills into your Claude Code environment. You can also install the suite as a Claude Code plugin via the marketplace — search for **thl-open** in the Claude Code plugin directory.
+
+<Note>
+  The skills are open-source. You can read the source for every skill at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open) and verify exactly what each one does before running it.
+</Note>
+
+## The Found by AI skill
+
+The `found-by-ai` skill is a live scan wrapper that connects Claude Code directly to the Found by AI API. It runs a real-time scan against any URL and returns the full measurement — no account or authentication required.
+
+**What it does:** Calls `POST https://areyoufoundbyai.com/api/scan` with your URL, waits for the engines to respond (approximately 60 seconds), and returns a structured report with everything you need to understand your AI visibility and know what to fix.
+
+**How to use it:**
+
+```bash
+@found-by-ai scan https://example.com
+```
+
+**What it returns:**
+
+| Field | Description |
+|---|---|
+| `visibility` | AI Visibility Score (0–100) |
+| `readiness` | AI Readiness Score (0–100) |
+| `verdict` | `present`, `weak`, or `absent` |
+| `queries` | The buyer questions the engines were asked |
+| `competitors` | Businesses the engines named instead of you |
+| `agentReadiness` | Agent readiness level (0–5) |
+| `fixes` | Prioritised fix list in plain language |
+| `report` | Shareable URL to the full human-readable report |
+
+<Tip>
+  Always share the `report` URL with your client or stakeholder. It opens a full formatted report they can read without needing any technical context.
+</Tip>
+
+The free tier asks 2 buyer questions across 2 engines once per IP. For a complete picture across all 7 engines with up to 12 buyer questions, you need a Monitoring or Snapshot plan.
+
+## The GEO Audit skill
+
+The GEO Audit skill runs a deep parallel audit of your site across all six GEO dimensions simultaneously, using five subagents working in parallel. It produces a comprehensive report with a composite score and per-dimension findings.
+
+**What it does:** Launches five subagents to evaluate AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, and Schema & Structured Data in parallel. Each subagent returns weighted findings that are assembled into a composite score.
+
+**How to use it:**
+
+```bash
+/geo audit https://example.com
+```
+
+**Output:** A file named `GEO-AUDIT-REPORT.md` in your working directory, containing:
+- Composite GEO score
+- Per-dimension scores with the specific issues found
+- Prioritised fix recommendations ordered by expected impact
+- Technical findings your developers can act on immediately
+
+The report is written to a Markdown file so you can commit it to your repository, share it with teammates, or feed it to another skill as input.
+
+## The AI Loop skill
+
+The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prioritised fix plan over the MCP connection, applies the fixes it can make in your repository, shows you every change as a diff, deploys after your approval, triggers a re-measure, and compares the new score against the baseline. It repeats until it reaches a target you set or hits a stop condition.
+
+**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `request_rescan`, polls for results, and records the measured delta for each fix shipped.
+
+**How to use it:** Set it as a standing instruction in Claude Projects, or invoke it directly:
+
+```bash
+"Run the found-by-ai loop. Target readiness 75. Max 3 iterations."
+```
+
+Before starting, the skill:
+1. Calls `get_visibility` to record your baseline scores.
+2. Confirms `protected-pages.txt` exists (listing paths it must never edit — pricing, legal, checkout).
+3. Agrees run parameters with you: target score, iteration cap, rescan budget.
+
+<Warning>
+  **Every change requires your approval before it deploys.** This is an absolute rule built into the skill — no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
+</Warning>
+
+The loop stops when any one of these conditions is met:
+- Your target score is reached
+- Two consecutive iterations move the score by zero
+- The iteration cap is hit
+- The rescan budget is spent
+- All remaining fix plan items require your action (off-repo work only)
+
+At the end of each run, the skill produces a run report showing your baseline scores, final scores, each fix shipped with its measured delta, the items on your action list with reasons, and the rescan budget used.
+
+<Note>
+  17 skills are included in the suite — see the full skill reference at [/skills/overview](/skills/overview) for documentation on all of them.
+</Note>

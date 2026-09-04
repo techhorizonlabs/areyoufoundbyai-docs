@@ -1,0 +1,151 @@
+---
+title: "AI Visibility Glossary: Key Terms Explained"
+sidebarTitle: "Glossary"
+description: "Every key term in AI visibility and generative engine optimisation — GEO, AEO, E-E-A-T, llms.txt, DNS-AID, MCP, and more — defined in plain language."
+---
+
+The world of AI search has produced a fast-growing collection of acronyms and concepts, some borrowed from traditional SEO, some entirely new. This glossary defines each term the way an engine can use it: one clear meaning, no filler. Where a term has a dedicated page on this site, you'll find a link to go deeper.
+
+<AccordionGroup>
+  <Accordion title="GEO — Generative Engine Optimisation">
+    **Generative Engine Optimisation (GEO)** is the practice of structuring your business's online presence so that AI engines — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, and others — find, trust, recommend, and cite you when people ask them for help.
+
+    Where traditional SEO competes for a rank in a list of blue links, GEO competes to *be the answer* the AI gives. The term was introduced by researchers at Princeton, Georgia Tech, the Allen Institute for AI, and IIT Delhi in a 2023 paper formalised at ACM SIGKDD 2024.
+
+    GEO rewards different signals than SEO: entity recognition, third-party citations, quotable content, and off-page brand authority carry far more weight than keyword density or backlink volume alone.
+
+    See the full [THL AI-Visibility Framework](/concepts/geo-score) for how each GEO signal is weighted and measured.
+  </Accordion>
+
+  <Accordion title="AEO — Answer Engine Optimisation">
+    **Answer Engine Optimisation (AEO)** is the practice of structuring content so AI systems can lift it directly into an answer: a clear definition in the first sentence, headings that mirror how people ask questions ("what is…", "how do I…"), and facts an engine can quote without rewriting.
+
+    Most practitioners use AEO and GEO interchangeably. Where a distinction is drawn: **AEO is about the page** — is it shaped so an engine can extract a direct answer from it? **GEO is about the entity** — does the wider web give the engine a reason to trust and name you at all? You need both: a perfectly structured page from a business AI has never heard of still won't get cited, and a well-known brand with vague copy still won't get lifted.
+
+    Found by AI measures both together under one score.
+  </Accordion>
+
+  <Accordion title="AI Visibility">
+    **AI Visibility** is whether AI engines actually name your business when a customer asks a buying question. It is measured, not estimated — an engine either says your name or it doesn't.
+
+    Found by AI expresses AI Visibility as a score from 0 to 100, derived by asking up to 12 real buyer questions across up to 7 engines, sampling each question multiple times, and majority-voting the results. A score of 0 means no engine named you on any question. A score of 100 means you were named consistently across all engines on all questions.
+
+    See [AI Visibility vs. AI Readiness](/concepts/visibility-vs-readiness) for the full breakdown of what the score means and how it relates to your Readiness Score.
+  </Accordion>
+
+  <Accordion title="AI Readiness">
+    **AI Readiness** is how well your site and entity are built for AI to find, trust, and cite you: crawler access, structured data, quotable content, independent mentions, technical foundations, and platform-specific signals.
+
+    You can be ready but not yet visible — a well-built site the engines don't yet know or fully trust. Readiness is the lever that earns visibility over time. Found by AI scores it as a 0–100 composite across six weighted dimensions.
+
+    See [How the GEO Readiness Score Is Calculated](/concepts/geo-score) for the formula and dimension weights.
+  </Accordion>
+
+  <Accordion title="Answer Engine">
+    An **answer engine** is an AI system that responds to questions directly — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, Grok, DeepSeek — rather than returning a list of links for you to evaluate yourself.
+
+    Answer engines name two or three businesses in their response. You are one of them or you are invisible. There is no page two. This is the core reason AI visibility requires a different measurement and optimisation approach than traditional SEO.
+  </Accordion>
+
+  <Accordion title="AI Overviews">
+    **Google AI Overviews** is Google's AI-generated answer panel that appears above traditional organic results on roughly one in four searches. It synthesises an answer from multiple sources and typically names a small number of businesses or resources directly.
+
+    Clicks that previously reached organic results are absorbed by AI Overviews — independent research (Seer Interactive, 2025) found organic click-through drops roughly 61% on queries where AI Overviews appear. Being cited inside AI Overviews is effectively the new position one.
+
+    Google's AI Overviews uses a "query fan-out" technique: it issues multiple related searches across subtopics before composing the final answer. Found by AI captures this layer on every deep report.
+  </Accordion>
+
+  <Accordion title="llms.txt">
+    **llms.txt** is a machine-readable plain-text file published at `/llms.txt` on your domain. It is designed to give AI agents and tools a concise summary of who you are, what you do, and where to find key information — the equivalent of a site map written for a language model rather than a search crawler.
+
+    An `llms.txt` is a low-effort completeness signal. The major AI search engines (ChatGPT, Google) do not rely on it for ranking or recommendations — Google has explicitly stated no such file is required to appear in AI features. Found by AI still generates one for you because some agent tools and non-Google surfaces read it, and it costs nothing to publish.
+
+    Use the [free llms.txt generator](https://areyoufoundbyai.com/tools) to create one for your site.
+  </Accordion>
+
+  <Accordion title="AI Crawlers">
+    **AI crawlers** are the automated bots that AI engines use to read the web and update their retrieval indexes. The main ones to know:
+
+    | Crawler | Engine |
+    |---------|--------|
+    | GPTBot | OpenAI / ChatGPT |
+    | Google-Extended | Google (Gemini, AI Overviews) |
+    | PerplexityBot | Perplexity |
+    | ClaudeBot | Anthropic / Claude |
+
+    If your `robots.txt` or a web application firewall blocks these crawlers, those engines cannot read or retrieve your content — and therefore cannot cite you. This is one of the most common and fastest-to-fix problems Found by AI surfaces.
+
+    Check your crawler access status with the [free AI crawler checker](https://areyoufoundbyai.com/tools/ai-crawler-checker).
+  </Accordion>
+
+  <Accordion title="Entity">
+    An **entity** is the machine-readable identity of your business — a stable, resolvable record that AI engines can find and match across sources. Entities are anchored by signals such as a Wikidata entry, Google's Knowledge Graph, a government business registration (ABN, Companies House), and consistent schema markup with `sameAs` links to your verified profiles.
+
+    Engines recommend entities they can resolve and trust. If your business name collides with a dictionary word, another company, or a defunct registration — or if your name, address, and trading details are inconsistent across directories — the engine hedges and names someone else.
+
+    Building a clean entity anchor is foundational to Brand Authority, the single strongest predictor of AI visibility in the Found by AI dataset.
+  </Accordion>
+
+  <Accordion title="Brand Mentions">
+    **Brand mentions** are instances where independent websites name your business — in directory listings, reviews, press articles, community forums, supplier pages, association profiles, and similar third-party sources.
+
+    Brand mentions are the single strongest measured correlate of AI recommendations. Across the Found by AI dataset of 3,282+ businesses, businesses AI names average 79/100 on brand signals; businesses AI ignores average 38/100. Branded web mentions correlate roughly three times more strongly with appearing in AI answers than backlinks do (Ahrefs, 75,000 brands).
+
+    Engines trust what other sites say about you far more than what you say about yourself.
+  </Accordion>
+
+  <Accordion title="Citations">
+    **Citations** are the sources an AI answer references — the domains and pages the engine drew on when composing its response. Every citation of a directory, review site, or article that names your business is a signal; the citation game plan in a Found by AI report lists the exact sources AI trusts in your specific niche.
+
+    Note the distinction: being **cited as a source** (a footnote link in the engine's answer) is different from being **named aloud** in the answer text. Found by AI scores the stronger signal — verbatim naming — but reports both.
+  </Accordion>
+
+  <Accordion title="E-E-A-T">
+    **E-E-A-T** stands for Experience, Expertise, Authoritativeness, and Trustworthiness — a framework Google formalised for evaluating content quality and entity credibility, now widely applied to AI engine behaviour.
+
+    In practice, E-E-A-T signals include: named authors with stated credentials, a real About page, visible contact details and physical address, a privacy policy, customer reviews, industry accreditations, and provenance for factual claims.
+
+    Recommending a business is a trust decision. AI is built to avoid endorsing the untrustworthy, so it favours sites that prove who's behind them. In the Found by AI dataset, businesses named by AI average 75/100 on E-E-A-T; businesses AI ignores average 59/100 — a 16-point gap.
+  </Accordion>
+
+  <Accordion title="Schema (JSON-LD)">
+    **Schema markup** — typically implemented as **JSON-LD** (JavaScript Object Notation for Linked Data) — is structured data you embed in your pages to state your business facts (name, location, services, hours, contact details) in a format AI engines can parse without guessing.
+
+    The most important types for businesses are `Organization`, `LocalBusiness`, `Product`, and `FAQPage`. Adding a `sameAs` array pointing to your verified profiles (Google Business, Wikidata, LinkedIn, etc.) strengthens your entity anchor.
+
+    **Critical:** AI crawlers read raw HTML and do not execute JavaScript. If your schema is injected by a tag manager or client-side script, crawlers never see it. Always deliver JSON-LD in the initial HTML response.
+
+    Schema is table stakes, not a competitive lever — valid structured data helps AI *read* you; it does not make AI *recommend* you. Brand and citability drive that.
+  </Accordion>
+
+  <Accordion title="DNS-AID">
+    **DNS-AID** is an emerging IETF standard that lets AI agents discover your site's machine entry point directly from DNS — before crawling a single page. It works via one DNS record at `_index._agents.yourdomain.com` that points to your site's agent interface.
+
+    Agent-readiness scanners already check for DNS-AID, and almost no businesses have configured it yet. It is a forward-looking signal: as AI agents become more autonomous in how they discover and interact with web properties, having a resolvable agent endpoint early is low-cost preparation.
+
+    Use the [free DNS-AID checker](https://areyoufoundbyai.com/tools/dns-aid-checker) to check your current status, and the [DNS-AID setup guide](/guides/dns-aid) for the 5-minute configuration.
+  </Accordion>
+
+  <Accordion title="MCP — Model Context Protocol">
+    **Model Context Protocol (MCP)** is an open standard (developed by Anthropic) for connecting AI agents to external tools and data sources over HTTP. An MCP server exposes a set of callable tools; an AI agent or assistant connects to it and can invoke those tools directly within a conversation.
+
+    Found by AI exposes its measurement data through an MCP server at `https://areyoufoundbyai.com/mcp/YOUR-TOKEN`. Connect it to Claude, ChatGPT, or any MCP-compatible agent and you can ask natural-language questions about your AI visibility — "which engines named me last week," "what did Perplexity say about my competitors," "queue a fresh scan" — and get live data back.
+
+    The demo server (`/mcp/demo`) is public and requires no sign-up. See the [For Agents](/for-agents) page for the full tool list and connection instructions.
+  </Accordion>
+
+  <Accordion title="Agent-Ready">
+    **Agent-ready** describes a site or endpoint that AI agents can discover, read, and interact with programmatically — beyond basic crawlability. Found by AI scores agent-readiness on a 0–5 ladder:
+
+    | Level | Description |
+    |-------|-------------|
+    | 0 | Crawlable — AI bots can access content |
+    | 1 | Readable — content served in clean HTML, no JS dependency |
+    | 2 | Structured — valid schema and `llms.txt` present |
+    | 3 | Discoverable — DNS-AID record and agent skill card published |
+    | 4 | Interactive — machine-readable endpoints exposed (API, MCP) |
+    | 5 | Fully agent-operable — agent can read, act, and verify within the site |
+
+    Most businesses today are at level 0 or 1. Reaching level 2–3 covers the signals that affect current AI search visibility. Levels 4–5 are forward-looking preparation for agentic AI workflows where software, not people, makes purchasing decisions.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,89 @@
+---
+title: "Connect Found by AI to Any AI Assistant With MCP Now"
+sidebarTitle: "Overview"
+description: "The Found by AI MCP server gives your AI assistant live access to your visibility scores, fix lists, and competitor data — no copy-pasting required."
+---
+
+The Model Context Protocol (MCP) is an open standard that lets AI assistants call external tools mid-conversation, pulling fresh data on demand rather than relying on whatever you paste into the chat. The Found by AI MCP server exposes your entire measurement layer — scores, buyer-question answers, fix plans, competitor share-of-voice — as 15 callable tools. Connect it once and every conversation with your AI assistant starts from this week's real numbers, not a stale snapshot.
+
+## What you can do with the MCP integration
+
+Once connected, you can ask your AI assistant about your AI visibility in plain language, without opening a dashboard or copying a report. Specifically, the integration lets you:
+
+- **Run and rescan** — trigger a fresh measurement from inside a conversation and poll for results
+- **Check your scores** — ask for your current AI Visibility Score and AI Readiness Score, broken down by dimension
+- **Get a prioritised fix list** — ask what to fix first and receive the ranked findings with impact and effort ratings
+- **Read verbatim engine answers** — see exactly what ChatGPT, Perplexity, Gemini, Claude, Grok, DeepSeek, or Google AI Overviews says when a buyer asks about your category
+- **Track competitors** — find out which businesses AI names instead of you on the questions you're missing
+- **Surface citation sources** — discover which third-party domains the engines trust in your market
+
+Because the tools query the live measurement layer, the answers reflect your latest scan — not a model's general knowledge about your business.
+
+## Your MCP endpoint
+
+Your personal endpoint is:
+
+```
+https://areyoufoundbyai.com/mcp/YOUR-TOKEN
+```
+
+Replace `YOUR-TOKEN` with the token from your console. The token is embedded in the URL — there is no separate API key field to fill in.
+
+<Note>
+  **Try it without an account.** The demo endpoint is connected to Found by AI's own live monitoring of areyoufoundbyai.com — real production data, no signup required:
+
+  ```
+  https://areyoufoundbyai.com/mcp/demo
+  ```
+
+  Ask it "how visible is this business to AI, and what would you fix first?" to see exactly what your own connected assistant would read.
+</Note>
+
+### Get your personal token
+
+1. Log in to your Found by AI console at [areyoufoundbyai.com](https://areyoufoundbyai.com)
+2. Open **Settings** in the sidebar
+3. Find the **Live MCP endpoint** link and copy the full URL — your token is the path segment after `/mcp/`
+
+Keep the URL private. Anyone who holds it can read your measurements, so treat it like a password. Never commit it to a public repository or paste it into a shared document.
+
+## Quick connect for Claude Desktop
+
+The fastest way to connect is a single terminal command:
+
+```bash
+claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/YOUR-TOKEN
+```
+
+After running it, restart Claude Desktop. You can verify the connection by asking:
+
+```
+What is the AI visibility score for example.com?
+```
+
+Claude will call the MCP server and return your live score rather than guessing.
+
+## Why connect instead of copy-pasting
+
+Pasting a weekly report into a chat works once, but every new conversation starts from zero — no memory of what you already discussed, no guarantee the numbers are current. The MCP connection solves three problems at once:
+
+- **No copy-pasting** — your assistant queries the live measurement whenever it needs a number, so you never have to export or paste a report again
+- **Always current** — the same URL fetched today returns today's data; fetched in six weeks it returns six-weeks-from-now data
+- **Fixes applied in context** — when a coding agent like Claude Code reads your fix plan over MCP, it can apply on-page fixes in your repository in the same session, then trigger a rescan and read the new score, all without leaving the conversation
+
+<CardGroup cols={2}>
+  <Card
+    title="Connect Guide"
+    icon="plug"
+    href="/mcp/connect"
+  >
+    Step-by-step instructions for Claude Desktop, Claude Projects, ChatGPT, Perplexity, and Gemini.
+  </Card>
+  <Card
+    title="Available Tools"
+    icon="wrench"
+    href="/mcp/tools"
+  >
+    Full reference for all 15 MCP tools — parameters, return values, and example prompts.
+  </Card>
+</CardGroup>
