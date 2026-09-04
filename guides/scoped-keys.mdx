@@ -1,5 +1,5 @@
 ---
-title: 'Share AI Access with Clients Using Scoped Keys'
+title: 'Share Client AI Data Securely with Scoped Access Keys'
 sidebarTitle: 'Scoped Keys'
 description: 'Create read-only MCP access keys scoped to specific client sites, hand them off in seconds, and revoke them instantly — no passwords to manage.'
 ---
@@ -20,7 +20,7 @@ Scoped keys are distinct from your main account MCP token. Your account token co
 
 A scoped key holder can:
 - Read AI Visibility Scores for their domain
-- Read AI Readiness Scores and subcore breakdowns
+- Read AI Readiness Scores and subscore breakdowns
 - Read the prioritised fix list for their site
 - Ask questions through any MCP-compatible AI assistant using live measurements
 - Read question trajectories, competitor mentions, and share of voice — all for their domain only
@@ -31,7 +31,7 @@ A scoped key is strictly read-only and strictly scoped. It cannot:
 - Scan new domains not already in your network
 - Access data for any other client in your fleet
 - Modify account settings, billing, or monitoring configuration
-- Trigger rescans (the `request_rescan` action is not available on scoped keys)
+- Trigger rescans (the `scan_website` and `rescan_website` actions are not available on scoped keys)
 - See your agency-level console or fleet overview
 
 ## How to create a scoped key

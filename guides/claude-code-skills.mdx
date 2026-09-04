@@ -1,5 +1,5 @@
 ---
-title: 'Run GEO Audits with Claude Code Skills'
+title: 'Run GEO Audits Inside Claude Code with thl-open Skills'
 sidebarTitle: 'Claude Code Skills'
 description: 'Install the open-source thl-open skill suite to run GEO audits, live scans, and automated fix-deploy-rescan loops directly inside Claude Code.'
 ---
@@ -55,7 +55,7 @@ The free tier asks 2 buyer questions across 2 engines once per IP. For a complet
 
 The GEO Audit skill runs a deep parallel audit of your site across all six GEO dimensions simultaneously, using five subagents working in parallel. It produces a comprehensive report with a composite score and per-dimension findings.
 
-**What it does:** Launches five subagents to evaluate AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, and Schema & Structured Data in parallel. Each subagent returns weighted findings that are assembled into a composite score.
+**What it does:** Launches five subagents to evaluate all six GEO dimensions — Subagent 1 covers both AI Citability and Brand Authority, while Subagents 2–5 each handle Platform Optimization, Technical GEO, Content E-E-A-T, and Schema & Structured Data respectively. Each subagent returns weighted findings that are assembled into a composite score.
 
 **How to use it:**
 
@@ -75,7 +75,7 @@ The report is written to a Markdown file so you can commit it to your repository
 
 The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prioritised fix plan over the MCP connection, applies the fixes it can make in your repository, shows you every change as a diff, deploys after your approval, triggers a re-measure, and compares the new score against the baseline. It repeats until it reaches a target you set or hits a stop condition.
 
-**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `request_rescan`, polls for results, and records the measured delta for each fix shipped.
+**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `rescan_website`, polls for results, and records the measured delta for each fix shipped.
 
 **How to use it:** Set it as a standing instruction in Claude Projects, or invoke it directly:
 
@@ -84,7 +84,7 @@ The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prio
 ```
 
 Before starting, the skill:
-1. Calls `get_visibility` to record your baseline scores.
+1. Calls `get_visibility_score` to record your baseline scores.
 2. Confirms `protected-pages.txt` exists (listing paths it must never edit — pricing, legal, checkout).
 3. Agrees run parameters with you: target score, iteration cap, rescan budget.
 

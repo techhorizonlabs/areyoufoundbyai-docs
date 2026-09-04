@@ -1,5 +1,5 @@
 ---
-title: 'Authenticate with the Found by AI API'
+title: 'API Authentication — Free, Bearer Token, and Scoped Keys'
 sidebarTitle: 'Authentication'
 description: 'How to authenticate with the Found by AI API — free-tier access, Bearer token API keys for paid tiers, and scoped read-only keys for agencies.'
 ---
@@ -11,7 +11,7 @@ The Found by AI API uses straightforward Bearer-token authentication. The free t
 The `/api/scan` endpoint is publicly accessible without any API key. Submit a `POST` request with just the `url` body parameter and the scan runs immediately.
 
 <Note>
-  Free-tier scans are rate-limited to **2 scans per domain per month** and up to 15 scans per browser per day. On very busy days a server-wide queue may delay new scans — leave your email address during the scan and your result is emailed as soon as it clears.
+  Free-tier scans are subject to fair-use limits: up to **15 scans per browser per day**. On very busy days a server-wide queue may delay new scans — leave your email address during the scan and your result is emailed as soon as it clears. Paid tiers are never affected by either cap.
 </Note>
 
 ## Paid tier — API key

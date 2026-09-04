@@ -1,5 +1,5 @@
 ---
-title: 'Connect Found by AI to Your AI Assistant via MCP'
+title: 'Connect Found by AI to Claude, ChatGPT, and Gemini via MCP'
 sidebarTitle: 'MCP Integration'
 description: 'Set up the Found by AI MCP server in Claude, ChatGPT, Perplexity, Gemini, and Claude Code to query live scores and fix plans mid-conversation.'
 ---
@@ -21,7 +21,7 @@ https://areyoufoundbyai.com/mcp/YOUR-TOKEN
 The token in the URL is your credential. Treat it like a password — share it with your own AI tools and trusted teammates, but do not post it in public repositories or shared documents.
 
 <Note>
-  **No subscription yet?** Test the MCP integration right now using our demo endpoint, which is connected to our own live monitoring of areyoufoundbyai.com: `https://areyoufoundbyai.com/mcp/demo`. It has 13 read-only tools available — the `request_rescan` action is disabled on the demo endpoint.
+  **No subscription yet?** Test the MCP integration right now using our demo endpoint, which is connected to our own live monitoring of areyoufoundbyai.com: `https://areyoufoundbyai.com/mcp/demo`. It has 13 read-only tools available — the `rescan_website` action is disabled on the demo endpoint.
 </Note>
 
 ## Connect to Claude (Desktop)
@@ -51,7 +51,7 @@ Alternatively, connect your MCP endpoint via **Settings → Connectors → Add c
 ChatGPT Projects support custom instructions that apply to every new conversation within the project. Open a Project in ChatGPT and paste the same standing instruction into the project's instructions field, using your monitor URL (`https://areyoufoundbyai.com/monitor/YOUR-TOKEN.json` for the JSON format or `/context.md` for plain text).
 
 <Note>
-  If you want Claude to query your data on demand mid-conversation (rather than only at the start), that requires an Action wired to the JSON endpoint, which is additional setup. Reach out at hello@techhorizonlabs.com if you want help configuring this.
+  If you want your assistant to query your data on demand mid-conversation (rather than only at the start), that requires an Action wired to the JSON endpoint, which is additional setup. Reach out at hello@techhorizonlabs.com if you want help configuring this.
 </Note>
 
 ## Connect to Perplexity Spaces
@@ -103,6 +103,6 @@ Once your assistant is connected, you can ask it anything you would ask a collea
 
 ## Full list of available tools
 
-The MCP server exposes 15 tools in total. Fourteen are read-only; one (`request_rescan`) triggers a fresh measurement within your plan's weekly cap and cannot touch your account, plan, or billing.
+The MCP server exposes 15 tools in total. Thirteen are read-only; two — `scan_website` and `rescan_website` — trigger measurements that count against your plan's on-demand allowance. The demo endpoint has 13 read-only tools with measurement actions disabled.
 
 See [MCP Tools Reference](/mcp/tools) for the complete documentation of all 15 tools, their parameters, and example responses.

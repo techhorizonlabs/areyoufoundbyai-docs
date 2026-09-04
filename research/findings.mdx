@@ -1,10 +1,22 @@
 ---
-title: "AI Visibility Research: What the Data Shows"
+title: "AI Visibility Research Findings: What the Data Shows"
 sidebarTitle: "Findings"
 description: "Data from 3,282 businesses: brand authority beats backlinks 3×, JS schema is AI-invisible, and comparison pages are an untapped citation source."
 ---
 
 Found by AI measures real businesses against the questions real buyers ask across seven AI engines. The research on this page is drawn from that live corpus — not a survey, not a sample — and recomputes from the index on every visit. The findings below consistently point in one direction: AI recommends businesses it has seen talked about across the open web, not the ones with the cleanest technical markup. Here is what that means in practice for each dimension of your score.
+
+<CardGroup cols={3}>
+  <Card title="23% Named" icon="check-circle">
+    Only **23% of measured businesses** are named consistently by AI when a real buyer asks — scoring ≥60 on the visibility scale.
+  </Card>
+  <Card title="42% Occasional" icon="minus-circle">
+    **42% are occasionally visible** — named by one engine sometimes, but never reliably across all seven. A buyer on a different platform misses them entirely.
+  </Card>
+  <Card title="36% Invisible" icon="eye-slash">
+    **36% score near zero** — invisible to AI across every engine measured. Most of these business owners have never checked even once.
+  </Card>
+</CardGroup>
 
 ## Brand Authority Is the Primary Lever
 
@@ -41,7 +53,7 @@ Businesses AI names consistently average **79/100** on Brand Authority. Business
 
 Schema markup is only as useful as the delivery method you use to put it on the page. The AI crawlers that power ChatGPT, Claude, and Perplexity operate very differently from Google's crawler — and that difference has a concrete impact on whether your schema is visible at all.
 
-**The core issue:** Google's crawler renders JavaScript. Most AI crawlers don't. GPTBot, ClaudeBot, and PerplexityBot fetch your raw HTML and move on without executing any scripts. If your schema is added to the page by a JavaScript tag — including Google Tag Manager, third-party "schema injection" SaaS tools, or client-side SPA frameworks — those crawlers see a page with no schema at all.
+**The core issue:** Google's crawler renders JavaScript. Most AI crawlers don't. GPTBot, OAI-SearchBot, ClaudeBot, and PerplexityBot fetch your raw HTML and move on without executing any scripts. If your schema is added to the page by a JavaScript tag — including Google Tag Manager, third-party "schema injection" SaaS tools, or client-side SPA frameworks — those crawlers see a page with no schema at all.
 
 <Tabs>
   <Tab title="How schema reaches AI crawlers">

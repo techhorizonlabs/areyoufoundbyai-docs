@@ -1,5 +1,5 @@
 ---
-title: 'How to Fix Your AI Readiness Score'
+title: 'How to Improve Your AI Readiness Score: All Six Dimensions'
 sidebarTitle: 'Fix Your Score'
 description: 'Improve your AI Readiness Score by working through all six GEO dimensions in priority order — from AI Citability to Platform Optimization.'
 ---
@@ -58,7 +58,7 @@ Schema markup tells AI engines (and search engines) exactly what kind of entity 
 - Deliver JSON-LD in server-rendered HTML. Client-side JavaScript injection means AI crawlers never see it.
 
 <Warning>
-  JS-injected schema is invisible to AI crawlers. Always deliver JSON-LD in server-rendered HTML — open View Source on your page and confirm the `<script type="application/ld+json">` tag is present in the raw HTML before any JavaScript executes.
+  **JS-injected schema is invisible to AI crawlers.** Always deliver JSON-LD in server-rendered HTML — open View Source on your page and confirm the `<script type="application/ld+json">` tag is present in the raw HTML before any JavaScript executes. Developer tools show what the browser renders after JS runs, which can give a false impression that your schema is live.
 </Warning>
 
 - Validate your schema using the [free JSON-LD schema generator](https://areyoufoundbyai.com/tools/schema-generator) and confirm it appears in the served HTML, not just in your browser's developer tools.
@@ -104,5 +104,5 @@ Being a recognised entity in Wikidata and Google's Knowledge Graph is one of the
 Google's Knowledge Graph forms from corroboration — Wikidata, your `Organization` schema, government registries, consistent NAP, and independent citations across the web. It lags your citation-building by weeks to months. Ship the on-page work first; the Knowledge Graph will follow.
 
 <Tip>
-  Connect the MCP integration to run your AI assistant through this fix list automatically. Your assistant can read your current fix plan from `get_fix_plan`, apply on-page fixes in your repository, and trigger a re-scan to measure the result — with your approval at every step. See [MCP Integration](/guides/mcp-integration) to get started.
+  Connect the MCP integration to run your AI assistant through this fix list automatically. Your assistant can read your current fix plan from `get_fixes`, apply on-page fixes in your repository, and trigger a re-scan to measure the result — with your approval at every step. See [MCP Integration](/guides/mcp-integration) to get started.
 </Tip>

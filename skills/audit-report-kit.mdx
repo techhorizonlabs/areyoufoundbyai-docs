@@ -149,6 +149,7 @@ The `generateOrgJsonLd()` function in `src/jsonld.ts` accepts an `OrgType` and y
 type OrgType = "Organization" | "LocalBusiness" | "FinancialService" | "ProfessionalService";
 
 const jsonld = generateOrgJsonLd({
+  type: "ProfessionalService",         // choose the most specific subtype for your client
   name: "Example Business",
   url: "https://example.com",
   telephone: "+61 7 5000 0000",

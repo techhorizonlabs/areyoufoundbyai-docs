@@ -1,5 +1,5 @@
 ---
-title: "Generate an llms.txt File for Your Website"
+title: "Generate an llms.txt File to Guide AI Crawlers Now"
 sidebarTitle: "llms.txt Generator"
 description: "Create a machine-readable llms.txt index that tells AI crawlers which pages matter most — generated from your sitemap, free, in seconds."
 ---
@@ -28,26 +28,43 @@ A valid `llms.txt` file follows this structure:
 ```markdown
 # Your Business Name
 
-> One-line description of your business and what you do.
+> One clear sentence: what your business does, who it serves, and your primary value proposition.
 
-## Key Pages
-- [About](https://yourdomain.com/about): Company overview, founding story, and team
-- [Services](https://yourdomain.com/services): Full list of services with pricing overview
-- [Contact](https://yourdomain.com/contact): Phone, email, and office locations
+## Docs
+
+- [About](https://yourdomain.com/about): Company overview, founding story, and team.
+- [Services](https://yourdomain.com/services): Full list of services with pricing overview.
+- [Contact](https://yourdomain.com/contact): Phone, email, and office locations.
 
 ## Products
-- [Product A](https://yourdomain.com/products/a): Description of what it does and who it's for
-- [Product B](https://yourdomain.com/products/b): Description of what it does and who it's for
+
+- [Product A](https://yourdomain.com/products/a): What it does, who it's for, and how it's priced.
+- [Product B](https://yourdomain.com/products/b): What it does and how it differs from Product A.
 
 ## Resources
-- [Blog](https://yourdomain.com/blog): Articles on industry topics and how-to guides
-- [FAQ](https://yourdomain.com/faq): Answers to the most common customer questions
 
-## llms-full.txt
+- [Blog](https://yourdomain.com/blog): Articles on industry topics and how-to guides.
+- [FAQ](https://yourdomain.com/faq): Answers to the most common customer questions.
+
+## Key Facts
+
+- Founded in YYYY by Founder Name
+- Headquartered in City, Country
+- Key products: Product A, Product B
+- Industry: Your Industry
+
+## Contact
+
+- Website: https://yourdomain.com
+- Email: hello@yourdomain.com
+- Support: support@yourdomain.com
+
+## Optional
+
 - [Full index](https://yourdomain.com/llms-full.txt)
 ```
 
-Each entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page — specific topics, data, or features — not marketing copy.
+Each page entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page — specific topics, data, or features — not marketing copy. The `## Docs` section holds your most important pages; `## Optional` is for supplementary content. `## Key Facts` and `## Contact` give AI systems quick-reference data they frequently need to answer buyer queries.
 
 ## Where to host it
 
@@ -60,12 +77,19 @@ https://yourdomain.com/llms.txt
 It must be accessible without redirects and return an HTTP 200 response. Most static-site generators and CMS platforms let you place files in a `public/` or `static/` root folder. For WordPress, place it in `wp-content/uploads/` or use a plugin that serves static files from the root.
 
 <Tip>
-  Keep your `llms.txt` under 500 lines. AI crawlers don't follow infinite indexes — a focused, well-curated file outperforms an exhaustive one. Use `llms-full.txt` (linked from your main file) for the complete page inventory.
+  Keep your `llms.txt` under 150 lines for the concise version. AI crawlers don't follow infinite indexes — a focused, well-curated file outperforms an exhaustive one. Use `llms-full.txt` (linked from your main file) for the complete page inventory.
 </Tip>
 
 ## The llms-full.txt extended version
 
-`llms-full.txt` is the comprehensive companion file — it lists every indexable page on your site with descriptions. AI systems that want the complete inventory follow the link from your main `llms.txt` to fetch it. This separation keeps the primary file fast to read while making the full index available for deep-crawl scenarios.
+`llms-full.txt` is the comprehensive companion file — it lists every indexable page on your site with longer descriptions (30–100 words each). AI systems that want the complete inventory follow the link from your main `llms.txt` to fetch it. This separation keeps the primary file fast to read while making the full index available for deep-crawl scenarios.
+
+| Feature | llms.txt | llms-full.txt |
+|---|---|---|
+| Length | 50–150 lines | 150–500+ lines |
+| Page entries | 10–30 key pages | 30–100+ pages |
+| Descriptions | 10–30 words each | 30–100 words each |
+| Audience | Quick AI comprehension | Deep AI analysis |
 
 <Note>
   Even a minimal `llms.txt` — just the H1 title, a one-line blockquote description, and links to your five most important pages — is meaningfully better than nothing. Start simple and expand it as you refine your content strategy.

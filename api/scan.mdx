@@ -1,5 +1,5 @@
 ---
-title: 'POST /api/scan — Trigger an AI Visibility Scan'
+title: 'POST /api/scan — Trigger a Live AI Visibility Scan'
 sidebarTitle: 'POST /api/scan'
 description: 'Reference for the /api/scan endpoint — request parameters, authentication, code examples, and every field in the scan response object.'
 ---
@@ -40,6 +40,17 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
       body: JSON.stringify({ url: 'https://example.com' })
     });
     const data = await res.json();
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import httpx
+
+    response = httpx.post(
+        'https://areyoufoundbyai.com/api/scan',
+        json={'url': 'https://example.com'}
+    )
+    data = response.json()
     ```
   </Tab>
 </Tabs>
@@ -96,7 +107,7 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
 ## Free tier vs. paid tiers
 
 <Note>
-  The free tier scans 2 buyer questions across 2 engines (ChatGPT and Gemini), with each question asked twice. Paid tiers return full results for up to 25 questions across all 7 engines, each question sampled up to 3 times with a majority vote — up to 525 live AI answers per scan.
+  The free tier scans 2 buyer questions across 2 engines (ChatGPT and Gemini), with each question asked more than once. Paid tiers return full results for up to 25 questions across all 7 engines, each question sampled up to 3 times with a majority vote — up to 525 live AI answers per scan.
 </Note>
 
 ## Scan duration

@@ -1,5 +1,5 @@
 ---
-title: "Generate Schema.org JSON-LD for AI Visibility"
+title: "Generate Schema.org JSON-LD for Better AI Visibility"
 sidebarTitle: "Schema Generator"
 description: "Build server-ready Organization, LocalBusiness, Article, Product, SaaS, or WebSite JSON-LD markup — filled from your real details, copy-paste ready."
 ---
@@ -7,7 +7,7 @@ description: "Build server-ready Organization, LocalBusiness, Article, Product, 
 AI engines don't just read your content — they build a model of what your business *is*. Schema.org JSON-LD is the primary machine-readable signal that tells AI engines your entity type, what you do, where you're located, who founded you, and how you connect to other authoritative entities on the web. Without it, AI models must infer all of this from prose — and they often get it wrong. The Schema Generator produces complete, copy-paste-ready JSON-LD blocks from your real business details across six schema templates.
 
 <Warning>
-  JSON-LD **must** be delivered in server-rendered HTML, not injected by JavaScript. AI crawlers read raw HTML only — they do not execute JavaScript. After adding your schema, view your page source and search for `application/ld+json` to verify it appears in the raw HTML before any scripts run.
+  JSON-LD **must** be delivered in server-rendered HTML, not injected by JavaScript. AI crawlers — GPTBot, ClaudeBot, OAI-SearchBot, and PerplexityBot — fetch raw HTML and do not execute JavaScript. After adding your schema, view your page source (not Inspect Element) and search for `application/ld+json` to verify it appears in the raw HTML before any scripts run.
 </Warning>
 
 ## How to use the generator
@@ -39,10 +39,9 @@ Go to [areyoufoundbyai.com](https://areyoufoundbyai.com/?src=tools#top) and run 
 
 ## Organization JSON-LD example
 
-Here is an Organization schema built from the full template — add your details where indicated:
+Here is an Organization schema built from the full template. Add this block inside the `<head>` of your server-rendered HTML and fill in every placeholder:
 
 ```json
-<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -70,14 +69,30 @@ Here is an Organization schema built from the full template — add your details
     "@type": "ContactPoint",
     "telephone": "+1-XXX-XXX-XXXX",
     "contactType": "customer service",
-    "email": "contact@yourdomain.com"
+    "email": "contact@yourdomain.com",
+    "availableLanguage": ["English"]
   },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Your Street Address",
+    "addressLocality": "Your City",
+    "addressRegion": "Your State",
+    "postalCode": "Your ZIP",
+    "addressCountry": "US"
+  },
+  "numberOfEmployees": {
+    "@type": "QuantitativeValue",
+    "value": "XX"
+  },
+  "areaServed": "US",
   "sameAs": [
     "https://www.linkedin.com/company/yourcompany",
     "https://www.youtube.com/@yourcompany",
     "https://twitter.com/yourcompany",
     "https://github.com/yourcompany",
-    "https://www.crunchbase.com/organization/yourcompany"
+    "https://www.crunchbase.com/organization/yourcompany",
+    "https://en.wikipedia.org/wiki/Your_Company",
+    "https://www.wikidata.org/wiki/YOUR_WIKIDATA_ID"
   ],
   "knowsAbout": [
     "Topic or expertise area 1",
@@ -85,8 +100,9 @@ Here is an Organization schema built from the full template — add your details
     "Topic or expertise area 3"
   ]
 }
-</script>
 ```
+
+Wrap this object in a `<script type="application/ld+json">` tag and place it inside the `<head>` of your page's server-rendered HTML.
 
 ## The `sameAs` property: why it matters most
 
@@ -97,10 +113,16 @@ The `sameAs` array is the single most important structured data property for AI 
 Place your JSON-LD block inside the `<head>` element of your page's server-rendered HTML — not at the bottom of `<body>` and not injected by JavaScript after page load.
 
 <Warning>
-  JavaScript-injected schema — added by tag managers, client-side React or Vue, or any code that runs after the initial HTML response — is invisible to GPTBot, ClaudeBot, and PerplexityBot. These crawlers read raw HTML only. If you use a JavaScript framework (Next.js, Nuxt, SvelteKit), ensure JSON-LD is rendered server-side (SSR) or injected at the edge, not in client-side `useEffect` or equivalent hooks.
+  JavaScript-injected schema — added by tag managers, client-side React or Vue, or any code that runs after the initial HTML response — is invisible to GPTBot, ClaudeBot, and PerplexityBot. These crawlers request your raw HTML, don't execute JavaScript, and see a page with no schema at all. If you use a JavaScript framework (Next.js, Nuxt, SvelteKit), ensure JSON-LD is rendered server-side (SSR) or injected at the edge, not in client-side `useEffect` or equivalent hooks. Note: Gemini benefits from Google's rendered index and is the exception — but that means you're schema-visible to one AI family out of four, not all of them.
 </Warning>
 
-To verify your schema is rendering correctly, open your browser, right-click your page, and select **View Page Source** (not Inspect Element, which shows the post-JavaScript DOM). Search for `application/ld+json`. If the block appears in the raw source, AI crawlers can read it.
+To verify your schema is rendering correctly, open your browser, right-click your page, and select **View Page Source** (not Inspect Element, which shows the post-JavaScript DOM). Search for `application/ld+json`. If the block appears in the raw source, AI crawlers can read it. You can also run the terminal check:
+
+```bash
+curl -s https://yoursite.com | grep -c "application/ld+json"
+```
+
+A result of zero means zero — for every crawler that doesn't run JavaScript.
 
 <Accordion title="Can I include multiple JSON-LD blocks on one page?">
   Yes. A page can contain multiple `<script type="application/ld+json">` blocks — for example, an Organization block in the `<head>` of every page plus a page-specific Article or Product block. Alternatively, you can combine multiple schemas into a single block using the `@graph` pattern, which also allows schemas to cross-reference each other via `@id`.
