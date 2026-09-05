@@ -14,14 +14,14 @@ Your MCP endpoint is available as soon as you have a monitoring subscription. To
 2. Go to **Settings** in the sidebar.
 3. Copy your personal MCP endpoint URL — it looks like this:
 
-```
+```text
 https://areyoufoundbyai.com/mcp/YOUR-TOKEN
 ```
 
 The token in the URL is your credential. Treat it like a password — share it with your own AI tools and trusted teammates, but do not post it in public repositories or shared documents.
 
 <Note>
-  **No subscription yet?** Test the MCP integration right now using our demo endpoint, which is connected to our own live monitoring of areyoufoundbyai.com: `https://areyoufoundbyai.com/mcp/demo`. It has 13 read-only tools available — the `rescan_website` action is disabled on the demo endpoint.
+  **No subscription yet?** Test the MCP integration right now using our demo endpoint, which is connected to our own live monitoring of areyoufoundbyai.com: `https://areyoufoundbyai.com/mcp/demo`. It carries all 16 read-only tools. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
 </Note>
 
 ## Connect to Claude (Desktop)
@@ -40,7 +40,7 @@ Claude Projects support persistent instructions that apply to every new conversa
 
 Create or open a Project in Claude, then find its **Custom instructions** or **Project knowledge** field (the exact label changes as Claude updates). Paste the following standing instruction, replacing the token with your own:
 
-```
+```text
 At the start of every new conversation in this project, fetch https://areyoufoundbyai.com/monitor/YOUR-TOKEN/context.md and use it as my current Found by AI data — my AI-visibility score, tracked buyer questions, priority fixes, and citation targets — before answering anything about my AI visibility, competitors, or what to do next. Re-fetch it fresh every new chat; do not rely on a cached copy from an earlier conversation.
 ```
 
@@ -66,7 +66,7 @@ Gemini Gems support a persistent instructions field. Create a new Gem for your b
 
 In Cursor, add a custom MCP server with HTTP transport. No API key field is needed — the token embedded in the URL is the entire credential. Use:
 
-```
+```text
 https://areyoufoundbyai.com/mcp/YOUR-TOKEN
 ```
 
@@ -103,6 +103,6 @@ Once your assistant is connected, you can ask it anything you would ask a collea
 
 ## Full list of available tools
 
-The MCP server exposes 15 tools in total. Thirteen are read-only; two — `scan_website` and `rescan_website` — trigger measurements that count against your plan's on-demand allowance. The demo endpoint has 13 read-only tools with measurement actions disabled.
+The MCP server exposes 17 tools in total. Sixteen are read-only. One, `request_rescan`, triggers a fresh measurement that counts against your plan's on-demand allowance. The demo endpoint carries the same 16 read-only tools, and its `request_rescan` returns a worked example without queuing anything.
 
-See [MCP Tools Reference](/mcp/tools) for the complete documentation of all 15 tools, their parameters, and example responses.
+See [MCP Tools Reference](/mcp/tools) for the complete documentation of all 17 tools, their parameters, and example responses.

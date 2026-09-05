@@ -10,7 +10,7 @@ Scoped keys let you share Found by AI data with clients, contractors, or team me
 
 A scoped key is a read-only API token embedded in a URL. The URL itself is the credential — whoever holds it can connect their AI assistant to the client sites that key covers, and nothing beyond that set.
 
-```
+```text
 https://areyoufoundbyai.com/mcp/KEY-TOKEN
 ```
 
@@ -31,7 +31,7 @@ A scoped key is strictly read-only and strictly scoped. It cannot:
 - Scan new domains not already in your network
 - Access data for any other client in your fleet
 - Modify account settings, billing, or monitoring configuration
-- Trigger rescans (the `scan_website` and `rescan_website` actions are not available on scoped keys)
+- Trigger rescans (the `request_rescan` action is not available on scoped keys)
 - See your agency-level console or fleet overview
 
 ## How to create a scoped key
@@ -55,7 +55,7 @@ A scoped key is strictly read-only and strictly scoped. It cannot:
 
 Scoped keys work with any MCP-compatible AI assistant. The key format is identical to the main MCP endpoint format — only the token differs:
 
-```
+```text
 https://areyoufoundbyai.com/mcp/KEY-TOKEN
 ```
 
