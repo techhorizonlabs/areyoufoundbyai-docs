@@ -1,10 +1,10 @@
 ---
 title: "Generate Branded PDF Audit Reports with audit-report-kit"
 sidebarTitle: "Audit Report Kit"
-description: "Turn GEO audit data into a polished client PDF and compile-checked JSON-LD schema — ready to present and ready to paste into a site's head tag."
+description: "Turn GEO audit data into a polished client PDF and compile-checked JSON-LD schema, ready to present and ready to paste into a site's head tag."
 ---
 
-`audit-report-kit` is the deliverable layer of the THL GEO Method. It takes the structured data your GEO audit produces and outputs two artifacts: a **branded client PDF** with cover page, dimension scores, findings, and a ranked fix sequence — and a **compile-checked JSON-LD** file with the schema the audit recommends. Both come from a single `npm run report` command. The JSON-LD is generated, not hand-written, which means it can't drift from your audit's recommendation and can't ship with invalid property names.
+`audit-report-kit` is the deliverable layer of the THL GEO Method. It takes the structured data your GEO audit produces and outputs two artifacts: a **branded client PDF** with cover page, dimension scores, findings, and a ranked fix sequence, and a **compile-checked JSON-LD** file with the schema the audit recommends. Both come from a single `npm run report` command. The JSON-LD is generated, not hand-written, which means it can't drift from your audit's recommendation and can't ship with invalid property names.
 
 ## Requirements
 
@@ -26,17 +26,17 @@ out/harborview-audit.pdf     # Branded client-ready PDF
 out/harborview.jsonld        # Compile-checked Organization JSON-LD
 ```
 
-The included sample uses fictional data for a Gold Coast insurance broker — swap in your client's real data to generate a production report.
+The included sample uses fictional data for a Gold Coast insurance broker, swap in your client's real data to generate a production report.
 
 <Note>
-  `audit-report-kit` uses `@react-pdf/renderer` (MIT) and `schema-dts` (Apache-2.0). The compile-time validation means **you cannot ship invalid schema** — `tsc` fails before the PDF is generated. If a property name or type is wrong, TypeScript compilation catches it.
+  `audit-report-kit` uses `@react-pdf/renderer` (MIT) and `schema-dts` (Apache-2.0). The compile-time validation means **you cannot ship invalid schema**: `tsc` fails before the PDF is generated. If a property name or type is wrong, TypeScript compilation catches it.
 </Note>
 
 ## What It Generates
 
 <CardGroup cols={2}>
   <Card title="Branded PDF" icon="file-pdf">
-    A client-ready report with a cover page, per-dimension score bars with provenance tags, prioritised findings by severity, and a ranked fix sequence. Rendered by `@react-pdf/renderer` using Flexbox layout — no browser engine required.
+    A client-ready report with a cover page, per-dimension score bars with provenance tags, prioritised findings by severity, and a ranked fix sequence. Rendered by `@react-pdf/renderer` using Flexbox layout, no browser engine required.
   </Card>
   <Card title="Compile-Checked JSON-LD" icon="code">
     Organization or LocalBusiness schema validated at compile time against `schema-dts` types. If a property is wrong, TypeScript fails. The output is ready for a developer to paste into the site's `<head>`.
@@ -60,7 +60,7 @@ The `src/sampleAudit.ts` file defines the full data shape that the report render
       Display name shown in the PDF, e.g. `AI Citability`, `Brand Authority`
     </ParamField>
     <ParamField body="score" type="number | null" required>
-      The dimension score, 0–100. Set to `null` when the dimension is `[unmeasured]` — the report renders `—` instead of a bar
+      The dimension score, 0–100. Set to `null` when the dimension is `[unmeasured]`, the report renders `—` instead of a bar
     </ParamField>
     <ParamField body="provenance" type="string">
       One of `scan`, `partial-scan`, `heuristic`, or `unmeasured`. Renders as a small muted tag beside the score bar.
@@ -89,7 +89,7 @@ The `src/sampleAudit.ts` file defines the full data shape that the report render
 
   <Expandable title="Properties">
     <ParamField body="rank" type="number" required>
-      Remediation order — 1 is the highest-priority fix
+      Remediation order, 1 is the highest-priority fix
     </ParamField>
     <ParamField body="action" type="string" required>
       The specific action to take, e.g. `Deploy Organization + Service JSON-LD`
@@ -121,13 +121,13 @@ Replace the sample audit data in `src/sampleAudit.ts` with your client's real sc
 
 <Steps>
   <Step title="Open sampleAudit.ts">
-    Edit `tools/audit-report-kit/src/sampleAudit.ts`. The `sampleAudit` export is the only object you need to replace — the PDF renderer and JSON-LD generator both consume it automatically.
+    Edit `tools/audit-report-kit/src/sampleAudit.ts`. The `sampleAudit` export is the only object you need to replace, the PDF renderer and JSON-LD generator both consume it automatically.
   </Step>
   <Step title="Fill in client details">
     Set the `client` object with your client's real name, domain, and location.
   </Step>
   <Step title="Enter dimension scores">
-    Populate the `categories` array with scores from your `geo-audit` run. For any dimension that couldn't be measured, set `score: null` and `provenance: "unmeasured"` — the report renders `—` instead of a bar.
+    Populate the `categories` array with scores from your `geo-audit` run. For any dimension that couldn't be measured, set `score: null` and `provenance: "unmeasured"`, the report renders `—` instead of a bar.
   </Step>
   <Step title="Add findings and fix steps">
     Transfer the prioritised findings and fix sequence from `GEO-AUDIT-REPORT.md` into the `findings` and `fixSequence` arrays.
@@ -169,7 +169,7 @@ const jsonld = generateOrgJsonLd({
 The output is a JavaScript object ready for `JSON.stringify()` and insertion into a site's `<head>` as a `<script type="application/ld+json">` block.
 
 <Tip>
-  Choose the most specific `OrgType` for your client. A financial planning firm should use `FinancialService`, not bare `Organization`. The schema-dts types enforce correct properties for each subtype — you get a TypeScript error if you try to set a property that doesn't exist on that type.
+  Choose the most specific `OrgType` for your client. A financial planning firm should use `FinancialService`, not bare `Organization`. The schema-dts types enforce correct properties for each subtype. You get a TypeScript error if you try to set a property that doesn't exist on that type.
 </Tip>
 
 ## Validation: Why Compile-Time Matters

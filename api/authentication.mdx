@@ -1,20 +1,20 @@
 ---
-title: 'API Authentication — Free, Bearer Token, and Scoped Keys'
+title: 'API Authentication: Free, Bearer Token, and Scoped Keys'
 sidebarTitle: 'Authentication'
-description: 'How to authenticate with the Found by AI API — free-tier access, Bearer token API keys for paid tiers, and scoped read-only keys for agencies.'
+description: 'How to authenticate with the Found by AI API, free-tier access, Bearer token API keys for paid tiers, and scoped read-only keys for agencies.'
 ---
 
 The Found by AI API uses straightforward Bearer-token authentication. The free tier requires no credentials at all, making it easy to run your first scan without any setup. Paid tiers unlock more engines, more questions, and higher rate limits by attaching an API key to each request.
 
-## Free tier — no authentication
+## Free tier, no authentication
 
 The `/api/scan` endpoint is publicly accessible without any API key. Submit a `POST` request with just the `url` body parameter and the scan runs immediately.
 
 <Note>
-  Free-tier scans are subject to fair-use limits: up to **15 scans per browser per day**. On very busy days a server-wide queue may delay new scans — leave your email address during the scan and your result is emailed as soon as it clears. Paid tiers are never affected by either cap.
+  Free-tier scans are subject to fair-use limits: up to **15 scans per browser per day**. On very busy days a server-wide queue may delay new scans, leave your email address during the scan and your result is emailed as soon as it clears. Paid tiers are never affected by either cap.
 </Note>
 
-## Paid tier — API key
+## Paid tier, API key
 
 Monitoring ($79/mo) and Fleet ($149/mo) plans include an API key. To create one:
 
@@ -26,7 +26,7 @@ Monitoring ($79/mo) and Fleet ($149/mo) plans include an API key. To create one:
     Navigate to **Settings → API Keys**.
   </Step>
   <Step title="Create a key">
-    Click **Create key**, give it a label, and copy the value — it is only shown once.
+    Click **Create key**, give it a label, and copy the value. It is only shown once.
   </Step>
   <Step title="Pass the key in your requests">
     Add an `Authorization: Bearer` header to every API request.
@@ -48,7 +48,7 @@ curl -X POST https://areyoufoundbyai.com/api/scan \
 
 ## Scoped keys (for agencies)
 
-Fleet plan accounts can issue **scoped keys** — read-only credentials restricted to specific client domains. Scoped keys are designed so that team members and contractors can access only the sites assigned to them.
+Fleet plan accounts can issue **scoped keys**, read-only credentials restricted to specific client domains. Scoped keys are designed so that team members and contractors can access only the sites assigned to them.
 
 To create a scoped key:
 

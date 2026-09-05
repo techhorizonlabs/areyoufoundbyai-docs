@@ -4,13 +4,13 @@ sidebarTitle: "GEO Score"
 description: "The GEO Readiness Score is a 0–100 composite of 6 weighted dimensions. Learn the formula, the weights, and which signals actually move AI visibility."
 ---
 
-Your AI Readiness Score — also called the GEO Readiness Score — is not a single measurement. It is a weighted composite of six distinct dimensions, each targeting a different layer of the signals AI engines use to decide whether to trust and name a business. Every dimension is scored 0–100; the composite is the weighted sum of all six. The same weights apply on every scan, so scores across different businesses and different points in time are directly comparable.
+Your AI Readiness Score (also called the GEO Readiness Score) is not a single measurement. It is a weighted composite of six distinct dimensions, each targeting a different layer of the signals AI engines use to decide whether to trust and name a business. Every dimension is scored 0–100; the composite is the weighted sum of all six. The same weights apply on every scan, so scores across different businesses and different points in time are directly comparable.
 
 ## The Six Dimensions
 
 <CardGroup cols={2}>
   <Card title="AI Citability" icon="quote-left">
-    **25% — highest weight**
+    **25%, highest weight**
 
     Measures how quotable and self-contained your content is. AI answers are assembled from passages an engine can lift cleanly into a response. Thin, vague, or promotional copy gives the model nothing useful; a competitor who wrote a direct answer wins instead.
 
@@ -19,9 +19,9 @@ Your AI Readiness Score — also called the GEO Readiness Score — is not a sin
   <Card title="Brand Authority" icon="building">
     **20%**
 
-    Measures whether AI recognises your business as a real, distinct entity — and whether trusted third parties (Wikipedia, Wikidata, Reddit, YouTube, LinkedIn, industry directories, press) reference you independently.
+    Measures whether AI recognises your business as a real, distinct entity, and whether trusted third parties (Wikipedia, Wikidata, Reddit, YouTube, LinkedIn, industry directories, press) reference you independently.
 
-    **Win it:** Earn citations off your own domain — authoritative directory listings, association profiles, genuine reviews, press mentions, and a consistent entity (same name, address, links) everywhere.
+    **Win it:** Earn citations off your own domain, authoritative directory listings, association profiles, genuine reviews, press mentions, and a consistent entity (same name, address, links) everywhere.
   </Card>
   <Card title="Content E-E-A-T" icon="user-check">
     **20%**
@@ -42,7 +42,7 @@ Your AI Readiness Score — also called the GEO Readiness Score — is not a sin
 
     Measures structured data (JSON-LD) correctness and delivery: Organization, LocalBusiness, Product, FAQ, and similar types that state what you are, where you operate, and what you offer in machine-readable form.
 
-    **Win it:** Add valid Organization + LocalBusiness JSON-LD with `sameAs` links to verified profiles. Deliver it server-side — AI crawlers read raw HTML and do not execute JavaScript.
+    **Win it:** Add valid Organization + LocalBusiness JSON-LD with `sameAs` links to verified profiles. Deliver it server-side, AI crawlers read raw HTML and do not execute JavaScript.
   </Card>
   <Card title="Platform Optimization" icon="sliders">
     **10%**
@@ -60,7 +60,7 @@ GEO_Score = (Citability × 0.25) + (Brand × 0.20) + (EEAT × 0.20)
           + (Technical × 0.15) + (Schema × 0.10) + (Platform × 0.10)
 ```
 
-Each dimension sub-score is 0–100. The composite output is also 0–100. Because the formula is fixed, a score of 67 on one scan and 71 on a re-scan represents real movement — not a change in methodology.
+Each dimension sub-score is 0–100. The composite output is also 0–100. Because the formula is fixed, a score of 67 on one scan and 71 on a re-scan represents real movement, not a change in methodology.
 
 ## Score Bands
 
@@ -77,7 +77,7 @@ Each dimension sub-score is 0–100. The composite output is also 0–100. Becau
 The following findings come from 2,354 real businesses measured live on Found by AI, not a survey or a lab study. Scores are recalculated from the live index.
 </Note>
 
-**Brand is the dominant lever — by an 11× margin.**
+**Brand is the dominant lever, by an 11× margin.**
 
 When the dataset is split by Brand sub-score, the visibility outcomes are stark:
 
@@ -87,12 +87,12 @@ When the dataset is split by Brand sub-score, the visibility outcomes are stark:
 | Brand 40–69 | **33.0** |
 | Brand < 40 | **5.3** |
 
-Businesses scoring 70 or above on Brand average **11 times the AI visibility** of those scoring below 40. That gap — measured across 3,268 scored scans — is why Brand carries the second-highest weight in the formula.
+Businesses scoring 70 or above on Brand average **11 times the AI visibility** of those scoring below 40. That gap (measured across 3,268 scored scans) is why Brand carries the second-highest weight in the formula.
 
 E-E-A-T shows a real but smaller lift: businesses named by AI average 75/100 on E-E-A-T; businesses AI ignores average 59/100.
 
 <Warning>
-**Schema alone is not a lever.** Schema sub-scores are nearly flat across visibility buckets (42–47.5), confirming it as a C-tier tactic. Valid structured data removes ambiguity for an engine that already trusts you — it does not make an engine trust you in the first place. Brand does that.
+**Schema alone is not a lever.** Schema sub-scores are nearly flat across visibility buckets (42–47.5), confirming it as a C-tier tactic. Valid structured data removes ambiguity for an engine that already trusts you. It does not make an engine trust you in the first place. Brand does that.
 
 This conclusion matches Google's own published guidance (May 2026), which states there are "no additional requirements to appear in AI Overviews or AI Mode" and explicitly excludes the need for special schema or `llms.txt` files.
 </Warning>

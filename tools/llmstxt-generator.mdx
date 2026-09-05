@@ -1,25 +1,25 @@
 ---
 title: "Generate an llms.txt File to Guide AI Crawlers Now"
 sidebarTitle: "llms.txt Generator"
-description: "Create a machine-readable llms.txt index that tells AI crawlers which pages matter most — generated from your sitemap, free, in seconds."
+description: "Create a machine-readable llms.txt index that tells AI crawlers which pages matter most, generated from your sitemap, free, in seconds."
 ---
 
-When an AI crawler visits your site, it faces the same problem a new researcher does: which pages are the important ones, and what is this site actually about? `llms.txt` solves this with a single, machine-readable file at your domain root that tells AI assistants exactly which pages matter most, what each one covers, and how your site is structured — all in a format that's cheaper to read than crawling dozens of HTML pages. The llms.txt Generator crawls your sitemap and produces a valid, ready-to-host `llms.txt` file in seconds.
+When an AI crawler visits your site, it faces the same problem a new researcher does: which pages are the important ones, and what is this site actually about? `llms.txt` solves this with a single, machine-readable file at your domain root that tells AI assistants exactly which pages matter most, what each one covers, and how your site is structured, all in a format that's cheaper to read than crawling dozens of HTML pages. The llms.txt Generator crawls your sitemap and produces a valid, ready-to-host `llms.txt` file in seconds.
 
 ## What llms.txt does
 
-`llms.txt` is a plain-text Markdown file proposed in September 2024 (by Jeremy Howard of fast.ai) as a standard for giving AI systems structured guidance about a website's content. It is analogous to `robots.txt` — which tells crawlers what not to access — but instead tells AI assistants what is most useful to understand about your site.
+`llms.txt` is a plain-text Markdown file proposed in September 2024 (by Jeremy Howard of fast.ai) as a standard for giving AI systems structured guidance about a website's content. It is analogous to `robots.txt` (which tells crawlers what not to access) but instead tells AI assistants what is most useful to understand about your site.
 
 A well-formed `llms.txt` delivers four benefits:
 
-1. **Faster AI comprehension** — an AI understands your site's purpose and structure from one file rather than dozens of pages.
-2. **Controlled narrative** — you choose which pages AI systems see first, shaping how they represent your brand.
-3. **Higher citation accuracy** — AI systems that consult `llms.txt` cite the correct, authoritative page for each topic.
-4. **Reduced hallucination** — key facts like pricing, services, and locations are stated explicitly.
+1. **Faster AI comprehension**, an AI understands your site's purpose and structure from one file rather than dozens of pages.
+2. **Controlled narrative**. You choose which pages AI systems see first, shaping how they represent your brand.
+3. **Higher citation accuracy**, AI systems that consult `llms.txt` cite the correct, authoritative page for each topic.
+4. **Reduced hallucination**, key facts like pricing, services, and locations are stated explicitly.
 
 ## How to use the generator
 
-Go to [areyoufoundbyai.com](https://areyoufoundbyai.com/?src=tools#top), run the free scan on your domain, and the tool crawls your sitemap, selects the most important pages, and generates a complete `llms.txt` file written from your actual page content — not a template. The full paid report generates the complete extended file, including `llms-full.txt`.
+Go to [areyoufoundbyai.com](https://areyoufoundbyai.com/?src=tools#top), run the free scan on your domain, and the tool crawls your sitemap, selects the most important pages, and generates a complete `llms.txt` file written from your actual page content, not a template. The full paid report generates the complete extended file, including `llms-full.txt`.
 
 ## The llms.txt format
 
@@ -64,7 +64,7 @@ A valid `llms.txt` file follows this structure:
 - [Full index](https://yourdomain.com/llms-full.txt)
 ```
 
-Each page entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page — specific topics, data, or features — not marketing copy. The `## Docs` section holds your most important pages; `## Optional` is for supplementary content. `## Key Facts` and `## Contact` give AI systems quick-reference data they frequently need to answer buyer queries.
+Each page entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page (specific topics, data, or features) not marketing copy. The `## Docs` section holds your most important pages; `## Optional` is for supplementary content. `## Key Facts` and `## Contact` give AI systems quick-reference data they frequently need to answer buyer queries.
 
 ## Where to host it
 
@@ -77,12 +77,12 @@ https://yourdomain.com/llms.txt
 It must be accessible without redirects and return an HTTP 200 response. Most static-site generators and CMS platforms let you place files in a `public/` or `static/` root folder. For WordPress, place it in `wp-content/uploads/` or use a plugin that serves static files from the root.
 
 <Tip>
-  Keep your `llms.txt` under 150 lines for the concise version. AI crawlers don't follow infinite indexes — a focused, well-curated file outperforms an exhaustive one. Use `llms-full.txt` (linked from your main file) for the complete page inventory.
+  Keep your `llms.txt` under 150 lines for the concise version. AI crawlers don't follow infinite indexes, a focused, well-curated file outperforms an exhaustive one. Use `llms-full.txt` (linked from your main file) for the complete page inventory.
 </Tip>
 
 ## The llms-full.txt extended version
 
-`llms-full.txt` is the comprehensive companion file — it lists every indexable page on your site with longer descriptions (30–100 words each). AI systems that want the complete inventory follow the link from your main `llms.txt` to fetch it. This separation keeps the primary file fast to read while making the full index available for deep-crawl scenarios.
+`llms-full.txt` is the comprehensive companion file. It lists every indexable page on your site with longer descriptions (30–100 words each). AI systems that want the complete inventory follow the link from your main `llms.txt` to fetch it. This separation keeps the primary file fast to read while making the full index available for deep-crawl scenarios.
 
 | Feature | llms.txt | llms-full.txt |
 |---|---|---|
@@ -92,7 +92,7 @@ It must be accessible without redirects and return an HTTP 200 response. Most st
 | Audience | Quick AI comprehension | Deep AI analysis |
 
 <Note>
-  Even a minimal `llms.txt` — just the H1 title, a one-line blockquote description, and links to your five most important pages — is meaningfully better than nothing. Start simple and expand it as you refine your content strategy.
+  Even a minimal `llms.txt` (just the H1 title, a one-line blockquote description, and links to your five most important pages) is meaningfully better than nothing. Start simple and expand it as you refine your content strategy.
 </Note>
 
 <Accordion title="How often should I update llms.txt?">
@@ -100,5 +100,5 @@ It must be accessible without redirects and return an HTTP 200 response. Most st
 </Accordion>
 
 <Accordion title="Does Google read llms.txt?">
-  Google has not officially adopted the `llms.txt` standard, but Google AI Overviews and Gemini crawl sites to inform answers. Google's crawlers can read a plain-text Markdown file at your root. The more immediate beneficiaries are ChatGPT (via its web browsing), Perplexity, and Claude — all of which actively check for `llms.txt` during site research. Maintaining a well-formed file benefits you across all of them.
+  Google has not officially adopted the `llms.txt` standard, but Google AI Overviews and Gemini crawl sites to inform answers. Google's crawlers can read a plain-text Markdown file at your root. The more immediate beneficiaries are ChatGPT (via its web browsing), Perplexity, and Claude, all of which actively check for `llms.txt` during site research. Maintaining a well-formed file benefits you across all of them.
 </Accordion>

@@ -1,13 +1,13 @@
 ---
 title: "Generate Schema.org JSON-LD for Better AI Visibility"
 sidebarTitle: "Schema Generator"
-description: "Build server-ready Organization, LocalBusiness, Article, Product, SaaS, or WebSite JSON-LD markup — filled from your real details, copy-paste ready."
+description: "Build server-ready Organization, LocalBusiness, Article, Product, SaaS, or WebSite JSON-LD markup, filled from your real details, copy-paste ready."
 ---
 
-AI engines don't just read your content — they build a model of what your business *is*. Schema.org JSON-LD is the primary machine-readable signal that tells AI engines your entity type, what you do, where you're located, who founded you, and how you connect to other authoritative entities on the web. Without it, AI models must infer all of this from prose — and they often get it wrong. The Schema Generator produces complete, copy-paste-ready JSON-LD blocks from your real business details across six schema templates.
+AI engines don't just read your content, they build a model of what your business *is*. Schema.org JSON-LD is the primary machine-readable signal that tells AI engines your entity type, what you do, where you're located, who founded you, and how you connect to other authoritative entities on the web. Without it, AI models must infer all of this from prose, and they often get it wrong. The Schema Generator produces complete, copy-paste-ready JSON-LD blocks from your real business details across six schema templates.
 
 <Warning>
-  JSON-LD **must** be delivered in server-rendered HTML, not injected by JavaScript. AI crawlers — GPTBot, ClaudeBot, OAI-SearchBot, and PerplexityBot — fetch raw HTML and do not execute JavaScript. After adding your schema, view your page source (not Inspect Element) and search for `application/ld+json` to verify it appears in the raw HTML before any scripts run.
+  JSON-LD **must** be delivered in server-rendered HTML, not injected by JavaScript. AI crawlers (GPTBot, ClaudeBot, OAI-SearchBot, and PerplexityBot) fetch raw HTML and do not execute JavaScript. After adding your schema, view your page source (not Inspect Element) and search for `application/ld+json` to verify it appears in the raw HTML before any scripts run.
 </Warning>
 
 ## How to use the generator
@@ -27,13 +27,13 @@ Go to [areyoufoundbyai.com](https://areyoufoundbyai.com/?src=tools#top) and run 
     For content publishers. Adds `headline`, `datePublished`, `dateModified`, `image`, and a full `author` Person schema with credentials, `sameAs` links to LinkedIn and professional profiles, `jobTitle`, `worksFor`, and `knowsAbout`. This is the strongest E-E-A-T signal for AI platforms.
   </Card>
   <Card title="Product (E-commerce)" icon="cart-shopping">
-    For physical or digital products. Includes `offers` (with `price`, `priceCurrency`, `availability`), `brand`, `sku`, `aggregateRating`, and `review`. This is what allows AI agents to transact with your site — not just recommend it.
+    For physical or digital products. Includes `offers` (with `price`, `priceCurrency`, `availability`), `brand`, `sku`, `aggregateRating`, and `review`. This is what allows AI agents to transact with your site, not just recommend it.
   </Card>
   <Card title="Software / SaaS" icon="laptop-code">
     For SaaS products and applications. Uses `SoftwareApplication` type with `applicationCategory`, `operatingSystem`, `featureList`, tiered `offers`, `aggregateRating`, and links to review platforms like G2 and Capterra. The `featureList` property is a strong AI citation signal.
   </Card>
   <Card title="Website with SearchAction" icon="magnifying-glass">
-    Adds the `potentialAction` search integration to your site-level WebSite schema. This tells AI assistants that your site has a search endpoint they can query directly — relevant for sites with substantial indexed content.
+    Adds the `potentialAction` search integration to your site-level WebSite schema. This tells AI assistants that your site has a search endpoint they can query directly, relevant for sites with substantial indexed content.
   </Card>
 </CardGroup>
 
@@ -106,14 +106,14 @@ Wrap this object in a `<script type="application/ld+json">` tag and place it ins
 
 ## The `sameAs` property: why it matters most
 
-The `sameAs` array is the single most important structured data property for AI visibility. It tells AI models: "This entity on my website is the same entity as these profiles elsewhere." That cross-platform confirmation is how AI systems build trust in an entity and decide whether to cite it. Include every public profile you maintain — LinkedIn, YouTube, Twitter/X, GitHub, Crunchbase, and, if applicable, Wikipedia and Wikidata.
+The `sameAs` array is the single most important structured data property for AI visibility. It tells AI models: "This entity on my website is the same entity as these profiles elsewhere." That cross-platform confirmation is how AI systems build trust in an entity and decide whether to cite it. Include every public profile you maintain, LinkedIn, YouTube, Twitter/X, GitHub, Crunchbase, and, if applicable, Wikipedia and Wikidata.
 
 ## Placement and rendering requirements
 
-Place your JSON-LD block inside the `<head>` element of your page's server-rendered HTML — not at the bottom of `<body>` and not injected by JavaScript after page load.
+Place your JSON-LD block inside the `<head>` element of your page's server-rendered HTML, not at the bottom of `<body>` and not injected by JavaScript after page load.
 
 <Warning>
-  JavaScript-injected schema — added by tag managers, client-side React or Vue, or any code that runs after the initial HTML response — is invisible to GPTBot, ClaudeBot, and PerplexityBot. These crawlers request your raw HTML, don't execute JavaScript, and see a page with no schema at all. If you use a JavaScript framework (Next.js, Nuxt, SvelteKit), ensure JSON-LD is rendered server-side (SSR) or injected at the edge, not in client-side `useEffect` or equivalent hooks. Note: Gemini benefits from Google's rendered index and is the exception — but that means you're schema-visible to one AI family out of four, not all of them.
+  JavaScript-injected schema, added by tag managers, client-side React or Vue, or any code that runs after the initial HTML response, is invisible to GPTBot, ClaudeBot, and PerplexityBot. These crawlers request your raw HTML, don't execute JavaScript, and see a page with no schema at all. If you use a JavaScript framework (Next.js, Nuxt, SvelteKit), ensure JSON-LD is rendered server-side (SSR) or injected at the edge, not in client-side `useEffect` or equivalent hooks. Note: Gemini benefits from Google's rendered index and is the exception, but that means you're schema-visible to one AI family out of four, not all of them.
 </Warning>
 
 To verify your schema is rendering correctly, open your browser, right-click your page, and select **View Page Source** (not Inspect Element, which shows the post-JavaScript DOM). Search for `application/ld+json`. If the block appears in the raw source, AI crawlers can read it. You can also run the terminal check:
@@ -122,16 +122,16 @@ To verify your schema is rendering correctly, open your browser, right-click you
 curl -s https://yoursite.com | grep -c "application/ld+json"
 ```
 
-A result of zero means zero — for every crawler that doesn't run JavaScript.
+A result of zero means zero, for every crawler that doesn't run JavaScript.
 
 <Accordion title="Can I include multiple JSON-LD blocks on one page?">
-  Yes. A page can contain multiple `<script type="application/ld+json">` blocks — for example, an Organization block in the `<head>` of every page plus a page-specific Article or Product block. Alternatively, you can combine multiple schemas into a single block using the `@graph` pattern, which also allows schemas to cross-reference each other via `@id`.
+  Yes. A page can contain multiple `<script type="application/ld+json">` blocks, for example, an Organization block in the `<head>` of every page plus a page-specific Article or Product block. Alternatively, you can combine multiple schemas into a single block using the `@graph` pattern, which also allows schemas to cross-reference each other via `@id`.
 </Accordion>
 
 <Accordion title="What about Microdata and RDFa?">
-  JSON-LD is the strongly recommended format for AI visibility. Google, Bing, and AI crawlers all process JSON-LD most reliably. If your site currently uses Microdata or RDFa, plan a migration to JSON-LD — the Schema Generator outputs JSON-LD exclusively.
+  JSON-LD is the strongly recommended format for AI visibility. Google, Bing, and AI crawlers all process JSON-LD most reliably. If your site currently uses Microdata or RDFa, plan a migration to JSON-LD, the Schema Generator outputs JSON-LD exclusively.
 </Accordion>
 
 <Accordion title="How do I validate my schema after adding it?">
-  Use Google's [Rich Results Test](https://search.google.com/test/rich-results) or the [Schema.org Validator](https://validator.schema.org/) to check for syntax errors and missing required properties. Also check the schema in your AI Readiness Score report under the **Schema & Structured Data** dimension — it reflects what AI crawlers actually see in your server-rendered HTML.
+  Use Google's [Rich Results Test](https://search.google.com/test/rich-results) or the [Schema.org Validator](https://validator.schema.org/) to check for syntax errors and missing required properties. Also check the schema in your AI Readiness Score report under the **Schema & Structured Data** dimension. It reflects what AI crawlers actually see in your server-rendered HTML.
 </Accordion>

@@ -1,34 +1,34 @@
 ---
 title: "How Found by AI Measures Your AI Search Visibility"
 sidebarTitle: "How It Works"
-description: "Found by AI runs a five-agent pipeline — ARGOS, NAVIGATOR, SOUNDER, ASSESSOR, and PILOT — to measure your AI search visibility across 7 engines."
+description: "Found by AI runs a five-agent pipeline (ARGOS, NAVIGATOR, SOUNDER, ASSESSOR, and PILOT) to measure your AI search visibility across 7 engines."
 ---
 
-Every Found by AI scan runs a coordinated pipeline of five specialised agents. Each agent owns one stage of the measurement, and the stages are deliberately separate: reading your site, writing buyer questions, asking the engines, scoring the signals, and ordering the fixes. Nothing is estimated — every score traces back to a live engine answer, a public registry, or a named data source.
+Every Found by AI scan runs a coordinated pipeline of five specialised agents. Each agent owns one stage of the measurement, and the stages are deliberately separate: reading your site, writing buyer questions, asking the engines, scoring the signals, and ordering the fixes. Nothing is estimated. Every score traces back to a live engine answer, a public registry, or a named data source.
 
 ## The five agents
 
 <Steps>
-  <Step title="ARGOS — reads your site">
+  <Step title="ARGOS: reads your site">
     ARGOS opens your site the way AI crawlers do. It reads your page content, structured data (schema.org markup), `robots.txt`, `llms.txt`, and crawler access rules to determine whether AI engines can read and understand your business at all.
 
-    From that read it resolves what you do, who your buyers are, and where you operate. If your site can't be read — blocked crawlers, missing schema, no llms.txt — the scan reports that clearly instead of guessing at a score.
+    From that read it resolves what you do, who your buyers are, and where you operate. If your site can't be read (blocked crawlers, missing schema, no llms.txt) the scan reports that clearly instead of guessing at a score.
 
     **What ARGOS reads:** content · schema · robots.txt · llms.txt · crawler access rules · service areas
   </Step>
-  <Step title="NAVIGATOR — writes buyer questions">
-    NAVIGATOR takes what ARGOS learned about your business and generates the actual questions a buyer would ask an AI assistant when looking for your category. These are not generic prompts — they're built from your site's signals and, for local businesses, localised to the areas you serve.
+  <Step title="NAVIGATOR: writes buyer questions">
+    NAVIGATOR takes what ARGOS learned about your business and generates the actual questions a buyer would ask an AI assistant when looking for your category. These are not generic prompts, they're built from your site's signals and, for local businesses, localised to the areas you serve.
 
     On the free scan, NAVIGATOR produces 2 questions. A full scan produces up to 12; Monitoring tracks up to 25 pinned questions weekly, so your trend line reflects real movement rather than freshly re-generated questions pretending to be a trend.
   </Step>
-  <Step title="SOUNDER — asks all 7 engines">
-    SOUNDER sends each buyer question to the AI engines and collects the full verbatim replies — not a summary, the actual answers, word for word, including which sources the engine cited before answering.
+  <Step title="SOUNDER: asks all 7 engines">
+    SOUNDER sends each buyer question to the AI engines and collects the full verbatim replies, not a summary, the actual answers, word for word, including which sources the engine cited before answering.
 
     **Engines covered:** ChatGPT · Perplexity · Gemini · Claude · Grok · DeepSeek · Google AI Overviews
 
-    Because AI engines are probabilistic — the same question can produce different answers on different runs — SOUNDER asks each question more than once and records every reply. The free scan sends each question twice per engine; the full scan samples up to three times per engine and applies majority voting so single-run noise doesn't masquerade as signal.
+    Because AI engines are probabilistic (the same question can produce different answers on different runs) SOUNDER asks each question more than once and records every reply. The free scan sends each question twice per engine; the full scan samples up to three times per engine and applies majority voting so single-run noise doesn't masquerade as signal.
   </Step>
-  <Step title="ASSESSOR — scores 30+ signals">
+  <Step title="ASSESSOR: scores 30+ signals">
     ASSESSOR runs the composite GEO (generative engine optimisation) formula across your scan results. It evaluates more than 30 signals and produces both your **AI Visibility Score** and your **AI Readiness Score**, each out of 100.
 
     The Readiness Score is a weighted composite across six dimensions:
@@ -44,8 +44,8 @@ Every Found by AI scan runs a coordinated pipeline of five specialised agents. E
 
     Visibility reflects what the engines said right now. Readiness reflects whether your site is built to earn recommendations over time. The two scores move on different timescales: Readiness responds within days of a site change; Visibility moves more slowly as third-party pages start citing you.
   </Step>
-  <Step title="PILOT — orders your fixes">
-    PILOT takes ASSESSOR's findings and ranks them by impact, producing your prioritised fix plan. Quick copy-paste items appear first: your Organization JSON-LD schema and llms.txt, generated specifically for your business entity and ready to publish. Slower off-site actions — earning citations on the directories and communities the engines already read in your market — are listed with the specific platforms your category relies on.
+  <Step title="PILOT: orders your fixes">
+    PILOT takes ASSESSOR's findings and ranks them by impact, producing your prioritised fix plan. Quick copy-paste items appear first: your Organization JSON-LD schema and llms.txt, generated specifically for your business entity and ready to publish. Slower off-site actions (earning citations on the directories and communities the engines already read in your market) are listed with the specific platforms your category relies on.
 
     When you're on Monitoring, you mark fixes done in your console and the next weekly measure verifies whether they cleared. Fixed items are struck through while Found by AI keeps checking, and they're never hidden from your history.
   </Step>
@@ -56,10 +56,10 @@ Every Found by AI scan runs a coordinated pipeline of five specialised agents. E
 AI engines don't return a deterministic answer. The same question put to the same engine on two consecutive days can produce meaningfully different results. To give you a stable, statistically grounded score rather than the noise of a single run, SOUNDER applies majority-voted sampling:
 
 - Each question is asked multiple times per engine within the same scan
-- The results are aggregated — a business is recorded as "named" only if it appears in a majority of runs
+- The results are aggregated. A business is recorded as "named" only if it appears in a majority of runs
 - The Visibility and Readiness scores are computed from the aggregated results, not from any single answer
 
-This means your score reflects a genuine signal. When a question flips — when an engine starts naming you that didn't before — the weekly email tells you so, along with the change you shipped that coincided with the movement.
+This means your score reflects a genuine signal. When a question flips (when an engine starts naming you that didn't before) the weekly email tells you so, along with the change you shipped that coincided with the movement.
 
 ## Free vs paid scan depth
 
@@ -100,7 +100,7 @@ This means your score reflects a genuine signal. When a question flips — when 
 </Tabs>
 
 <Note>
-  **BOSUN** is the halting system that runs throughout every scan. If ARGOS can't read your site, if an engine is unreachable, or if a scan produces degraded results, BOSUN stops the pipeline and reports the failure clearly — rather than printing a confident wrong number. On Monitoring, scans that BOSUN halts do not count against your weekly allowance.
+  **BOSUN** is the halting system that runs throughout every scan. If ARGOS can't read your site, if an engine is unreachable, or if a scan produces degraded results, BOSUN stops the pipeline and reports the failure clearly, rather than printing a confident wrong number. On Monitoring, scans that BOSUN halts do not count against your weekly allowance.
 </Note>
 
 ## Where to go next
@@ -110,7 +110,7 @@ This means your score reflects a genuine signal. When a question flips — when 
     Understand what the Visibility and Readiness scores measure, how they differ, and how to read them together.
   </Card>
   <Card title="Fix Your Score" icon="wrench" href="/guides/fix-your-score">
-    Act on your PILOT fix plan — from copy-paste schema and llms.txt to earning the citations that move Visibility.
+    Act on your PILOT fix plan, from copy-paste schema and llms.txt to earning the citations that move Visibility.
   </Card>
   <Card title="API Overview" icon="code" href="/api/overview">
     Trigger scans programmatically with the public scan API.

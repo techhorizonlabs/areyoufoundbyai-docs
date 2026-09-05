@@ -1,10 +1,10 @@
 ---
 title: 'Found by AI REST API: Base URL, Auth, and Error Codes'
 sidebarTitle: 'Overview'
-description: 'Base URL, authentication, content type, rate limits, error codes, and available endpoints for the Found by AI REST API — everything in one place.'
+description: 'Base URL, authentication, content type, rate limits, error codes, and available endpoints for the Found by AI REST API, everything in one place.'
 ---
 
-The Found by AI REST API lets you trigger live AI-visibility scans programmatically, retrieve scores, and integrate results into your own tools, dashboards, and workflows. Every response is drawn from real-time queries to the AI engines — nothing is cached or estimated.
+The Found by AI REST API lets you trigger live AI-visibility scans programmatically, retrieve scores, and integrate results into your own tools, dashboards, and workflows. Every response is drawn from real-time queries to the AI engines. Nothing is cached or estimated.
 
 ## Base URL
 
@@ -22,7 +22,7 @@ Pass your API key as a Bearer token in the `Authorization` header:
 Authorization: Bearer YOUR-API-KEY
 ```
 
-The free tier requires no credentials at all — you can run your first scan with no setup. Paid tiers unlock more engines, more questions, and higher rate limits. Scoped keys for agency Fleet accounts are passed as part of the MCP endpoint URL rather than an `Authorization` header. See [Authentication](/api/authentication) for full details.
+The free tier requires no credentials at all. You can run your first scan with no setup. Paid tiers unlock more engines, more questions, and higher rate limits. Scoped keys for agency Fleet accounts are passed as part of the MCP endpoint URL rather than an `Authorization` header. See [Authentication](/api/authentication) for full details.
 
 Content-type for all requests is `application/json`.
 
@@ -44,7 +44,7 @@ Content-type for all requests is `application/json`.
 | `POST` | `/api/scan` | Trigger a new AI Visibility + AI Readiness scan for a given URL |
 
 <Note>
-  The API currently exposes the scan endpoint. Full read endpoints for scores, verbatim answers, and fix lists are available via the MCP server — see [MCP Tools](/mcp/tools).
+  The API currently exposes the scan endpoint. Full read endpoints for scores, verbatim answers, and fix lists are available via the MCP server, see [MCP Tools](/mcp/tools).
 </Note>
 
 ## Error format

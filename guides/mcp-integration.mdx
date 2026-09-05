@@ -4,7 +4,7 @@ sidebarTitle: 'MCP Integration'
 description: 'Set up the Found by AI MCP server in Claude, ChatGPT, Perplexity, Gemini, and Claude Code to query live scores and fix plans mid-conversation.'
 ---
 
-The Found by AI MCP integration turns your AI assistant into a live window onto your visibility measurements. Instead of copying scores out of your dashboard and pasting them into a chat, your assistant queries the data directly — mid-conversation, whenever the question comes up, always returning this week's numbers rather than a snapshot from whenever you last checked. This guide walks you through getting your endpoint and connecting it to every major AI tool.
+The Found by AI MCP integration turns your AI assistant into a live window onto your visibility measurements. Instead of copying scores out of your dashboard and pasting them into a chat, your assistant queries the data directly, mid-conversation, whenever the question comes up, always returning this week's numbers rather than a snapshot from whenever you last checked. This guide walks you through getting your endpoint and connecting it to every major AI tool.
 
 ## Get your MCP endpoint
 
@@ -12,13 +12,13 @@ Your MCP endpoint is available as soon as you have a monitoring subscription. To
 
 1. Log in to your Found by AI console.
 2. Go to **Settings** in the sidebar.
-3. Copy your personal MCP endpoint URL — it looks like this:
+3. Copy your personal MCP endpoint URL. It looks like this:
 
 ```text
 https://areyoufoundbyai.com/mcp/YOUR-TOKEN
 ```
 
-The token in the URL is your credential. Treat it like a password — share it with your own AI tools and trusted teammates, but do not post it in public repositories or shared documents.
+The token in the URL is your credential. Treat it like a password, share it with your own AI tools and trusted teammates, but do not post it in public repositories or shared documents.
 
 <Note>
   **No subscription yet?** Test the MCP integration right now using our demo endpoint, which is connected to our own live monitoring of areyoufoundbyai.com: `https://areyoufoundbyai.com/mcp/demo`. It carries all 16 read-only tools. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
@@ -36,7 +36,7 @@ Replace `YOUR-TOKEN` with the token from your Settings page. After running this 
 
 ## Connect to Claude (Projects)
 
-Claude Projects support persistent instructions that apply to every new conversation you start inside the project. This means your assistant starts each chat already knowing your current scores — without you having to paste anything.
+Claude Projects support persistent instructions that apply to every new conversation you start inside the project. This means your assistant starts each chat already knowing your current scores, without you having to paste anything.
 
 Create or open a Project in Claude, then find its **Custom instructions** or **Project knowledge** field (the exact label changes as Claude updates). Paste the following standing instruction, replacing the token with your own:
 
@@ -64,7 +64,7 @@ Gemini Gems support a persistent instructions field. Create a new Gem for your b
 
 ## Connect to Cursor
 
-In Cursor, add a custom MCP server with HTTP transport. No API key field is needed — the token embedded in the URL is the entire credential. Use:
+In Cursor, add a custom MCP server with HTTP transport. No API key field is needed, the token embedded in the URL is the entire credential. Use:
 
 ```text
 https://areyoufoundbyai.com/mcp/YOUR-TOKEN
@@ -97,7 +97,7 @@ Once your assistant is connected, you can ask it anything you would ask a collea
 
 <Accordion title="Content and briefing questions">
 - "Draft a short update for my business partner: our current scores, the trend, and any new mentions this month."
-- "Build me a post brief from this week's verified data — the questions I'm absent from and the sources the engines read."
+- "Build me a post brief from this week's verified data, the questions I'm absent from and the sources the engines read."
 - "What new independent mentions of my business appeared this week?"
 </Accordion>
 

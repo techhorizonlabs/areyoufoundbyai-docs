@@ -1,10 +1,10 @@
 ---
 title: "THL Open: 17 Claude Code Skills for AI GEO Auditing"
 sidebarTitle: "Overview"
-description: "Install Tech Horizon Labs' open-source skill suite — 17 Claude Code skills, two THL-original tools, and the audit method that ties them together."
+description: "Install Tech Horizon Labs' open-source skill suite, 17 Claude Code skills, two THL-original tools, and the audit method that ties them together."
 ---
 
-Tech Horizon Labs' **THL Open** is the open layer of how we run GEO and AI-visibility audits — a complete Claude Code skill suite, two original tools built by THL, and the method document that keeps every audit reproducible and evidence-backed. Everything here is MIT-licensed and designed to slot into Claude Code, Codex, Cursor, Gemini CLI, or any agent that speaks SKILL.md. Start with a single command and you get 17 skills covering every GEO dimension, plus a branded PDF report generator and an independent agent-readiness benchmark.
+Tech Horizon Labs' **THL Open** is the open layer of how we run GEO and AI-visibility audits, a complete Claude Code skill suite, two original tools built by THL, and the method document that keeps every audit reproducible and evidence-backed. Everything here is MIT-licensed and designed to slot into Claude Code, Codex, Cursor, Gemini CLI, or any agent that speaks SKILL.md. Start with a single command and you get 17 skills covering every GEO dimension, plus a branded PDF report generator and an independent agent-readiness benchmark.
 
 ## Installation
 
@@ -12,7 +12,7 @@ Choose the method that fits your workflow:
 
 <Tabs>
   <Tab title="npx (Recommended)">
-    The fastest path — GitHub is the registry, this repo is the package:
+    The fastest path, GitHub is the registry, this repo is the package:
 
     ```bash
     # Install the whole suite
@@ -26,7 +26,7 @@ Choose the method that fits your workflow:
     ```
   </Tab>
   <Tab title="Claude Code Plugin">
-    Install via the Claude Code marketplace. Run these as **two separate commands** — paste the first, press Enter, then paste the second:
+    Install via the Claude Code marketplace. Run these as **two separate commands**, paste the first, press Enter, then paste the second:
 
     ```text
     /plugin marketplace add https://github.com/techhorizonlabs/thl-open
@@ -70,7 +70,7 @@ These tools are built end-to-end by Tech Horizon Labs:
 
 | Skill / Tool | What it does |
 |---|---|
-| `found-by-ai` | Connects Claude Code to the live scan at areyoufoundbyai.com — measures whether AI engines actually name a business when buyers ask |
+| `found-by-ai` | Connects Claude Code to the live scan at areyoufoundbyai.com, measures whether AI engines actually name a business when buyers ask |
 | `agent-readiness-scan` | Turns the Cloudflare `isitagentready.com` check into audit-grade CSV artifacts with a tracked 0–100 score |
 | `audit-report-kit` | TypeScript/Node tool that generates a branded client PDF and compile-checked JSON-LD from any GEO audit's data |
 
@@ -80,7 +80,7 @@ An attributed fork of `geo-seo-claude` by Zubair Trabzada (MIT), improved and wi
 
 | Skill | What it does |
 |---|---|
-| `geo` | Umbrella dispatcher — routes `/geo audit`, `/geo citability`, `/geo schema`, and all other `/geo` commands |
+| `geo` | Umbrella dispatcher, routes `/geo audit`, `/geo citability`, `/geo schema`, and all other `/geo` commands |
 | `geo-audit` | Orchestrates 5 parallel subagents across all 6 GEO dimensions and produces a composite score |
 | `geo-citability` | Passage-level AI citation readiness scoring |
 | `geo-crawlers` | AI crawler access and `robots.txt` analysis |
@@ -88,11 +88,11 @@ An attributed fork of `geo-seo-claude` by Zubair Trabzada (MIT), improved and wi
 | `geo-brand-mentions` | Scans brand presence across AI-cited platforms (Reddit, YouTube, Wikipedia, LinkedIn) |
 | `geo-platform-optimizer` | Platform-specific readiness for Google AI Overviews, ChatGPT, Perplexity, Gemini, Bing Copilot |
 | `geo-schema` | Structured-data detection, validation, and generation |
-| `geo-technical` | Technical SEO foundations — SSR, Core Web Vitals, crawlability, mobile, security |
+| `geo-technical` | Technical SEO foundations, SSR, Core Web Vitals, crawlability, mobile, security |
 | `geo-content` | Content quality and E-E-A-T assessment |
 | `geo-report` | Client-ready markdown deliverable generation |
 | `geo-report-pdf` | Professional PDF report with charts and scores |
-| `geo-compare` | Monthly delta tracking — show score improvements over time |
+| `geo-compare` | Monthly delta tracking, show score improvements over time |
 | `geo-prospect` | CRM-lite prospect and client pipeline management |
 | `geo-proposal` | Auto-generate client proposals from audit data |
 
@@ -100,7 +100,7 @@ An attributed fork of `geo-seo-claude` by Zubair Trabzada (MIT), improved and wi
 
 | Tool | What it does |
 |---|---|
-| `audit-report-kit` | TypeScript/Node — generates a branded PDF (`@react-pdf/renderer`) and compile-checked JSON-LD (`schema-dts`) from audit data |
+| `audit-report-kit` | TypeScript/Node, generates a branded PDF (`@react-pdf/renderer`) and compile-checked JSON-LD (`schema-dts`) from audit data |
 
 ## Skill Pages
 
@@ -124,9 +124,9 @@ An attributed fork of `geo-seo-claude` by Zubair Trabzada (MIT), improved and wi
 THL Open is licensed under **MIT**. Two attribution notes apply:
 
 <Note>
-  The `geo-*` skills are an attributed fork of [`geo-seo-claude`](https://github.com/zubair-trabzada/geo-seo-claude) by **Zubair Trabzada** (MIT). Tech Horizon Labs de-rotted them, fixed portability, and wired them into the THL method — but the foundation is his open-source work, and we credit it fully. See `NOTICE.md` and `CHANGELOG.md` in the repo.
+  The `geo-*` skills are an attributed fork of [`geo-seo-claude`](https://github.com/zubair-trabzada/geo-seo-claude) by **Zubair Trabzada** (MIT). Tech Horizon Labs de-rotted them, fixed portability, and wired them into the THL method, but the foundation is his open-source work, and we credit it fully. See `NOTICE.md` and `CHANGELOG.md` in the repo.
 
   The THL-original tools (`found-by-ai`, `agent-readiness-scan`, `audit-report-kit`) are © Tech Horizon Labs.
 </Note>
 
-There is **no telemetry** — nothing in this repo phones home. Read `SECURITY.md` in the repo for details.
+There is **no telemetry**. Nothing in this repo phones home. Read `SECURITY.md` in the repo for details.
