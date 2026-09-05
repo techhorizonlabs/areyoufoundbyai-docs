@@ -1,10 +1,10 @@
 ---
 title: "Check Which AI Crawlers Can Access Your Website Now"
 sidebarTitle: "Crawler Checker"
-description: "Instantly check your robots.txt against 13 AI crawlers — GPTBot, ClaudeBot, PerplexityBot, and more — and get the fix for any that are blocked."
+description: "Instantly check your robots.txt against 13 AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and more) and get the fix for any that are blocked."
 ---
 
-Before any AI engine can cite your business, its crawler must be able to read your site. If GPTBot, ClaudeBot, or PerplexityBot hit a `Disallow` rule in your `robots.txt` — or a firewall block at the CDN level — the engine that depends on that crawler cannot index your content, and you simply won't appear in its answers. The AI Crawler Checker audits your live `robots.txt` against all 13 major AI user-agents and tells you exactly what each one sees.
+Before any AI engine can cite your business, its crawler must be able to read your site. If GPTBot, ClaudeBot, or PerplexityBot hit a `Disallow` rule in your `robots.txt` (or a firewall block at the CDN level) the engine that depends on that crawler cannot index your content, and you simply won't appear in its answers. The AI Crawler Checker audits your live `robots.txt` against all 13 major AI user-agents and tells you exactly what each one sees.
 
 <Warning>
   Blocking AI crawlers directly prevents citations. A single misplaced `Disallow` rule can make you invisible to an entire AI engine. Check this before any other GEO fix.
@@ -38,9 +38,9 @@ The checker tests each of the following user-agents against your `robots.txt`:
 
 For each crawler you get one of three statuses:
 
-- **Allowed** — the crawler can access your site normally.
-- **Blocked** — an explicit `Disallow` rule prevents access. Fix this immediately.
-- **Not Specified** — no rule covers this user-agent. Most crawlers treat this as allowed, but adding an explicit `Allow` rule removes any ambiguity.
+- **Allowed**, the crawler can access your site normally.
+- **Blocked**, an explicit `Disallow` rule prevents access. Fix this immediately.
+- **Not Specified**, no rule covers this user-agent. Most crawlers treat this as allowed, but adding an explicit `Allow` rule removes any ambiguity.
 
 The results panel also displays your current `robots.txt` content so you can see exactly which rules are in effect.
 
@@ -89,14 +89,14 @@ User-agent: FacebookBot
 Allow: /
 ```
 
-At minimum, add allow rules for the four engines that drive the most AI-assisted buyer research — ChatGPT (GPTBot, OAI-SearchBot), Perplexity (PerplexityBot), Claude (ClaudeBot), and Google AI Overviews (Google-Extended). You can also disallow expensive dynamic paths — internal search pages, cart endpoints, API routes — while still allowing crawlers on your main content.
+At minimum, add allow rules for the four engines that drive the most AI-assisted buyer research: ChatGPT (GPTBot, OAI-SearchBot), Perplexity (PerplexityBot), Claude (ClaudeBot), and Google AI Overviews (Google-Extended). You can also disallow expensive dynamic paths (internal search pages, cart endpoints, API routes) while still allowing crawlers on your main content.
 
 <Accordion title="What if my firewall is blocking crawlers despite robots.txt allowing them?">
   A permissive `robots.txt` is a necessary but not sufficient condition. Some WAF (Web Application Firewall) configurations and CDN security rules block user-agents by name or by traffic pattern before `robots.txt` is ever consulted. If the checker shows a crawler as **Allowed** in `robots.txt` but you're still not appearing in that engine's answers, check your Cloudflare, Fastly, or server-level firewall rules for rules that target bot traffic. Verify directly by inspecting your server access logs for the crawler's user-agent string.
 </Accordion>
 
 <Accordion title="Should I allow all crawlers, or can I be selective?">
-  You can be selective — blocking a crawler that feeds an AI engine you don't care about is a legitimate choice. However, blocking any of the four major engines (ChatGPT, Perplexity, Claude, Google AI Overviews) makes you completely invisible to that engine's users. Before blocking any AI crawler, consider whether the traffic or compute cost genuinely outweighs the citation benefit.
+  You can be selective, blocking a crawler that feeds an AI engine you don't care about is a legitimate choice. However, blocking any of the four major engines (ChatGPT, Perplexity, Claude, Google AI Overviews) makes you completely invisible to that engine's users. Before blocking any AI crawler, consider whether the traffic or compute cost genuinely outweighs the citation benefit.
 </Accordion>
 
 <Tip>

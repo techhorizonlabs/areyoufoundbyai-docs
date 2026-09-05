@@ -1,10 +1,10 @@
 ---
-title: 'POST /api/scan — Trigger a Live AI Visibility Scan'
+title: 'POST /api/scan: Trigger a Live AI Visibility Scan'
 sidebarTitle: 'POST /api/scan'
-description: 'Reference for the /api/scan endpoint — request parameters, authentication, code examples, and every field in the scan response object.'
+description: 'Reference for the /api/scan endpoint, request parameters, authentication, code examples, and every field in the scan response object.'
 ---
 
-The `/api/scan` endpoint triggers a live AI-visibility scan for any public URL. It reads your site, generates buyer questions from what it finds, asks those questions across real AI engines, and returns two scores plus a prioritised fix plan — all in a single response.
+The `/api/scan` endpoint triggers a live AI-visibility scan for any public URL. It reads your site, generates buyer questions from what it finds, asks those questions across real AI engines, and returns two scores plus a prioritised fix plan, all in a single response.
 
 ## Endpoint
 
@@ -62,7 +62,7 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
 </ResponseField>
 
 <ResponseField name="readiness" type="number">
-  AI Readiness score from 0 to 100. Measures how well your site is built to earn AI recommendations — a composite of 6 weighted dimensions including AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
+  AI Readiness score from 0 to 100. Measures how well your site is built to earn AI recommendations, a composite of 6 weighted dimensions including AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
 </ResponseField>
 
 <ResponseField name="verdict" type="string">
@@ -70,7 +70,7 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
 </ResponseField>
 
 <ResponseField name="queries" type="array">
-  The buyer questions used during the scan. These are generated from what the scanner reads on your site — who your customers are, what they need, and where you operate.
+  The buyer questions used during the scan. These are generated from what the scanner reads on your site, who your customers are, what they need, and where you operate.
 </ResponseField>
 
 <ResponseField name="competitors" type="array">
@@ -101,13 +101,13 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
 </ResponseField>
 
 <ResponseField name="report" type="string">
-  A shareable URL pointing to the full HTML report. Always surface this URL to the end user — it contains verbatim engine answers, the per-question visibility board, and copy-paste schema and `llms.txt` generated for your site.
+  A shareable URL pointing to the full HTML report. Always surface this URL to the end user. It contains verbatim engine answers, the per-question visibility board, and copy-paste schema and `llms.txt` generated for your site.
 </ResponseField>
 
 ## Free tier vs. paid tiers
 
 <Note>
-  The free tier scans 2 buyer questions across 2 engines (ChatGPT and Gemini), with each question asked more than once. Paid tiers return full results for up to 25 questions across all 7 engines, each question sampled up to 3 times with a majority vote — up to 525 live AI answers per scan.
+  The free tier scans 2 buyer questions across 2 engines (ChatGPT and Gemini), with each question asked more than once. Paid tiers return full results for up to 25 questions across all 7 engines, each question sampled up to 3 times with a majority vote, up to 525 live AI answers per scan.
 </Note>
 
 ## Scan duration
@@ -115,5 +115,5 @@ No API key is required for the free tier. Add an `Authorization: Bearer` header 
 Expect approximately **60 seconds** for a free-tier scan. Paid-tier scans take longer because they cover more engines, more questions, and run multiple sampling rounds for a stable majority-voted result.
 
 <Tip>
-  The open-source `found-by-ai` Claude Code skill (available via `npx skills add techhorizonlabs/thl-open`) is a thin wrapper around this endpoint — it uses the same request shape and returns the same response fields, then hands the `report` URL and fix plan back to the agent conversation.
+  The open-source `found-by-ai` Claude Code skill (available via `npx skills add techhorizonlabs/thl-open`) is a thin wrapper around this endpoint. It uses the same request shape and returns the same response fields, then hands the `report` URL and fix plan back to the agent conversation.
 </Tip>

@@ -4,7 +4,7 @@ sidebarTitle: 'Claude Code Skills'
 description: 'Install the open-source thl-open skill suite to run GEO audits, live scans, and automated fix-deploy-rescan loops directly inside Claude Code.'
 ---
 
-The Found by AI open-source skill suite brings AI visibility measurement directly into your coding workflow. Instead of switching between your terminal and a browser dashboard, you run GEO audits, read live scores, and apply fixes — all from inside Claude Code. The suite ships 17 skills via the `thl-open` package; this guide covers the three most important ones for improving your AI visibility.
+The Found by AI open-source skill suite brings AI visibility measurement directly into your coding workflow. Instead of switching between your terminal and a browser dashboard, you run GEO audits, read live scores, and apply fixes, all from inside Claude Code. The suite ships 17 skills via the `thl-open` package; this guide covers the three most important ones for improving your AI visibility.
 
 ## Install the skill suite
 
@@ -14,7 +14,7 @@ Run this command in your terminal to install the full suite:
 npx skills add techhorizonlabs/thl-open
 ```
 
-This installs all 17 skills into your Claude Code environment. You can also install the suite as a Claude Code plugin via the marketplace — search for **thl-open** in the Claude Code plugin directory.
+This installs all 17 skills into your Claude Code environment. You can also install the suite as a Claude Code plugin via the marketplace, search for **thl-open** in the Claude Code plugin directory.
 
 <Note>
   The skills are open-source. You can read the source for every skill at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open) and verify exactly what each one does before running it.
@@ -22,7 +22,7 @@ This installs all 17 skills into your Claude Code environment. You can also inst
 
 ## The Found by AI skill
 
-The `found-by-ai` skill is a live scan wrapper that connects Claude Code directly to the Found by AI API. It runs a real-time scan against any URL and returns the full measurement — no account or authentication required.
+The `found-by-ai` skill is a live scan wrapper that connects Claude Code directly to the Found by AI API. It runs a real-time scan against any URL and returns the full measurement, no account or authentication required.
 
 **What it does:** Calls `POST https://areyoufoundbyai.com/api/scan` with your URL, waits for the engines to respond (approximately 60 seconds), and returns a structured report with everything you need to understand your AI visibility and know what to fix.
 
@@ -55,7 +55,7 @@ The free tier asks 2 buyer questions across 2 engines once per IP. For a complet
 
 The GEO Audit skill runs a deep parallel audit of your site across all six GEO dimensions simultaneously, using five subagents working in parallel. It produces a comprehensive report with a composite score and per-dimension findings.
 
-**What it does:** Launches five subagents to evaluate all six GEO dimensions — Subagent 1 covers both AI Citability and Brand Authority, while Subagents 2–5 each handle Platform Optimization, Technical GEO, Content E-E-A-T, and Schema & Structured Data respectively. Each subagent returns weighted findings that are assembled into a composite score.
+**What it does:** Launches five subagents to evaluate all six GEO dimensions, Subagent 1 covers both AI Citability and Brand Authority, while Subagents 2–5 each handle Platform Optimization, Technical GEO, Content E-E-A-T, and Schema & Structured Data respectively. Each subagent returns weighted findings that are assembled into a composite score.
 
 **How to use it:**
 
@@ -85,11 +85,11 @@ The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prio
 
 Before starting, the skill:
 1. Calls `get_visibility_score` to record your baseline scores.
-2. Confirms `protected-pages.txt` exists (listing paths it must never edit — pricing, legal, checkout).
+2. Confirms `protected-pages.txt` exists (listing paths it must never edit, pricing, legal, checkout).
 3. Agrees run parameters with you: target score, iteration cap, rescan budget.
 
 <Warning>
-  **Every change requires your approval before it deploys.** This is an absolute rule built into the skill — no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
+  **Every change requires your approval before it deploys.** This is an absolute rule built into the skill, no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
 </Warning>
 
 The loop stops when any one of these conditions is met:
@@ -102,5 +102,5 @@ The loop stops when any one of these conditions is met:
 At the end of each run, the skill produces a run report showing your baseline scores, final scores, each fix shipped with its measured delta, the items on your action list with reasons, and the rescan budget used.
 
 <Note>
-  17 skills are included in the suite — see the full skill reference at [/skills/overview](/skills/overview) for documentation on all of them.
+  17 skills are included in the suite, see the full skill reference at [/skills/overview](/skills/overview) for documentation on all of them.
 </Note>

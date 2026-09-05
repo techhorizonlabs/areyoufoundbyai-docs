@@ -4,10 +4,10 @@ sidebarTitle: "Connect"
 description: "Step-by-step instructions for connecting the Found by AI MCP server to Claude Desktop, Claude Projects, ChatGPT, Perplexity Spaces, and Gemini Gems."
 ---
 
-Connecting the Found by AI MCP server to your AI assistant takes less than two minutes. Once connected, your assistant can query your live visibility scores, fix lists, and competitor data mid-conversation — no copy-pasting required. Follow the tab for whichever AI assistant you use.
+Connecting the Found by AI MCP server to your AI assistant takes less than two minutes. Once connected, your assistant can query your live visibility scores, fix lists, and competitor data mid-conversation, no copy-pasting required. Follow the tab for whichever AI assistant you use.
 
 <Note>
-  **No account yet?** Use the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to test the connection against Found by AI's own live data before you run your first scan. The demo endpoint requires no token and no signup.
+  **No account yet?** Use the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to test the connection against Found by AI's own live data before you run your first scan. The demo endpoint requires no token and no signup.
 </Note>
 
 ## Connect your assistant
@@ -24,7 +24,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
         claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/YOUR-TOKEN
         ```
 
-        Replace `YOUR-TOKEN` with the token from your console (**Settings → Live MCP endpoint**). The token is embedded in the URL — there is no separate API key field.
+        Replace `YOUR-TOKEN` with the token from your console (**Settings → Live MCP endpoint**). The token is embedded in the URL, there is no separate API key field.
       </Step>
       <Step title="Restart Claude Desktop">
         Quit and relaunch Claude Desktop so it picks up the new server configuration.
@@ -122,7 +122,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
         https://areyoufoundbyai.com/mcp/YOUR-TOKEN
         ```
 
-        Save the connector. No additional authentication fields are required — your token is in the URL.
+        Save the connector. No additional authentication fields are required, your token is in the URL.
       </Step>
       <Step title="Test the connection">
         Start a new conversation inside the Space and ask:
@@ -142,7 +142,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
         In the Gemini app, open **Gems** from the left sidebar, then click **New Gem**.
       </Step>
       <Step title="Name your Gem">
-        Give the Gem a recognisable name, such as **AI Visibility — [Your Business Name]**.
+        Give the Gem a recognisable name, such as **AI Visibility, [Your Business Name]**.
       </Step>
       <Step title="Add the Gem instructions">
         In the Gem instructions field, paste the following, replacing `YOUR-TOKEN` with your token:
@@ -172,7 +172,7 @@ Regardless of which assistant you use, the simplest verification is to ask a que
 What is the AI visibility score for [your domain]?
 ```
 
-A successful connection returns a specific numeric score drawn from your latest scan. If your assistant responds with a generic answer about AI visibility in general, the MCP server is not yet connected — revisit the setup steps for your assistant and confirm the endpoint URL is correct.
+A successful connection returns a specific numeric score drawn from your latest scan. If your assistant responds with a generic answer about AI visibility in general, the MCP server is not yet connected, revisit the setup steps for your assistant and confirm the endpoint URL is correct.
 
 You can also ask:
 
@@ -189,7 +189,7 @@ A connected assistant will enumerate the 17 available tools. If it cannot, the s
 ## Troubleshooting
 
 <Accordion title="My assistant answers from its training knowledge instead of calling the MCP server">
-  This usually means the MCP server registration did not complete. For Claude Desktop, re-run the `claude mcp add` command and restart the app. For other assistants, confirm the connector URL is saved correctly — check that the `/mcp/YOUR-TOKEN` portion is present and that you replaced `YOUR-TOKEN` with your actual token.
+  This usually means the MCP server registration did not complete. For Claude Desktop, re-run the `claude mcp add` command and restart the app. For other assistants, confirm the connector URL is saved correctly, check that the `/mcp/YOUR-TOKEN` portion is present and that you replaced `YOUR-TOKEN` with your actual token.
 </Accordion>
 
 <Accordion title="The connection works but returns no data for my domain">
@@ -203,5 +203,5 @@ A connected assistant will enumerate the 17 available tools. If it cannot, the s
   https://areyoufoundbyai.com/mcp/demo
   ```
 
-  This is connected to Found by AI's own live monitoring of areyoufoundbyai.com — all 16 read tools are available, and on the demo `request_rescan` returns a worked example without queuing anything. It requires no token and no signup.
+  This is connected to Found by AI's own live monitoring of areyoufoundbyai.com, all 16 read tools are available, and on the demo `request_rescan` returns a worked example without queuing anything. It requires no token and no signup.
 </Accordion>

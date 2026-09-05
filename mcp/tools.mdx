@@ -4,17 +4,17 @@ sidebarTitle: "MCP Tools"
 description: "All 17 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_context, get_fix_plan, get_rivals, request_rescan, and more."
 ---
 
-The Found by AI MCP server exposes 17 tools your AI assistant can call mid-conversation. Sixteen are read-only queries against your live measurement data; one — `request_rescan` — triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
+The Found by AI MCP server exposes 17 tools your AI assistant can call mid-conversation. Sixteen are read-only queries against your live measurement data; one (`request_rescan`) triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
 
 <Note>
-  **No account yet?** Point your assistant at the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to explore all 17 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
+  **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to explore all 17 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
 </Note>
 
 ## The 17 tools
 
 ### 1. `get_visibility(url)`
 
-Returns your current AI Visibility Score and AI Readiness Score (each out of 100), the previous week's scores for comparison, the separate off-site Footprint score, and the dimension subscores — AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
+Returns your current AI Visibility Score and AI Readiness Score (each out of 100), the previous week's scores for comparison, the separate off-site Footprint score, and the dimension subscores, AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -98,7 +98,7 @@ Returns the third-party domains AI engines cited when answering buyer questions 
 
 ### 8. `get_fix_plan(url)`
 
-Returns the prioritised fix list from the latest deep scan, ordered by expected impact — the changes most likely to move your AI Readiness Score appear first. Each item includes a plain-language description and the evidence behind it.
+Returns the prioritised fix list from the latest deep scan, ordered by expected impact, the changes most likely to move your AI Readiness Score appear first. Each item includes a plain-language description and the evidence behind it.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -135,7 +135,7 @@ Returns the given domain's rank and percentile against every other measured busi
 
 ### 11. `get_ai_traffic(url)`
 
-Returns the visitors AI engines actually sent to the given domain over the last 30 days, recorded by the site's own AI-traffic beacon — broken down by engine and week.
+Returns the visitors AI engines actually sent to the given domain over the last 30 days, recorded by the site's own AI-traffic beacon, broken down by engine and week.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -156,7 +156,7 @@ Returns how a headless agent browser renders the given domain: whether the page 
 **Returns:** render status (full / partial / blank), extractable character count, and recommendations for improving agent-readability.
 
 <Note>
-  `get_agent_view` refreshes daily on the scheduled crawl, not immediately after a `request_rescan`. Do not use it to verify a change you deployed today — check it the following day.
+  `get_agent_view` refreshes daily on the scheduled crawl, not immediately after a `request_rescan`. Do not use it to verify a change you deployed today, check it the following day.
 </Note>
 
 ---
@@ -181,7 +181,7 @@ Returns a drafting brief assembled from this week's verified measurement data: f
 |-----------|------|-------------|
 | `url` | string | The domain to build the brief for |
 
-**Returns:** a structured content brief with current gaps, source targets, and suggested angles — all drawn from live measurement data.
+**Returns:** a structured content brief with current gaps, source targets, and suggested angles, all drawn from live measurement data.
 
 ---
 
@@ -237,7 +237,7 @@ If you are on the Fleet plan, seven additional tools let you query across your e
 | `get_site_personas(domain)` | The buyer personas measured and edited for one site: who its buyers are, what each is trying to do, and the questions that persona asks. Cards a human pinned or wrote are marked |
 | `get_site_post_brief(domain)` | Content brief for a specific site in your fleet |
 
-Per-staff keys are scoped and revocable — issue a scoped key to give a client or agent access to their own site data without exposing your full fleet token.
+Per-staff keys are scoped and revocable, issue a scoped key to give a client or agent access to their own site data without exposing your full fleet token.
 
 ## Example prompts once connected
 
@@ -256,6 +256,6 @@ Your assistant translates each natural-language question into the appropriate to
 ## Tool permissions at a glance
 
 - **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`, `get_context`, `get_source_profile`): work with both personal tokens and scoped keys.
-- **Action** (`request_rescan`): requires a full personal or fleet token — scoped keys cannot trigger new measurements.
+- **Action** (`request_rescan`): requires a full personal or fleet token, scoped keys cannot trigger new measurements.
 
 The MCP connection can never modify your account, change your plan, or access your billing details. The only side-effect available is queuing a rescan of your own domain, within your plan's stated cap.

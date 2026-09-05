@@ -1,28 +1,28 @@
 ---
 title: "Submit Your Pages to Bing and ChatGPT via IndexNow"
 sidebarTitle: "IndexNow"
-description: "Use IndexNow to ping Bing's real-time index — the same index ChatGPT search reads — the moment you publish or update a page, for instant re-indexing."
+description: "Use IndexNow to ping Bing's real-time index (the same index ChatGPT search reads) the moment you publish or update a page, for instant re-indexing."
 ---
 
-ChatGPT's web search reads Bing's index. That means the fastest way to get a newly published or freshly updated page in front of ChatGPT users isn't to wait for a crawl — it's to tell Bing about it directly, right now. IndexNow is the real-time indexing protocol that makes this possible: one ping and Bing re-crawls your page within minutes. The Found by AI IndexNow tool generates your API key, walks you through the one-time key-file setup, and lets you submit URLs instantly.
+ChatGPT's web search reads Bing's index. That means the fastest way to get a newly published or freshly updated page in front of ChatGPT users isn't to wait for a crawl, it's to tell Bing about it directly, right now. IndexNow is the real-time indexing protocol that makes this possible: one ping and Bing re-crawls your page within minutes. The Found by AI IndexNow tool generates your API key, walks you through the one-time key-file setup, and lets you submit URLs instantly.
 
 ## Set up IndexNow
 
 <Steps>
   <Step title="Go to the IndexNow tool">
-    Navigate to [areyoufoundbyai.com/tools/indexnow](https://areyoufoundbyai.com/tools/indexnow). The tool generates a unique API key for your site — keep it, because the same key works forever for your domain.
+    Navigate to [areyoufoundbyai.com/tools/indexnow](https://areyoufoundbyai.com/tools/indexnow). The tool generates a unique API key for your site, keep it, because the same key works forever for your domain.
   </Step>
   <Step title="Generate your API key">
-    The tool generates a unique hexadecimal key (for example, `0a46923dd3164471a56d73e1714c07a2`). Copy it — you'll need it for both the key file and every submission request.
+    The tool generates a unique hexadecimal key (for example, `0a46923dd3164471a56d73e1714c07a2`). Copy it, you'll need it for both the key file and every submission request.
   </Step>
   <Step title="Host the key verification file">
-    Create a plain-text file named `YOUR-KEY.txt` containing exactly your key as the sole content — no extra whitespace or newlines. Upload it so it's accessible at:
+    Create a plain-text file named `YOUR-KEY.txt` containing exactly your key as the sole content, no extra whitespace or newlines. Upload it so it's accessible at:
 
     ```
     https://yourdomain.com/YOUR-KEY.txt
     ```
 
-    This file is how IndexNow verifies you own the domain. It ensures nobody can submit URLs on your behalf without your key file in place. This is a one-time step — once the file is live, you never need to touch it again.
+    This file is how IndexNow verifies you own the domain. It ensures nobody can submit URLs on your behalf without your key file in place. This is a one-time step, once the file is live, you never need to touch it again.
   </Step>
   <Step title="Submit your URLs">
     Paste your list of URLs (one per line) into the submission field, or enter your sitemap URL and the tool will extract the URLs automatically. Click **Submit** and the tool pings Bing's IndexNow endpoint on your behalf. Bing re-crawls the submitted pages typically within minutes.
@@ -31,7 +31,7 @@ ChatGPT's web search reads Bing's index. That means the fastest way to get a new
 
 ## What happens after you submit
 
-Bing adds your submitted URLs to its priority crawl queue and re-indexes them in minutes rather than days. Because ChatGPT's web-search feature reads Bing's index, your updated content becomes available to ChatGPT users in its next retrieval cycle. IndexNow also notifies Seznam, Naver, and Yandex — all IndexNow-compliant engines — from the same single submission.
+Bing adds your submitted URLs to its priority crawl queue and re-indexes them in minutes rather than days. Because ChatGPT's web-search feature reads Bing's index, your updated content becomes available to ChatGPT users in its next retrieval cycle. IndexNow also notifies Seznam, Naver, and Yandex (all IndexNow-compliant engines) from the same single submission.
 
 <Note>
   IndexNow only submits to Bing and other IndexNow-compliant engines (ChatGPT search, Seznam, Naver, Yandex). Google uses its own crawl pipeline and does not participate in IndexNow. Use Google Search Console's URL Inspection tool or a sitemap ping to accelerate Google indexing separately.
@@ -49,9 +49,9 @@ Submit to IndexNow any time you make a change that should be discovered quickly:
 - After launching a new product or service page
 
 <Accordion title="Can I automate submissions instead of doing them manually?">
-  Yes. Monitoring subscribers on the Found by AI platform get automatic IndexNow submission: when the weekly scan detects that your pages have changed, it submits them for you automatically — no manual step required. See [pricing](https://areyoufoundbyai.com/pricing#monitoring) for monitoring plan details.
+  Yes. Monitoring subscribers on the Found by AI platform get automatic IndexNow submission: when the weekly scan detects that your pages have changed, it submits them for you automatically, no manual step required. See [pricing](https://areyoufoundbyai.com/pricing#monitoring) for monitoring plan details.
 
-  If you prefer a self-hosted solution, you can also integrate IndexNow directly into your CMS publish workflow using the [IndexNow API](https://www.indexnow.org/documentation) — the endpoint accepts a simple POST request with your key and the list of URLs.
+  If you prefer a self-hosted solution, you can also integrate IndexNow directly into your CMS publish workflow using the [IndexNow API](https://www.indexnow.org/documentation), the endpoint accepts a simple POST request with your key and the list of URLs.
 </Accordion>
 
 <Accordion title="How do I know the submission worked?">
@@ -59,5 +59,5 @@ Submit to IndexNow any time you make a change that should be discovered quickly:
 </Accordion>
 
 <Tip>
-  Make IndexNow submission the last step in your content publishing checklist — publish, add schema, update llms.txt, then ping Bing. Doing all three before submitting means Bing crawls the fully optimised version of the page on the first pass.
+  Make IndexNow submission the last step in your content publishing checklist, publish, add schema, update llms.txt, then ping Bing. Doing all three before submitting means Bing crawls the fully optimised version of the page on the first pass.
 </Tip>
