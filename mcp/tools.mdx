@@ -1,16 +1,16 @@
 ---
-title: "Found by AI MCP Tools: Complete Reference for All 15"
+title: "Found by AI MCP Tools: Complete Reference for All 17"
 sidebarTitle: "MCP Tools"
-description: "All 15 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_fix_plan, get_rivals, request_rescan, and more."
+description: "All 17 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_context, get_fix_plan, get_rivals, request_rescan, and more."
 ---
 
-The Found by AI MCP server exposes 15 tools your AI assistant can call mid-conversation. Fourteen are read-only queries against your live measurement data; one — `request_rescan` — triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
+The Found by AI MCP server exposes 17 tools your AI assistant can call mid-conversation. Sixteen are read-only queries against your live measurement data; one — `request_rescan` — triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
 
 <Note>
-  **No account yet?** Point your assistant at the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to explore all 15 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required.
+  **No account yet?** Point your assistant at the demo endpoint — `https://areyoufoundbyai.com/mcp/demo` — to explore all 17 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
 </Note>
 
-## The 15 tools
+## The 17 tools
 
 ### 1. `get_visibility(url)`
 
@@ -185,7 +185,31 @@ Returns a drafting brief assembled from this week's verified measurement data: f
 
 ---
 
-### 15. `request_rescan(url)`
+### 15. `get_context()`
+
+Returns the complete weekly context document for your monitored domain: current scores, every tracked buyer question with its verbatim answer status, new mentions, the citation game plan and what to do next. It is the same content as the downloadable `context.md`, so an assistant can load your whole position in one call at the start of a conversation.
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| _(none)_ |  | The document is built for the domain behind the token in your endpoint URL |
+
+**Returns:** one Markdown document covering scores, tracked questions and their trajectories, mentions, priority fixes, citation targets and connections.
+
+---
+
+### 16. `get_source_profile(domain)`
+
+Returns a profile of any domain the answer engines cite: how often our measurements saw engines read it and across how many businesses and categories, what the site says it is from our crawl of its homepage, the other sources it is usually read alongside, and how to get listed or mentioned on it.
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `domain` | string | A cited source domain, for example one returned by `get_citation_sources` |
+
+**Returns:** read frequency and breadth, the source's own description, its co-read pack, and the practical route onto it.
+
+---
+
+### 17. `request_rescan(url)`
 
 Queues an immediate rescan of the given domain, consuming one on-demand scan credit from your plan's weekly allowance. The weekly scheduled scan runs regardless of this call and is not affected by the credit balance.
 
@@ -201,14 +225,16 @@ Queues an immediate rescan of the given domain, consuming one on-demand scan cre
 
 ## Fleet plan tools
 
-If you are on the Fleet plan, five additional tools let you query across your entire client network:
+If you are on the Fleet plan, seven additional tools let you query across your entire client network:
 
 | Tool | Description |
 |------|-------------|
 | `get_network_summary()` | Portfolio-wide AI Visibility and Readiness scores across all sites in your network |
+| `list_sites()` | Every site in the network with its latest visibility and readiness, week movement, verdict and monitoring status, worst performers first |
 | `get_site_scores(domain)` | Visibility and readiness scores for a specific site in your fleet |
 | `get_site_mentions(domain)` | Recent web mentions for a specific site in your fleet |
 | `get_site_fix_plan(domain)` | Prioritised fix list for a specific site in your fleet |
+| `get_site_personas(domain)` | The buyer personas measured and edited for one site: who its buyers are, what each is trying to do, and the questions that persona asks. Cards a human pinned or wrote are marked |
 | `get_site_post_brief(domain)` | Content brief for a specific site in your fleet |
 
 Per-staff keys are scoped and revocable — issue a scoped key to give a client or agent access to their own site data without exposing your full fleet token.
@@ -217,7 +243,7 @@ Per-staff keys are scoped and revocable — issue a scoped key to give a client 
 
 After adding the MCP server to your AI assistant, ask questions like these in plain language:
 
-```
+```text
 @found-by-ai What is my current AI visibility score for example.com?
 @found-by-ai Show me the verbatim answers ChatGPT gives when buyers ask about my category.
 @found-by-ai What should I fix first to improve my AI readiness score?
@@ -229,7 +255,7 @@ Your assistant translates each natural-language question into the appropriate to
 
 ## Tool permissions at a glance
 
-- **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`): work with both personal tokens and scoped keys.
+- **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`, `get_context`, `get_source_profile`): work with both personal tokens and scoped keys.
 - **Action** (`request_rescan`): requires a full personal or fleet token — scoped keys cannot trigger new measurements.
 
 The MCP connection can never modify your account, change your plan, or access your billing details. The only side-effect available is queuing a rescan of your own domain, within your plan's stated cap.

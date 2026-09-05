@@ -32,7 +32,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Test the connection">
         Start a new conversation and ask:
 
-        ```
+        ```text
         What is the AI visibility score for example.com?
         ```
 
@@ -54,7 +54,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Add the standing instruction">
         Paste the following, replacing `YOUR-TOKEN` with your token:
 
-        ```
+        ```text
         You have access to Found by AI data via MCP at https://areyoufoundbyai.com/mcp/YOUR-TOKEN.
         Use it to answer questions about AI visibility and readiness for my sites. At the start of
         every new conversation, call get_visibility to load my current scores before answering
@@ -64,7 +64,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Save and test">
         Save the instructions, then start a new conversation inside the project and ask:
 
-        ```
+        ```text
         What is my current AI readiness score and what should I fix first?
         ```
       </Step>
@@ -88,7 +88,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Paste your MCP URL">
         Enter the following URL, replacing `YOUR-TOKEN` with your token:
 
-        ```
+        ```text
         https://areyoufoundbyai.com/mcp/YOUR-TOKEN
         ```
       </Step>
@@ -98,7 +98,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Test the connection">
         Open a new conversation in the project and ask:
 
-        ```
+        ```text
         What is my AI visibility score and who is AI naming instead of me?
         ```
       </Step>
@@ -118,7 +118,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Configure the MCP connector">
         Set the connector type to **MCP** and paste your endpoint URL:
 
-        ```
+        ```text
         https://areyoufoundbyai.com/mcp/YOUR-TOKEN
         ```
 
@@ -127,7 +127,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Test the connection">
         Start a new conversation inside the Space and ask:
 
-        ```
+        ```text
         What buyer questions am I invisible on, and who does AI name instead?
         ```
       </Step>
@@ -147,7 +147,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Add the Gem instructions">
         In the Gem instructions field, paste the following, replacing `YOUR-TOKEN` with your token:
 
-        ```
+        ```text
         Query https://areyoufoundbyai.com/mcp/YOUR-TOKEN for visibility data when answering
         questions about AI visibility, AI readiness scores, competitors, or site improvements.
         Always fetch fresh data before answering rather than relying on cached responses.
@@ -156,7 +156,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
       <Step title="Save and test">
         Save the Gem, then open it and ask:
 
-        ```
+        ```text
         What is my AI readiness score breakdown by dimension?
         ```
       </Step>
@@ -168,7 +168,7 @@ Connecting the Found by AI MCP server to your AI assistant takes less than two m
 
 Regardless of which assistant you use, the simplest verification is to ask a question that requires a live tool call:
 
-```
+```text
 What is the AI visibility score for [your domain]?
 ```
 
@@ -176,11 +176,11 @@ A successful connection returns a specific numeric score drawn from your latest 
 
 You can also ask:
 
-```
+```text
 List the MCP tools you have access to from Found by AI.
 ```
 
-A connected assistant will enumerate the 15 available tools. If it cannot, the server has not been registered.
+A connected assistant will enumerate the 17 available tools. If it cannot, the server has not been registered.
 
 <Warning>
   Keep your MCP endpoint URL private. Anyone who holds your token can read your measurement data. Never paste it into a public document, a shared Notion page, or a public GitHub repository. Sharing it with your own AI assistant, or a trusted team member, is exactly what it is for.
@@ -199,9 +199,9 @@ A connected assistant will enumerate the 15 available tools. If it cannot, the s
 <Accordion title="I want to test without creating an account">
   Use the demo endpoint:
 
-  ```
+  ```text
   https://areyoufoundbyai.com/mcp/demo
   ```
 
-  This is connected to Found by AI's own live monitoring of areyoufoundbyai.com — all 14 read tools are available, and `request_rescan` is disabled on the demo. It requires no token and no signup.
+  This is connected to Found by AI's own live monitoring of areyoufoundbyai.com — all 16 read tools are available, and on the demo `request_rescan` returns a worked example without queuing anything. It requires no token and no signup.
 </Accordion>

@@ -75,7 +75,7 @@ The report is written to a Markdown file so you can commit it to your repository
 
 The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prioritised fix plan over the MCP connection, applies the fixes it can make in your repository, shows you every change as a diff, deploys after your approval, triggers a re-measure, and compares the new score against the baseline. It repeats until it reaches a target you set or hits a stop condition.
 
-**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `rescan_website`, polls for results, and records the measured delta for each fix shipped.
+**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `request_rescan`, polls for results, and records the measured delta for each fix shipped.
 
 **How to use it:** Set it as a standing instruction in Claude Projects, or invoke it directly:
 
