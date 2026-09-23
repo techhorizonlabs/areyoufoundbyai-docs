@@ -211,6 +211,10 @@ Returns a profile of any domain the answer engines cite: how often our measureme
 
 ### 17. `get_crawler_access(url)`
 
+<Warning>
+  **Ships with the next release.** This tool is documented ahead of its deployment. Until the service cutover the live server exposes 17 tools and this one is not callable, and the crawler checker tests the earlier 10-agent set. Everything else on this page is live now.
+</Warning>
+
 Returns whether the domain's robots.txt allows or blocks each documented AI crawler, grouped by what the crawler is for: search, model training, or fetching a page because a user asked. Read from the stored evidence of the latest deep scan, with the matching robots.txt rule quoted for each.
 
 | Parameter | Type | Description |
