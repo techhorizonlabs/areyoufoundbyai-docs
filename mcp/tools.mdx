@@ -1,16 +1,16 @@
 ---
-title: "Found by AI MCP Tools: Complete Reference for All 17"
+title: "Found by AI MCP Tools: Complete Reference for All 18"
 sidebarTitle: "MCP Tools"
-description: "All 17 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_context, get_fix_plan, get_rivals, request_rescan, and more."
+description: "All 18 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_context, get_crawler_access, get_fix_plan, request_rescan, and more."
 ---
 
-The Found by AI MCP server exposes 17 tools your AI assistant can call mid-conversation. Sixteen are read-only queries against your live measurement data; one (`request_rescan`) triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
+The Found by AI MCP server exposes 18 tools your AI assistant can call mid-conversation. Seventeen are read-only queries against your live measurement data; one (`request_rescan`) triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
 
 <Note>
-  **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to explore all 17 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
+  **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to explore all 18 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
 </Note>
 
-## The 17 tools
+## The 18 tools
 
 ### 1. `get_visibility(url)`
 
@@ -209,7 +209,23 @@ Returns a profile of any domain the answer engines cite: how often our measureme
 
 ---
 
-### 17. `request_rescan(url)`
+### 17. `get_crawler_access(url)`
+
+Returns whether the domain's robots.txt allows or blocks each documented AI crawler, grouped by what the crawler is for: search, model training, or fetching a page because a user asked. Read from the stored evidence of the latest deep scan, with the matching robots.txt rule quoted for each.
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `url` | string | The domain to query |
+
+**Returns:** 15 crawler rows across OpenAI, Anthropic, Google, Perplexity, Apple, Microsoft, Meta and Common Crawl, each with allow/block state and the rule that decided it.
+
+<Note>
+  The response also names the vendors this check cannot assess. xAI (Grok) and DeepSeek publish no crawler user-agent, so there is no identity for a `robots.txt` rule to name and the checker can say nothing about them either way. That is a limit on what `robots.txt` shows, not a finding about whether they reach the site by another route. Naming it stops an assistant reading silence as access.
+</Note>
+
+---
+
+### 18. `request_rescan(url)`
 
 Queues an immediate rescan of the given domain, consuming one on-demand scan credit from your plan's weekly allowance. The weekly scheduled scan runs regardless of this call and is not affected by the credit balance.
 
@@ -255,7 +271,7 @@ Your assistant translates each natural-language question into the appropriate to
 
 ## Tool permissions at a glance
 
-- **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`, `get_context`, `get_source_profile`): work with both personal tokens and scoped keys.
+- **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`, `get_context`, `get_source_profile`, `get_crawler_access`): work with both personal tokens and scoped keys.
 - **Action** (`request_rescan`): requires a full personal or fleet token, scoped keys cannot trigger new measurements.
 
 The MCP connection can never modify your account, change your plan, or access your billing details. The only side-effect available is queuing a rescan of your own domain, within your plan's stated cap.

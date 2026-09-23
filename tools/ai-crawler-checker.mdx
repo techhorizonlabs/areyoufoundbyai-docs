@@ -1,10 +1,10 @@
 ---
 title: "Check Which AI Crawlers Can Access Your Website Now"
 sidebarTitle: "Crawler Checker"
-description: "Instantly check your robots.txt against 13 AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and more) and get the fix for any that are blocked."
+description: "Instantly check your robots.txt against 15 AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Applebot, bingbot and more) and get the fix for any that are blocked."
 ---
 
-Before any AI engine can cite your business, its crawler must be able to read your site. If GPTBot, ClaudeBot, or PerplexityBot hit a `Disallow` rule in your `robots.txt` (or a firewall block at the CDN level) the engine that depends on that crawler cannot index your content, and you simply won't appear in its answers. The AI Crawler Checker audits your live `robots.txt` against all 13 major AI user-agents and tells you exactly what each one sees.
+Before any AI engine can cite your business, its crawler must be able to read your site. If GPTBot, ClaudeBot, or PerplexityBot hit a `Disallow` rule in your `robots.txt` (or a firewall block at the CDN level) the engine that depends on that crawler cannot index your content, and you simply won't appear in its answers. The AI Crawler Checker audits your live `robots.txt` against all 15 documented AI user-agents and tells you exactly what each one sees.
 
 <Warning>
   Blocking AI crawlers directly prevents citations. A single misplaced `Disallow` rule can make you invisible to an entire AI engine. Check this before any other GEO fix.
@@ -14,25 +14,33 @@ Before any AI engine can cite your business, its crawler must be able to read yo
 
 Navigate to [areyoufoundbyai.com/tools/ai-crawler-checker](https://areyoufoundbyai.com/tools/ai-crawler-checker), type or paste your domain, and click **Check**. The tool fetches your live `robots.txt` and evaluates every AI crawler rule in seconds.
 
-## The 13 AI crawlers it checks
+## The 15 AI crawlers it checks
 
 The checker tests each of the following user-agents against your `robots.txt`:
 
-| Crawler | AI Engine |
-|---|---|
-| GPTBot | OpenAI / ChatGPT |
-| ClaudeBot | Anthropic / Claude |
-| PerplexityBot | Perplexity AI |
-| Google-Extended | Google AI (Gemini, AI Overviews) |
-| OAI-SearchBot | OpenAI Search |
-| Cohere-AI | Cohere |
-| DuckAssistBot | DuckDuckGo AI |
-| You-bot | You.com |
-| YouBot | You.com (alternate) |
-| Meta-ExternalFetcher | Meta AI |
-| Amazon-bot | Amazon Alexa / AI |
-| ByteSpider | ByteDance / TikTok AI |
-| FacebookBot | Meta / Facebook AI |
+Every crawler below is one its vendor publicly documents, with the vendor's own page as the source. We do not list a user-agent we cannot point at documentation for.
+
+| Crawler | Who it is | What it is for |
+| --- | --- | --- |
+| OAI-SearchBot | OpenAI | ChatGPT search |
+| GPTBot | OpenAI | Model training |
+| ChatGPT-User | OpenAI | Fetching a page because a user asked |
+| Claude-SearchBot | Anthropic | Claude search |
+| ClaudeBot | Anthropic | Model training |
+| Claude-User | Anthropic | Fetching a page because a user asked |
+| PerplexityBot | Perplexity | Search |
+| Perplexity-User | Perplexity | Fetching a page because a user asked |
+| Googlebot | Google | Google Search |
+| Google-Extended | Google | Gemini training and grounding |
+| Applebot | Apple | Apple Search, Siri and Spotlight |
+| Applebot-Extended | Apple | Foundation model training |
+| bingbot | Microsoft | Bing Search, which grounds Copilot |
+| meta-externalagent | Meta | Meta AI training and indexing |
+| CCBot | Common Crawl | The corpus many models train on |
+
+<Note>
+  **Two AI vendors this check cannot assess.** xAI (Grok) and DeepSeek publish no crawler user-agent, and xAI's reported strings are widely reported as not sent, with traffic arriving as ordinary browser agents. With no published identity, there is nothing for a `robots.txt` rule to name, so this checker cannot tell you anything about those two vendors. That is a limit on what `robots.txt` can show you here, not a finding about whether they reach your site by some other route. Their absence from the list is neither permission nor a block, and we would rather say so than leave a gap you might read as access.
+</Note>
 
 ## What the results show
 
@@ -46,9 +54,9 @@ The results panel also displays your current `robots.txt` content so you can see
 
 ## Fix blocked crawlers
 
-If any AI crawler shows as **Blocked**, add explicit allow rules to your `robots.txt`. Place these blocks before any broad `Disallow` rules to ensure they take precedence. The full set to cover all 13 AI crawlers is:
+If any AI crawler shows as **Blocked**, add explicit allow rules to your `robots.txt`. Place these blocks before any broad `Disallow` rules to ensure they take precedence. The full set to cover all 15 AI crawlers is:
 
-```
+```text
 User-agent: GPTBot
 Allow: /
 
@@ -64,28 +72,34 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-User-agent: Cohere-AI
+User-agent: ChatGPT-User
 Allow: /
 
-User-agent: DuckAssistBot
+User-agent: Claude-SearchBot
 Allow: /
 
-User-agent: You-bot
+User-agent: Claude-User
 Allow: /
 
-User-agent: YouBot
+User-agent: Perplexity-User
 Allow: /
 
-User-agent: Meta-ExternalFetcher
+User-agent: Googlebot
 Allow: /
 
-User-agent: Amazon-bot
+User-agent: Applebot
 Allow: /
 
-User-agent: ByteSpider
+User-agent: Applebot-Extended
 Allow: /
 
-User-agent: FacebookBot
+User-agent: bingbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: CCBot
 Allow: /
 ```
 
