@@ -220,7 +220,7 @@ Returns whether the domain's robots.txt allows or blocks each documented AI craw
 **Returns:** 15 crawler rows across OpenAI, Anthropic, Google, Perplexity, Apple, Microsoft, Meta and Common Crawl, each with allow/block state and the rule that decided it.
 
 <Note>
-  The response also names the AI vendors that publish no crawler at all. xAI (Grok) and DeepSeek do not document a user agent, so a robots.txt rule cannot control them and their absence from the list is not permission. Saying so is the honest result, and it stops an assistant reading silence as access.
+  The response also names the vendors this check cannot assess. xAI (Grok) and DeepSeek publish no crawler user-agent, so there is no identity for a `robots.txt` rule to name and the checker can say nothing about them either way. That is a limit on what `robots.txt` shows, not a finding about whether they reach the site by another route. Naming it stops an assistant reading silence as access.
 </Note>
 
 ---
