@@ -4,13 +4,13 @@ sidebarTitle: "Overview"
 description: "The Are you found by AI? MCP server gives your AI assistant live access to your visibility scores, saved engine answers, fix plan and competitor data, with no copy-pasting."
 ---
 
-The Model Context Protocol (MCP) is an open standard that lets AI assistants call external tools mid-conversation, pulling fresh data on demand rather than relying on whatever you paste into the chat. The Are you found by AI? MCP server exposes your measurements (scores, saved engine answers, fix plan, competitors, citation sources) as tools: the public demo lists 20 (19 read tools and one action), and a customer token lists 23, adding three saved-only reads. Connect it once and every conversation starts from this week's numbers, not a stale snapshot.
+The Model Context Protocol (MCP) is an open standard that lets AI assistants call external tools mid-conversation, pulling fresh data on demand rather than relying on whatever you paste into the chat. The Are you found by AI? MCP server exposes your measurements (scores, saved engine answers, fix plan, competitors, citation sources) as tools: the public demo lists 20 (19 read tools and one action), and a customer token lists more, including the shared token balance and saved client reports. Connect it once and every conversation starts from this week's numbers, not a stale snapshot.
 
 ## What you can do with the MCP integration
 
 Once connected, you can ask your AI assistant about your AI visibility in plain language, without opening a dashboard or copying a report. The integration lets you:
 
-- **Re-measure**: queue a fresh measurement from inside a conversation with `request_rescan` (capped by your plan), then read the new scores a few minutes later
+- **Re-measure**: queue a fresh measurement from inside a conversation with `request_rescan` (capped by your plan), then read the new scores a few minutes later. On a token account, you confirm the token price in your workspace first
 - **Check your scores**: ask for your current AI Visibility and AI Readiness scores, the subscores, and the separate off-site Footprint score
 - **Get the prioritised fix list**: ask what to fix first and receive the fixes from your latest deep scan, highest impact first
 - **Read verbatim engine answers**: see the saved answers ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek or Google AI Overviews gave when a buyer asked about your category, with the searches the engine ran first

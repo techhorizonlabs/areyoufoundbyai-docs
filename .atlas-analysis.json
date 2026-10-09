@@ -95,10 +95,10 @@
   },
   "keyFeatures": [
     "Free scan: 2 buyer questions on ChatGPT and Gemini, no signup",
-    "Pro: up to 25 buyer questions every week across seven engines (ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek, Google AI Overviews), US$79 a month per site or US$490 a year",
+    "Pro: US$79 a month for 14,000 tokens, or US$869 a year, shared across every site on the account; a check of 25 buyer questions across seven engines (ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek, Google AI Overviews) plus a fresh site read uses 3,150 tokens; the customer chooses weekly, monthly or whenever; token packs US$10 for 1,000, US$20 for 2,000, US$50 for 5,000",
     "Named share: countable saved answers that name the business, divided by all countable saved answers",
     "AI Readiness from five site signals, with the off-site Footprint scored separately",
-    "MCP server: 20 tools on the public demo, 23 on a customer token",
+    "MCP server: 20 tools on the public demo; a customer token lists more (30, or 39 with editing on, per the service source; not verified against a live customer token)",
     "Free scan API at /api/scan, no auth required",
     "Open-source Claude Code skill suite (17 skills, npx installable)",
     "Branded PDF audit reports via audit-report-kit",
