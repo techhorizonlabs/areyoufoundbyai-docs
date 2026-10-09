@@ -1,55 +1,54 @@
-# Mintlify Starter Kit
+# Are you found by AI? documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Source for the public documentation of [Are you found by AI?](https://areyoufoundbyai.com), the
+AI visibility measurement built and operated by [Tech Horizon Labs](https://techhorizonlabs.com).
+The site is built with [Mintlify](https://mintlify.com) and published at
+<https://foundbyai.mintlify.app/>.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+The product asks AI engines the questions a business's buyers type, saves the answers, and shows
+whether the business is named, who is named instead and what to fix. These pages cover how the
+measurement works, the plans, the free tools, the MCP server, the `/api/scan` endpoint and the
+open-source skills in [techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open).
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+## Where the facts come from
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+The live site is the source of truth. When a page here and the live site disagree, the live site
+wins and this repo should be corrected. The pages to check first:
 
-## AI-assisted writing
+- Plans and prices: <https://areyoufoundbyai.com/pricing>
+- How the measurement works: <https://areyoufoundbyai.com/how-it-works> and <https://areyoufoundbyai.com/framework>
+- Machine-readable summary: <https://areyoufoundbyai.com/llms.txt>
+- Agent tools and the MCP server: <https://areyoufoundbyai.com/for-agents> and <https://areyoufoundbyai.com/guides/connect-your-ai>
+- Website counts: <https://areyoufoundbyai.com/methodology/website-counts>
+- MCP tool list: send `tools/list` to the public demo server, `https://areyoufoundbyai.com/mcp/demo`
 
-Set up your AI coding tool to work with Mintlify:
+## Repository layout
+
+- `docs.json`: site configuration and navigation.
+- `introduction.mdx`, `quickstart.mdx`, `how-it-works.mdx`: getting started.
+- `concepts/`, `guides/`, `tools/`, `research/`: product documentation.
+- `api/`, `mcp/`, `skills/`: the scan endpoint, the MCP server and the open-source skills.
+- `sources/site/`: dated copies of pages from the live site, kept as reference material. They are
+  not maintained and may be out of date; do not cite them as current.
+
+## Preview locally
+
+Install the [Mintlify CLI](https://www.npmjs.com/package/mint) and run it from the folder that holds
+`docs.json`:
 
 ```bash
-npx skills add https://mintlify.com/docs
-```
-
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
-
-See the [AI tools guides](/ai-tools) for tool-specific setup.
-
-## Development
-
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
 npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+The preview runs at `http://localhost:3000`. Pushes to the default branch publish through the
+Mintlify GitHub app.
 
-## Publishing changes
+## Writing rules
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+See [`AGENTS.md`](./AGENTS.md). In short: Australian English, plain sentences, no em or en dashes,
+no hype words, and no figure lower than the real one.
 
-## Need help?
+## Contact
 
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+Tech Horizon Labs, Noosa, Australia. hello@techhorizonlabs.com
