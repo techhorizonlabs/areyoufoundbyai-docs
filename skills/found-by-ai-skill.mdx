@@ -31,7 +31,7 @@ Is example.com found by AI? Run the free scan.
 The scan takes about 60 seconds because the engines are asked live. The free scan asks two buyer questions on two engines (ChatGPT and Gemini), with no authentication, no signup and no API key.
 
 <Note>
-  The scan API is rate-limited per IP, and fair use is up to 15 free scans per browser per day. For seven engines (ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek and Google AI Overviews), **Pro** (trial included) runs up to 25 buyer questions every week, and the US$29 **Snapshot** is one full report with 12 buyer questions. See [areyoufoundbyai.com/pricing](https://areyoufoundbyai.com/pricing).
+  The scan API is rate-limited per IP, and fair use is up to 15 free scans per browser per day. For seven engines (ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek and Google AI Overviews), **Pro** runs checks of up to 25 buyer questions on the schedule you choose, from a token balance shared across every site (US$79 a month for 14,000 tokens; a 25-question check plus a fresh site read uses 3,150). See [areyoufoundbyai.com/pricing](https://areyoufoundbyai.com/pricing).
 </Note>
 
 ## What your agent receives
@@ -75,7 +75,7 @@ The scan response includes these fields:
 </ResponseField>
 
 <Note>
-  The public headline measure on Are you found by AI? is the **named share**: countable saved answers that name the business, divided by all countable saved answers. Every saved repetition counts, a link to the website on its own does not count as being named, and missing evidence is left out rather than counted as a no. The report shows it with the counts beside it. Read it with the questions, engines, date and answer count: a short free scan is a smaller sample than a full weekly check.
+  The public headline measure on Are you found by AI? is the **named share**: countable saved answers that name the business, divided by all countable saved answers. Every saved repetition counts, a link to the website on its own does not count as being named, and missing evidence is left out rather than counted as a no. The report shows it with the counts beside it. Read it with the questions, engines, date and answer count: a short free scan is a smaller sample than a full check.
 </Note>
 
 ## Underlying API
@@ -134,7 +134,7 @@ MCP access is included on the **Free** plan as well as **Pro**, and the demo is 
 claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/demo
 ```
 
-The public demo lists 20 tools: 19 read tools and one action, `request_rescan`, which re-runs the measurement inside a cap. A customer monitor token lists 23: the same 20 plus three saved-only reads, `get_balance` (the site's existing rescan allowance, queued status and cooldown), `get_weekly_brief` and `get_grants`. See [MCP Integration](/guides/mcp-integration) for setup.
+The public demo lists 20 tools: 19 read tools and one action, `request_rescan`, which re-runs the measurement inside a cap. A customer's own token lists more: three saved-only reads (`get_balance`, `get_weekly_brief` and `get_grants`) and the workspace tools, including `get_token_balance` for the shared token balance. See [MCP Tools](/mcp/tools#more-tools-on-a-customer-token) for the list and [MCP Integration](/guides/mcp-integration) for setup.
 
 <Tip>
   For a site on Pro, the [AI loop guide](https://areyoufoundbyai.com/guides/ai-loop) sets out the full workflow: fix, deploy, re-measure, repeat, with a human approving every change.

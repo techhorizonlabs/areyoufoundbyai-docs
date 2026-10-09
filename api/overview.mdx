@@ -34,7 +34,7 @@ Content-type for `POST` requests is `application/json`.
 
 `/api/scan` is rate-limited per IP each hour, and fair use is 15 free scans per browser per day. On very busy days the free scan can also reach its daily capacity; leave your email and the scan runs automatically when capacity frees, with the result sent to you. A recent result for the same site may be returned from cache.
 
-Pro monitoring does not run through `/api/scan`. Pro re-measures up to 25 buyer questions across seven engines every week, and you read the results in your console or over MCP.
+Pro monitoring does not run through `/api/scan`. Pro checks up to 25 buyer questions across seven engines on the schedule you choose (weekly, monthly or whenever you like), spending tokens from your account, and you read the results in your console or over MCP.
 
 ## Error format
 
@@ -78,6 +78,6 @@ Errors from `/api/scan` return a JSON body with a human-readable message:
     icon="plug"
     href="/mcp/tools"
   >
-    MCP tools for reading scores, verbatim answers, crawler access, fix plans and more: 20 on the demo, 23 on a customer token.
+    MCP tools for reading scores, verbatim answers, crawler access, fix plans and more: 20 on the demo, more on a customer token.
   </Card>
 </CardGroup>

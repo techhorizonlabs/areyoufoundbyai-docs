@@ -4,7 +4,7 @@ sidebarTitle: "MCP Tools"
 description: "Every Are you found by AI? MCP tool with its parameters, on the demo, a customer token and an agency connection: get_visibility, get_answers, get_context, get_crawler_access, get_schema_evidence, get_fix_plan, request_rescan and more."
 ---
 
-The Are you found by AI? MCP server gives your AI assistant tools it can call mid-conversation. The public demo lists 20 tools: 19 read tools and one action, `request_rescan`. A customer monitor token lists 23: the same 20 plus three saved-only reads, `get_balance`, `get_weekly_brief` and `get_grants`. Every tool is scoped to the token you connect with, so no tool takes a `url` or domain parameter: the token decides which business the answers are about.
+The Are you found by AI? MCP server gives your AI assistant tools it can call mid-conversation. The public demo lists 20 tools: 19 read tools and one action, `request_rescan`. A customer's own token lists more: 30 tools, or 39 when the account owner has turned on editing for the site's connection. Those two counts come from the service source with the current release settings, not from a live customer token, so ask your assistant to list its tools to see your own. The extra tools are listed [below](#more-tools-on-a-customer-token). Every tool is scoped to the token you connect with, so no tool takes a `url` or domain parameter: the token decides which business the answers are about.
 
 <Note>
   **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to try all 20 tools against our own live monitoring of areyoufoundbyai.com. No key and no signup. On the demo, `request_rescan` returns a worked example of its response and queues nothing.
@@ -205,23 +205,53 @@ The measured category benchmark, from saved measurements: where the business sit
 
 ### 20. `request_rescan`
 
-The one action. It queues a fresh deep measurement now instead of waiting for the weekly scan, using one of the plan's capped on-demand re-measures. It runs the measurement and changes nothing else. Results land in a few minutes; then read `get_visibility` again.
+The demo's one action. It queues a fresh deep measurement now instead of waiting for the next scheduled scan, using one of the plan's capped on-demand re-measures. It runs the measurement and changes nothing else. Results land in a few minutes; then read `get_visibility` again.
 
 **Parameters:** none.
 
 <Warning>
-  On-demand rescans are capped at 5 per rolling 7 days. A rescan is refused when the freshest scan is under 20 minutes old, and only one can be queued at a time. If the server refuses, wait for the cooldown or the next weekly scan rather than retrying, and never call `request_rescan` again while polling for a rescan already in progress. On the demo endpoint it returns a worked example and queues nothing.
+  On a token account, `request_rescan` queues nothing and spends nothing: it replies that the token price needs to be reviewed and confirmed in your workspace. Use `quote_token_run` and `confirm_token_run`, or the workspace itself, to run a paid check. On a subscription that keeps its earlier terms, on-demand rescans are capped at 5 per rolling 7 days. A rescan is refused when the freshest scan is under 20 minutes old, and only one can be queued at a time. If the server refuses, wait for the cooldown or the next scheduled check rather than retrying, and never call `request_rescan` again while polling for a rescan already in progress. On the demo endpoint it returns a worked example and queues nothing.
 </Warning>
 
-## Three more reads on a customer token
+## More tools on a customer token
 
-A customer monitor token lists these three tools as well, which makes 23. The demo does not list them. All three are saved-only reads and take no parameters.
+The demo does not list any of these. The counts and names below come from the service source with the current release settings (token billing and the client workspace on). We have not listed them against a live customer token, so treat your own assistant's tool list as the final word.
+
+**Three saved-only reads**, no parameters (23 with the 20 above):
 
 | Tool | What it returns |
 | --- | --- |
-| `get_balance` | The site's existing rolling on-demand scan allowance, queued status and cooldown. Credits and monetary balances are not available |
+| `get_balance` | The site's existing rolling on-demand scan allowance, queued status and cooldown. It does not show the token balance; use `get_token_balance` for that |
 | `get_weekly_brief` | The saved weekly brief |
 | `get_grants` | The saved grants source check |
+
+**Seven workspace reads** (30 in total):
+
+| Tool | Parameters | What it returns |
+| --- | --- | --- |
+| `get_token_balance` | none | The account's shared token balance and expiry dates. Needs account billing authority |
+| `get_token_run` | `id` | The saved state and result of one token run for this site |
+| `list_reports` | `offset` | Private author reports for this client, plus the available templates |
+| `get_report` | `id`, `revision`, `includeDeleted` | One saved report, or one of its saved versions |
+| `list_deleted_reports` | `offset` | Deleted reports that can still be restored during their 30-day recovery period |
+| `list_report_versions` | `id`, `offset` | The preserved versions of one report |
+| `get_brief` | none | The saved client brief: goals, positioning, audience, key pages and writing preferences |
+
+**Nine workspace actions**, listed only when the account owner has turned on editing for the site's connection (39 in total). Each needs `confirmed: true`, which records that the person agreed:
+
+| Tool | What it does |
+| --- | --- |
+| `quote_token_run` | Returns a ten-minute price quote for a run without spending. Show the price to the person before confirming |
+| `confirm_token_run` | After the person agrees to the quoted price, reserves the tokens and queues that exact run. A retried request key is not charged twice |
+| `set_brief` | Replaces the saved client brief |
+| `save_report` | Saves a new client report |
+| `update_report` | Replaces a report's content at its current revision |
+| `delete_report` | Removes a report; it can be restored for 30 days |
+| `restore_report` | Restores a deleted report during its recovery period |
+| `restore_report_version` | Makes an earlier version current again, keeping history |
+| `regenerate_report` | Attaches the client's latest saved evidence to a report as a new version, without a new scan |
+
+There is no schedule tool on the connection. You choose how often checks run (weekly, monthly or whenever you like) in your signed-in workspace.
 
 ## Agency network catalogue
 
@@ -242,7 +272,7 @@ An agency connection (a network link or a per-staff scoped key) reaches a separa
 | `run_check` | `domain` | Queues a capped on-demand run for one site and returns a run reference, not a result |
 | `get_run` | `run` | Given the run reference from `run_check`, says whether that run has produced a measurement yet, and reports its scores once it has |
 
-Alongside those network tools, the catalogue carries saved-evidence reads for each permitted site, each taking `domain`: `get_site_crawler_access`, `get_site_ai_traffic`, `get_site_agent_view`, `get_site_benchmark`, `get_site_share_of_voice`, `get_site_cited_queries`, `get_site_source_profile`, `get_site_citation_sources`, `get_site_schema_evidence`, `get_site_regional_visibility`, `get_site_weekly_brief` and `get_site_grants`. It also has `get_balance` (taking `domain`) for a site's existing scan allowance, and the setup reads `get_site_setup`, `get_edit_history` and `get_question_history`.
+Alongside those network tools, the catalogue carries saved-evidence reads for each permitted site, each taking `domain`: `get_site_crawler_access`, `get_site_ai_traffic`, `get_site_agent_view`, `get_site_benchmark`, `get_site_share_of_voice`, `get_site_cited_queries`, `get_site_source_profile`, `get_site_citation_sources`, `get_site_schema_evidence`, `get_site_regional_visibility`, `get_site_weekly_brief` and `get_site_grants`. It also has `get_balance` (taking `domain`) for a site's existing scan allowance, and the setup reads `get_site_setup`, `get_edit_history` and `get_question_history`. In the service source, the agency catalogue also carries the workspace tools above, each taking `domain`; the actions appear only for a connection allowed to make changes.
 
 Per-staff keys are scoped and revocable. See [Scoped keys](/guides/scoped-keys).
 
@@ -262,9 +292,10 @@ Your assistant turns each question into the right tool call and answers from you
 
 ## Tool permissions at a glance
 
-- **Read tools** (19 on the demo; 22 on a customer token with `get_balance`, `get_weekly_brief` and `get_grants`): `get_visibility`, `get_question_trajectories`, `get_personas`, `get_mentions`, `get_rivals`, `get_cited_queries`, `get_schema_evidence`, `get_regional_visibility`, `get_answers`, `get_share_of_voice`, `get_context`, `get_fix_plan`, `get_citation_sources`, `get_crawler_access`, `get_source_profile`, `get_post_brief`, `get_ai_traffic`, `get_agent_view`, `get_benchmark`.
-- **Action** (1): `request_rescan`, which re-runs your own measurement inside your plan's cap and touches nothing else.
+- **Read tools** (19 on the demo; on a customer token, also `get_balance`, `get_weekly_brief`, `get_grants` and the seven workspace reads): `get_visibility`, `get_question_trajectories`, `get_personas`, `get_mentions`, `get_rivals`, `get_cited_queries`, `get_schema_evidence`, `get_regional_visibility`, `get_answers`, `get_share_of_voice`, `get_context`, `get_fix_plan`, `get_citation_sources`, `get_crawler_access`, `get_source_profile`, `get_post_brief`, `get_ai_traffic`, `get_agent_view`, `get_benchmark`.
+- **Action** (1 on the demo): `request_rescan`, which re-runs your own measurement inside your plan's cap and touches nothing else. On a token account it queues nothing and points you to the workspace.
+- **Workspace actions** (9, only when the account owner has turned on editing): `quote_token_run`, `confirm_token_run`, `set_brief` and the six report actions.
 
 These tools answer for the business behind a monitor's token (or the demo). An agency connection uses the network catalogue above instead, where `run_check` is the action.
 
-The MCP connection can never change your account, plan or billing. The only side effect available is queuing a re-measure of your own business, within your plan's cap.
+The MCP connection cannot change your plan or your billing settings. Without editing turned on, its only side effect is `request_rescan`. With editing on, `confirm_token_run` spends tokens from your shared balance, but only after the person has seen and agreed to the quoted price, and the brief and report actions save content in your workspace.

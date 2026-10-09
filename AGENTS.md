@@ -16,8 +16,12 @@ those, do not publish it.
 
 - The product is "Are you found by AI?", with the question mark. Use the full name in titles and
   first mentions.
-- The paid plan is "Pro". The one-off report is the "Snapshot". Agencies and groups with several
+- The paid plan is "Pro". Agencies and groups with several
   sites ask for a rate; there is no public agency price.
+- Pro is one account that receives tokens every month, and every site on the account spends from
+  the same tokens. Each check spends tokens; the customer chooses how often checks run. Token
+  packs add tokens without a subscription. Take every price, token amount and expiry from the
+  live `/pricing` page, and do not describe Pro as priced per site or as a fixed weekly check.
 - The headline measure is the "named share": countable saved answers that name the business,
   divided by all countable saved answers. Every saved repetition counts, and missing evidence is
   left out rather than counted as a no.

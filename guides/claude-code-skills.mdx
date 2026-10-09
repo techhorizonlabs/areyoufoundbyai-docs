@@ -61,7 +61,7 @@ Is example.com found by AI? Run the free scan and show me who AI names instead.
   Always share the `report` URL with your client or stakeholder. It opens the readable report, with the answers behind the result, without needing any technical context.
 </Tip>
 
-The free scan asks 2 buyer questions on 2 engines (ChatGPT and Gemini). The scan API is rate-limited per IP, and fair use is up to 15 free scans per browser per day. For seven engines, **Pro** (trial included) runs up to 25 buyer questions every week, and the US$29 **Snapshot** is one full report with 12 buyer questions. See the [found-by-ai skill page](/skills/found-by-ai-skill) for the paid per-call endpoints and MCP.
+The free scan asks 2 buyer questions on 2 engines (ChatGPT and Gemini). The scan API is rate-limited per IP, and fair use is up to 15 free scans per browser per day. For seven engines, **Pro** runs checks of up to 25 buyer questions on the schedule you choose, spending from a shared token balance (14,000 tokens a month for US$79; a 25-question check plus a fresh site read uses 3,150). See the [found-by-ai skill page](/skills/found-by-ai-skill) for the paid per-call endpoints and MCP.
 
 ## The geo-audit skill
 
@@ -89,7 +89,7 @@ The report is written to a Markdown file so you can commit it to your repository
 
 ## The fix-and-re-measure loop
 
-The loop is not one of the 17 thl-open skills. It is a separate skill file published at [areyoufoundbyai.com/guides/ai-loop](https://areyoufoundbyai.com/guides/ai-loop) (agent-readable at `/guides/ai-loop/skill.md`), written for a site on Pro, where the weekly deep measurement supplies the fix plan. It automates the fix, deploy, re-measure cycle over your site's MCP connection, with you approving every change.
+The loop is not one of the 17 thl-open skills. It is a separate skill file published at [areyoufoundbyai.com/guides/ai-loop](https://areyoufoundbyai.com/guides/ai-loop) (agent-readable at `/guides/ai-loop/skill.md`), written for a site on Pro, where the deep measurement supplies the fix plan. It automates the fix, deploy, re-measure cycle over your site's MCP connection, with you approving every change.
 
 **What it does:** Reads `get_fix_plan`, classifies each fix as in-repo (it applies these) or yours to do (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, shows you the diff, deploys after your approval, calls `request_rescan`, polls `get_visibility` until the new measurement lands, and records the measured change for each fix shipped.
 
@@ -108,7 +108,7 @@ Before starting, the skill:
   **Every change requires your approval before it deploys.** This is a hard rule in the skill, with no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
 </Warning>
 
-Re-measures are capped: `request_rescan` allows 5 per rolling 7 days, is refused when the freshest scan is under 20 minutes old, and queues one at a time. The loop stops when any one of these conditions is met:
+Re-measures are capped: on a subscription that keeps its earlier terms, `request_rescan` allows 5 per rolling 7 days, is refused when the freshest scan is under 20 minutes old, and queues one at a time. On a token account, `request_rescan` queues nothing and asks you to confirm the token price in your workspace, so agree the token budget for the run with the loop as well. The loop stops when any one of these conditions is met:
 - Your target score is reached
 - Two consecutive iterations move the targeted score by nothing
 - The iteration cap is hit

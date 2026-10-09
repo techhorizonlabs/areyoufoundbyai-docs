@@ -119,6 +119,6 @@ Once your assistant is connected, ask it anything you would ask a colleague who 
 
 ## Full list of available tools
 
-The demo endpoint lists 20 tools: 19 read tools and one action, `request_rescan`, which queues a fresh measurement within your plan's cap and changes nothing else. On the demo, `request_rescan` returns a worked example without queuing anything. Your own token lists 23: the same 20 plus three saved-only reads, `get_balance` (your existing scan allowance, queued status and cooldown), `get_weekly_brief` and `get_grants`.
+The demo endpoint lists 20 tools: 19 read tools and one action, `request_rescan`, which queues a fresh measurement within your plan's cap and changes nothing else. On the demo, `request_rescan` returns a worked example without queuing anything. Your own token lists more: three saved-only reads (`get_balance`, `get_weekly_brief` and `get_grants`), the workspace reads such as `get_token_balance` for your shared token balance, and, when the account owner has turned on editing, workspace actions such as `quote_token_run` and `confirm_token_run`.
 
 See the [MCP Tools Reference](/mcp/tools) for every tool and its parameters.
