@@ -4,7 +4,7 @@ sidebarTitle: "Audit Report Kit"
 description: "Turn GEO audit data into a polished client PDF and compile-checked JSON-LD schema, ready to present and ready to paste into a site's head tag."
 ---
 
-`audit-report-kit` is the deliverable layer of the THL GEO Method. It takes the structured data your GEO audit produces and outputs two artifacts: a **branded client PDF** with cover page, dimension scores, findings, and a ranked fix sequence, and a **compile-checked JSON-LD** file with the schema the audit recommends. Both come from a single `npm run report` command. The JSON-LD is generated, not hand-written, which means it can't drift from your audit's recommendation and can't ship with invalid property names.
+`audit-report-kit` is the deliverable layer of the THL GEO Method. It takes the structured data your GEO audit produces and outputs two artefacts: a **branded client PDF** with cover page, dimension scores, findings, and a ranked fix sequence, and a **compile-checked JSON-LD** file with the schema the audit recommends. Both come from a single `npm run report` command. The JSON-LD is generated, not hand-written, so it can't drift from your audit's recommendation, and `npm run build` type-checks it so invalid property names are caught before you ship.
 
 ## Requirements
 
@@ -29,7 +29,7 @@ out/harborview.jsonld        # Compile-checked Organization JSON-LD
 The included sample uses fictional data for a Gold Coast insurance broker, swap in your client's real data to generate a production report.
 
 <Note>
-  `audit-report-kit` uses `@react-pdf/renderer` (MIT) and `schema-dts` (Apache-2.0). The compile-time validation means **you cannot ship invalid schema**: `tsc` fails before the PDF is generated. If a property name or type is wrong, TypeScript compilation catches it.
+  `audit-report-kit` uses `@react-pdf/renderer` (MIT) and `schema-dts` (Apache-2.0). Run `npm run build` (`tsc --noEmit`) to validate the JSON-LD types: if a property name or type is wrong, TypeScript compilation fails. `npm run report` runs the generator with `tsx` and does not type-check on its own, so run the build before you ship.
 </Note>
 
 ## What It Generates
@@ -39,7 +39,7 @@ The included sample uses fictional data for a Gold Coast insurance broker, swap 
     A client-ready report with a cover page, per-dimension score bars with provenance tags, prioritised findings by severity, and a ranked fix sequence. Rendered by `@react-pdf/renderer` using Flexbox layout, no browser engine required.
   </Card>
   <Card title="Compile-Checked JSON-LD" icon="code">
-    Organization or LocalBusiness schema validated at compile time against `schema-dts` types. If a property is wrong, TypeScript fails. The output is ready for a developer to paste into the site's `<head>`.
+    Organization or LocalBusiness schema typed against `schema-dts`. If a property is wrong, `npm run build` fails. The output is ready for a developer to paste into the site's `<head>`.
   </Card>
 </CardGroup>
 
@@ -60,7 +60,7 @@ The `src/sampleAudit.ts` file defines the full data shape that the report render
       Display name shown in the PDF, e.g. `AI Citability`, `Brand Authority`
     </ParamField>
     <ParamField body="score" type="number | null" required>
-      The dimension score, 0–100. Set to `null` when the dimension is `[unmeasured]`, the report renders `—` instead of a bar
+      The dimension score, 0 to 100. Set to `null` when the dimension is `[unmeasured]` or pure `[heuristic]`; the report renders `n/a` instead of a number
     </ParamField>
     <ParamField body="provenance" type="string">
       One of `scan`, `partial-scan`, `heuristic`, or `unmeasured`. Renders as a small muted tag beside the score bar.
@@ -95,7 +95,7 @@ The `src/sampleAudit.ts` file defines the full data shape that the report render
       The specific action to take, e.g. `Deploy Organization + Service JSON-LD`
     </ParamField>
     <ParamField body="impact" type="string" required>
-      Plain-language expected outcome, e.g. `Unlocks entity resolution; largest citability gain`
+      Plain-language expected outcome, e.g. `Enables entity resolution; largest citability gain`
     </ParamField>
   </Expandable>
 </ParamField>
@@ -105,7 +105,7 @@ The `src/sampleAudit.ts` file defines the full data shape that the report render
 ```typescript
 export type AuditReport = {
   client: { name: string; domain: string; location: string };
-  composite: number;      // 0–100 — the weighted average across all six dimensions
+  composite: number;      // 0 to 100, the weighted average across the six geo-audit dimensions
   band: string;           // e.g. "Critical", "Fair", "Good", "Excellent"
   summary?: string;       // Optional headline sentence for the cover page
   generatedAt: string;    // ISO date, e.g. "2026-06-14"
@@ -127,7 +127,7 @@ Replace the sample audit data in `src/sampleAudit.ts` with your client's real sc
     Set the `client` object with your client's real name, domain, and location.
   </Step>
   <Step title="Enter dimension scores">
-    Populate the `categories` array with scores from your `geo-audit` run. For any dimension that couldn't be measured, set `score: null` and `provenance: "unmeasured"`, the report renders `—` instead of a bar.
+    Populate the `categories` array with scores from your `geo-audit` run. For any dimension that couldn't be measured, set `score: null` and `provenance: "unmeasured"`; the report renders `n/a` instead of a number.
   </Step>
   <Step title="Add findings and fix steps">
     Transfer the prioritised findings and fix sequence from `GEO-AUDIT-REPORT.md` into the `findings` and `fixSequence` arrays.
@@ -136,7 +136,7 @@ Replace the sample audit data in `src/sampleAudit.ts` with your client's real sc
     ```bash
     npm run report
     ```
-    The PDF and JSON-LD are written to `out/`. If any schema property in the JSON-LD generation is invalid, `tsc` fails here and tells you exactly what's wrong before any file is written.
+    The PDF and JSON-LD are written to `out/`. Then run `npm run build`: if any schema property in the JSON-LD generation is invalid, `tsc` fails and tells you what's wrong.
   </Step>
 </Steps>
 
@@ -175,7 +175,7 @@ The output is a JavaScript object ready for `JSON.stringify()` and insertion int
 ## Validation: Why Compile-Time Matters
 
 ```bash
-npm run build   # runs tsc --noEmit — also validates JSON-LD types
+npm run build   # runs tsc --noEmit, which also validates the JSON-LD types
 ```
 
 Because `schema-dts` provides full TypeScript types for every schema.org property, the compiler catches mistakes before they reach your client's site. A mistyped property name (e.g., `adress` instead of `address`) is a compile error, not a silent runtime bug that you only discover when an AI crawler can't resolve your client's entity.

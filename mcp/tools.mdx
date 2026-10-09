@@ -1,281 +1,270 @@
 ---
-title: "Found by AI MCP Tools: Complete Reference for All 18"
+title: "Are you found by AI? MCP tools: full reference"
 sidebarTitle: "MCP Tools"
-description: "All 18 Found by AI MCP tools with parameters and return values: get_visibility, get_answers, get_context, get_crawler_access, get_fix_plan, request_rescan, and more."
+description: "Every Are you found by AI? MCP tool with its parameters, on the demo, a customer token and an agency connection: get_visibility, get_answers, get_context, get_crawler_access, get_schema_evidence, get_fix_plan, request_rescan and more."
 ---
 
-The Found by AI MCP server exposes 18 tools your AI assistant can call mid-conversation. Seventeen are read-only queries against your live measurement data; one (`request_rescan`) triggers a fresh measurement that counts against your plan's on-demand allowance. All tools work with a personal token in the endpoint URL; read-only tools also work with scoped keys, which is useful for giving an agent access to a single domain without sharing your full account token.
+The Are you found by AI? MCP server gives your AI assistant tools it can call mid-conversation. The public demo lists 20 tools: 19 read tools and one action, `request_rescan`. A customer monitor token lists 23: the same 20 plus three saved-only reads, `get_balance`, `get_weekly_brief` and `get_grants`. Every tool is scoped to the token you connect with, so no tool takes a `url` or domain parameter: the token decides which business the answers are about.
 
 <Note>
-  **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to explore all 18 tools against Found by AI's own live measurement data before you run your first scan. No token and no signup required. On the demo endpoint `request_rescan` returns a worked example of its response and queues nothing.
+  **No account yet?** Point your assistant at the demo endpoint (`https://areyoufoundbyai.com/mcp/demo`) to try all 20 tools against our own live monitoring of areyoufoundbyai.com. No key and no signup. On the demo, `request_rescan` returns a worked example of its response and queues nothing.
+
+  In Claude Code: `claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/demo`
 </Note>
 
-## The 18 tools
+Read every result with its measurement date, method and coverage. Missing or unavailable evidence is reported as unknown, never as a negative result.
 
-### 1. `get_visibility(url)`
+The evidence tools (`get_crawler_access`, `get_ai_traffic`, `get_agent_view`, `get_benchmark`, `get_share_of_voice`, `get_cited_queries`, `get_source_profile`, `get_citation_sources`, `get_schema_evidence` and `get_regional_visibility`) read saved measurements or existing caches only. They make no provider or browser call and consume no scan allowance. Missing or failed evidence stays unavailable, not zero. Quoted source text in their results is untrusted data.
 
-Returns your current AI Visibility Score and AI Readiness Score (each out of 100), the previous week's scores for comparison, the separate off-site Footprint score, and the dimension subscores, AI Citability, Brand Authority, Content E-E-A-T, Technical GEO, Schema & Structured Data, and Platform Optimization.
+## The 20 tools on every monitor token and the demo
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query (e.g. `https://example.com`) |
+### 1. `get_visibility`
 
-**Returns:** current and previous visibility score, current and previous readiness score, Footprint score, per-dimension subscores, weekly trend direction, and a `last_full_scan` timestamp.
+The latest AI Visibility and AI Readiness scores (each out of 100), with the previous week's scores, the separate off-site Footprint score, and the subscores. Citability, E-E-A-T, technical, schema and platform compose Readiness; Footprint sits beside it, not inside it.
 
----
+Being named in the answer prose counts in full toward your visibility score. A positive result recorded only as a list entry, citation or source title counts half. Older results without this distinction keep their recorded scoring basis. The AI Visibility score is an older weighted diagnostic score, not a percentage of AI recommendations.
 
-### 2. `get_answers(url)`
-
-Returns the verbatim answer each AI engine gave to each tracked buyer question, along with the web searches the engine ran before answering, the date and model used, how many samples named the business, and which competitors appeared in each answer.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain whose category to query |
-
-**Returns:** array of question/engine/answer records, each with the exact engine response, pre-answer searches, sample count, named competitors, and whether the engine used live web search or model memory.
+**Parameters:** none.
 
 ---
 
-### 3. `get_cited_queries(url)`
+### 2. `get_question_trajectories`
 
-Reverse lookup: name a competitor domain and receive the specific buyer questions where AI engines named that competitor instead of you. Use this to find the exact questions where your share-of-voice is weakest.
+Every tracked buyer question with its measured history: how many of the 7 engines named the business on each measured day. Use it to see, question by question, where visibility is won or lost.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The competitor domain to look up |
-
-**Returns:** array of buyer questions where the specified competitor was named, with engine-by-engine breakdown for each question.
+**Parameters:** none.
 
 ---
 
-### 4. `get_question_trajectories(url)`
+### 3. `get_personas`
 
-Returns every tracked buyer question and a day-by-day history of how many of the seven engines named the given domain on each measured day. Use this to spot whether visibility on a specific question is rising, falling, or flat.
+The 2 to 4 buyer personas inferred from the business's measured questions, described the way AI models would describe each buyer type, with the exact tracked questions each persona asks.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query |
-
-**Returns:** array of questions, each with a time-series of named counts (out of 7) across all measurement dates.
+**Parameters:** none.
 
 ---
 
-### 5. `get_rivals(url)`
+### 4. `get_mentions`
 
-Returns the competitor names AI engines gave to buyers instead of the given domain in the latest scan, plus which questions each competitor appeared on and how often they have recurred across measurements.
+New pages on the web that mention the business, when a mention check has been run.
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query |
-
-**Returns:** list of competitor names with question-level detail and recurrence data.
+| --- | --- | --- |
+| `days` | number _(optional)_ | Look-back window in days, 1 to 90 (default 30) |
 
 ---
 
-### 6. `get_share_of_voice(url)`
+### 5. `get_rivals`
 
-Returns the given domain's share of AI-answer mentions relative to the rivals the engines name in the same category, and shows how that share has moved over the tracked measurement window.
+The competitor names the answer engines actually gave in the latest scan when they did not name this business.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query |
-
-**Returns:** share-of-voice percentage, competitor comparison data, and trend over the measurement history.
+**Parameters:** none.
 
 ---
 
-### 7. `get_citation_sources(url)`
+### 6. `get_cited_queries`
 
-Returns the third-party domains AI engines cited when answering buyer questions in the given domain's category, and whether the given domain already appears on each source. These are the sites you need to get listed on to earn more AI citations.
+Questions naming or citing a competitor: a reverse lookup over saved measurements. Give a competitor's brand name or domain and get the buyer questions where the engines named them, which engines, how often, when they were last seen, and who else was named on those questions. It also reports where that domain was cited as a source. Coverage is the questions we have measured, so a thin result means we have not asked those questions yet, never that the competitor is absent from AI.
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain whose category to query |
-
-**Returns:** list of cited source domains with citation frequency, and a presence flag indicating whether your domain is already mentioned on each source.
+| --- | --- | --- |
+| `competitor` | string _(required)_ | A brand name or domain, for example `Rocketlane` or `rocketlane.com` |
+| `engine` | string _(optional)_ | Only questions where this engine named them |
+| `since` | string _(optional)_ | ISO date; only measurements on or after it |
+| `limit` | integer _(optional)_ | Maximum questions, default 25, maximum 100 |
 
 ---
 
-### 8. `get_fix_plan(url)`
+### 7. `get_schema_evidence`
 
-Returns the prioritised fix list from the latest deep scan, ordered by expected impact, the changes most likely to move your AI Readiness Score appear first. Each item includes a plain-language description and the evidence behind it.
+The saved structured-data comparison: initial HTML against rendered JSON-LD, with read dates, incomplete states, excerpts and limitations. It reads stored evidence only and makes no provider request. Page through the findings with `offset` and `limit`.
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query |
-
-**Returns:** ordered array of fix items, each with a title, description, supporting evidence, and whether the fix can be applied on-page or requires off-site action.
+| --- | --- | --- |
+| `offset` | integer _(optional)_ | Where to start in the findings; default 0 |
+| `limit` | integer _(optional)_ | How many findings to return, default 20, maximum 40 |
+| `chars` | integer _(optional)_ | Maximum characters per initial or rendered excerpt, default 3000, 120 to 12000 |
 
 ---
 
-### 9. `get_mentions(url)`
+### 8. `get_regional_visibility`
 
-Returns new pages on the web that mention the given domain, found in the daily web sweep. Pass an optional `days` parameter to control the look-back window.
+Saved regional naming observations: areas, buyer questions and engine naming observations, with retained samples and read coverage. Unknown and failed reads are kept distinct from "not named". It makes no fresh provider requests.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to monitor for mentions |
-| `days` | integer _(optional)_ | Number of days to look back (default: 7) |
-
-**Returns:** list of pages mentioning the domain, each with URL, title, publication date, and snippet.
+**Parameters:** none.
 
 ---
 
-### 10. `get_benchmark(url)`
+### 9. `get_answers`
 
-Returns the given domain's rank and percentile against every other measured business in its category. Use this to see whether a score of, say, 45 is strong or weak for your market.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to benchmark |
-
-**Returns:** category name, rank, percentile, category median score, and the number of businesses in the comparison set.
-
----
-
-### 11. `get_ai_traffic(url)`
-
-Returns the visitors AI engines actually sent to the given domain over the last 30 days, recorded by the site's own AI-traffic beacon, broken down by engine and week.
+The exact answer each engine gave to each tracked buyer question in the latest deep measurement: engine, model, date, whether the business was named and on how many samples, live web search or model memory, the competitors named in that answer, the web searches the engine ran before answering (fan-out), and the question's Google demand. This is the receipt behind every score.
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query (must have the traffic beacon installed) |
-
-**Returns:** total AI-referred visits and a per-engine, per-week breakdown covering ChatGPT, Perplexity, Claude, Gemini, and Copilot.
-
----
-
-### 12. `get_agent_view(url)`
-
-Returns how a headless agent browser renders the given domain: whether the page renders fully, partially, or blank, how many characters of content an agent can actually extract, and what is blocking full extraction if anything is.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to check |
-
-**Returns:** render status (full / partial / blank), extractable character count, and recommendations for improving agent-readability.
+| --- | --- | --- |
+| `offset` | integer _(optional)_ | Question offset from `nextOffset`; default 0 |
+| `question` | string _(optional)_ | Substring of a tracked question, case-insensitive |
+| `engine` | string _(optional)_ | One of ChatGPT, Perplexity, Gemini, Claude, Grok, DeepSeek, Google AI Overviews |
+| `limit` | integer _(optional)_ | Maximum question rows, default 12, maximum 25 |
+| `chars` | integer _(optional)_ | Maximum characters per answer, default 4000, maximum 12000 |
 
 <Note>
-  `get_agent_view` refreshes daily on the scheduled crawl, not immediately after a `request_rescan`. Do not use it to verify a change you deployed today, check it the following day.
+  **How results are labelled.** Named: your business is named in the answer. Cited: your website is linked in the answer's sources. Listed: your name appears in a list, heading or source title rather than in the prose. Found via search: a page appears in recorded search results, which on its own is not a citation or recommendation. These can overlap. Unavailable is not a negative result.
 </Note>
 
 ---
 
-### 13. `get_personas(url)`
+### 10. `get_share_of_voice`
 
-Returns the buyer personas behind the tracked buyer questions for the given domain. Each persona includes a name, description, and the specific questions that persona is mapped to.
+Saved share of voice, from saved measurements only. Two measurements, kept apart. First, your share of mentions in your own tracked answers against the rivals the engines named there. Second, web mention share: how often a web-scale index of ChatGPT answers mentions you against the brands we compare you with, which is not a rival list. Use `get_rivals` for who the engines name instead of you.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to query |
-
-**Returns:** array of buyer personas with mapped questions for each.
+**Parameters:** none.
 
 ---
 
-### 14. `get_post_brief(url)`
+### 11. `get_context`
 
-Returns a drafting brief assembled from this week's verified measurement data: fresh mentions, the buyer questions where the domain is absent, and the citation sources the engines read in its category. Hand this to your AI assistant to draft content in your own voice, grounded in real measurement rather than guesswork.
+The complete weekly context document: scores, every tracked question with its verbatim answer status, mentions, and what to do next. It is the same content as the downloadable `context.md`, so an assistant can load the whole picture in one call.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to build the brief for |
-
-**Returns:** a structured content brief with current gaps, source targets, and suggested angles, all drawn from live measurement data.
+**Parameters:** none.
 
 ---
 
-### 15. `get_context()`
+### 12. `get_fix_plan`
 
-Returns the complete weekly context document for your monitored domain: current scores, every tracked buyer question with its verbatim answer status, new mentions, the citation game plan and what to do next. It is the same content as the downloadable `context.md`, so an assistant can load your whole position in one call at the start of a conversation.
+The prioritised fix list from the latest deep scan: the specific changes that move the business up in AI answers, highest impact first.
+
+**Parameters:** none.
+
+---
+
+### 13. `get_citation_sources`
+
+Saved citation sources: the domains AI engines actually cite in answers matching this category, most-cited first, with whether this business appears on each.
+
+**Parameters:** none.
+
+---
+
+### 14. `get_crawler_access`
+
+Saved AI crawler access: whether the business's robots.txt allows or blocks each documented AI crawler from OpenAI, Anthropic, Google, Perplexity, Apple, Microsoft, Meta and Common Crawl, split by what each one is for: search, model training, or fetching a page because a user asked. It reads stored evidence only, never a fresh fetch of robots.txt, and quotes the matching robots.txt rule for each.
+
+It also names the vendors this checker cannot assess, so an agent does not read silence as permission.
+
+**Parameters:** none.
+
+---
+
+### 15. `get_source_profile`
+
+A saved profile of any domain the answer engines cite, from our measurement corpus: how often our measurements saw engines read it and across how many businesses and categories, what the site says it is (title and description from our crawl of its homepage), the co-read pack it travels in (sources the engines read together), and, where our crawler found one, the page where a business gets listed on it. A thin result means the engines rarely cite it in what we have measured so far.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| _(none)_ |  | The document is built for the domain behind the token in your endpoint URL |
-
-**Returns:** one Markdown document covering scores, tracked questions and their trajectories, mentions, priority fixes, citation targets and connections.
+| `source` | string _(required)_ | The source domain, for example `canstar.com.au` or `yelp.com` |
 
 ---
 
-### 16. `get_source_profile(domain)`
+### 16. `get_post_brief`
 
-Returns a profile of any domain the answer engines cite: how often our measurements saw engines read it and across how many businesses and categories, what the site says it is from our crawl of its homepage, the other sources it is usually read alongside, and how to get listed or mentioned on it.
+Everything an AI needs to draft social posts that move AI visibility, assembled from this week's measured data: fresh third-party mentions to anchor on, the exact buyer questions the engines answer without naming the business (and who they name instead), the domains the engines actually read, and the entity rules that make a post retrievable. It returns a drafting brief, never generated copy: the drafting happens in your AI, in the business's own voice.
+
+**Parameters:** none.
+
+---
+
+### 17. `get_ai_traffic`
+
+Saved AI-referred traffic: the visitors AI engines sent to the business's site, as recorded by the site's own beacon and already saved. It does not start a refresh.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `domain` | string | A cited source domain, for example one returned by `get_citation_sources` |
-
-**Returns:** read frequency and breadth, the source's own description, its co-read pack, and the practical route onto it.
+| `refresh` | boolean _(optional)_ | This saved-read surface does not start refreshes. Use the separately capped refresh action |
+| `confirmed` | boolean _(optional)_ | Listed in the tool schema without a description |
 
 ---
 
-### 17. `get_crawler_access(url)`
+### 18. `get_agent_view`
+
+The saved agent-browser observation of the site: how a headless agent browser read it (full, partial or blank). A site that renders blank to agents is invisible to agentic AI regardless of content quality. It returns the saved observation and does not start a new read.
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `refresh` | boolean _(optional)_ | This saved-read surface does not start refreshes. Use the separately capped refresh action |
+| `confirmed` | boolean _(optional)_ | Listed in the tool schema without a description |
+
+---
+
+### 19. `get_benchmark`
+
+The measured category benchmark, from saved measurements: where the business sits against every other measured business in its category: rank, percentile, and the distribution above and below.
+
+**Parameters:** none.
+
+---
+
+### 20. `request_rescan`
+
+The one action. It queues a fresh deep measurement now instead of waiting for the weekly scan, using one of the plan's capped on-demand re-measures. It runs the measurement and changes nothing else. Results land in a few minutes; then read `get_visibility` again.
+
+**Parameters:** none.
 
 <Warning>
-  **Ships with the next release.** This tool is documented ahead of its deployment. Until the service cutover the live server exposes 17 tools and this one is not callable, and the crawler checker tests the earlier 10-agent set. Everything else on this page is live now.
+  On-demand rescans are capped at 5 per rolling 7 days. A rescan is refused when the freshest scan is under 20 minutes old, and only one can be queued at a time. If the server refuses, wait for the cooldown or the next weekly scan rather than retrying, and never call `request_rescan` again while polling for a rescan already in progress. On the demo endpoint it returns a worked example and queues nothing.
 </Warning>
 
-Returns whether the domain's robots.txt allows or blocks each documented AI crawler, grouped by what the crawler is for: search, model training, or fetching a page because a user asked. Read from the stored evidence of the latest deep scan, with the matching robots.txt rule quoted for each.
+## Three more reads on a customer token
 
-| Parameter | Type | Description |
+A customer monitor token lists these three tools as well, which makes 23. The demo does not list them. All three are saved-only reads and take no parameters.
+
+| Tool | What it returns |
+| --- | --- |
+| `get_balance` | The site's existing rolling on-demand scan allowance, queued status and cooldown. Credits and monetary balances are not available |
+| `get_weekly_brief` | The saved weekly brief |
+| `get_grants` | The saved grants source check |
+
+## Agency network catalogue
+
+An agency connection (a network link or a per-staff scoped key) reaches a separate catalogue, served as `found-by-ai-fleet`: the network tools below, plus saved-evidence reads for each permitted site. Each per-site tool takes a `domain` that must be one of the sites the connection can reach, as returned by `list_sites`.
+
+| Tool | Parameters | What it returns |
 | --- | --- | --- |
-| `url` | string | The domain to query |
+| `get_network_summary` | none | The whole network in one read: average AI visibility and readiness, the week's biggest movers, and how many sites are monitored |
+| `list_sites` | none | Each site with its latest visibility and readiness, week movement, verdict, tracking wiring and monitoring status, worst performers first |
+| `get_site_answers` | `domain`, `offset`, `question`, `engine`, `limit`, `chars` | The verbatim answers behind one site's score: which engines named the business, the sentence each engine gave, who was named instead, and the searches the engines ran first |
+| `get_site_rivals` | `domain` | The businesses the engines put in front of buyers instead of this site, plus names that recur across recent measurements |
+| `get_site_citations` | `domain`, `limit` | For each tracked question, whether the engines named the business or only used one of its pages as a source. Named and cited are counted separately |
+| `get_site_scores` | `domain` | Latest and previous visibility, readiness, verdict and subscores for one site |
+| `get_site_mentions` | `domain`, `days` | New pages on the web that mention one site, when a mention check has been run |
+| `get_site_fix_plan` | `domain` | The prioritised fix list from one site's latest deep scan |
+| `get_site_personas` | `domain` | The buyer personas measured and edited for one site; cards a human pinned or wrote are marked |
+| `get_site_post_brief` | `domain` | A drafting brief for social posts from one site's measured data |
+| `run_check` | `domain` | Queues a capped on-demand run for one site and returns a run reference, not a result |
+| `get_run` | `run` | Given the run reference from `run_check`, says whether that run has produced a measurement yet, and reports its scores once it has |
 
-**Returns:** 15 crawler rows across OpenAI, Anthropic, Google, Perplexity, Apple, Microsoft, Meta and Common Crawl, each with allow/block state and the rule that decided it.
+Alongside those network tools, the catalogue carries saved-evidence reads for each permitted site, each taking `domain`: `get_site_crawler_access`, `get_site_ai_traffic`, `get_site_agent_view`, `get_site_benchmark`, `get_site_share_of_voice`, `get_site_cited_queries`, `get_site_source_profile`, `get_site_citation_sources`, `get_site_schema_evidence`, `get_site_regional_visibility`, `get_site_weekly_brief` and `get_site_grants`. It also has `get_balance` (taking `domain`) for a site's existing scan allowance, and the setup reads `get_site_setup`, `get_edit_history` and `get_question_history`.
 
-<Note>
-  The response also names the vendors this check cannot assess. xAI (Grok) and DeepSeek publish no crawler user-agent, so there is no identity for a `robots.txt` rule to name and the checker can say nothing about them either way. That is a limit on what `robots.txt` shows, not a finding about whether they reach the site by another route. Naming it stops an assistant reading silence as access.
-</Note>
-
----
-
-### 18. `request_rescan(url)`
-
-Queues an immediate rescan of the given domain, consuming one on-demand scan credit from your plan's weekly allowance. The weekly scheduled scan runs regardless of this call and is not affected by the credit balance.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | string | The domain to rescan |
-
-**Returns:** confirmation that the rescan is queued, expected completion time, and the number of on-demand credits remaining this week.
-
-<Warning>
-  On-demand rescans are capped at 5 per rolling 7 days, with a 20-minute cooldown between consecutive calls. If the server refuses a rescan, wait for the cooldown or the next weekly scheduled scan rather than retrying. Never call `request_rescan` again while polling for results from a rescan already in progress.
-</Warning>
-
-## Fleet plan tools
-
-If you are on the Fleet plan, seven additional tools let you query across your entire client network:
-
-| Tool | Description |
-|------|-------------|
-| `get_network_summary()` | Portfolio-wide AI Visibility and Readiness scores across all sites in your network |
-| `list_sites()` | Every site in the network with its latest visibility and readiness, week movement, verdict and monitoring status, worst performers first |
-| `get_site_scores(domain)` | Visibility and readiness scores for a specific site in your fleet |
-| `get_site_mentions(domain)` | Recent web mentions for a specific site in your fleet |
-| `get_site_fix_plan(domain)` | Prioritised fix list for a specific site in your fleet |
-| `get_site_personas(domain)` | The buyer personas measured and edited for one site: who its buyers are, what each is trying to do, and the questions that persona asks. Cards a human pinned or wrote are marked |
-| `get_site_post_brief(domain)` | Content brief for a specific site in your fleet |
-
-Per-staff keys are scoped and revocable, issue a scoped key to give a client or agent access to their own site data without exposing your full fleet token.
+Per-staff keys are scoped and revocable. See [Scoped keys](/guides/scoped-keys).
 
 ## Example prompts once connected
 
 After adding the MCP server to your AI assistant, ask questions like these in plain language:
 
 ```text
-@found-by-ai What is my current AI visibility score for example.com?
-@found-by-ai Show me the verbatim answers ChatGPT gives when buyers ask about my category.
+@found-by-ai What is my current AI visibility score, and what moved since last week?
+@found-by-ai Show me the verbatim answers ChatGPT gave when buyers asked about my category.
 @found-by-ai What should I fix first to improve my AI readiness score?
 @found-by-ai Which competitors is AI naming instead of me, and on which questions?
 @found-by-ai Which third-party sites do the engines cite in my market, and am I on them?
 ```
 
-Your assistant translates each natural-language question into the appropriate tool call and returns a plain-English answer drawn from your live measurement data.
+Your assistant turns each question into the right tool call and answers from your live measurement data.
 
 ## Tool permissions at a glance
 
-- **Read-only tools** (`get_visibility`, `get_answers`, `get_cited_queries`, `get_question_trajectories`, `get_rivals`, `get_share_of_voice`, `get_citation_sources`, `get_fix_plan`, `get_mentions`, `get_benchmark`, `get_ai_traffic`, `get_agent_view`, `get_personas`, `get_post_brief`, `get_context`, `get_source_profile`, `get_crawler_access`): work with both personal tokens and scoped keys.
-- **Action** (`request_rescan`): requires a full personal or fleet token, scoped keys cannot trigger new measurements.
+- **Read tools** (19 on the demo; 22 on a customer token with `get_balance`, `get_weekly_brief` and `get_grants`): `get_visibility`, `get_question_trajectories`, `get_personas`, `get_mentions`, `get_rivals`, `get_cited_queries`, `get_schema_evidence`, `get_regional_visibility`, `get_answers`, `get_share_of_voice`, `get_context`, `get_fix_plan`, `get_citation_sources`, `get_crawler_access`, `get_source_profile`, `get_post_brief`, `get_ai_traffic`, `get_agent_view`, `get_benchmark`.
+- **Action** (1): `request_rescan`, which re-runs your own measurement inside your plan's cap and touches nothing else.
 
-The MCP connection can never modify your account, change your plan, or access your billing details. The only side-effect available is queuing a rescan of your own domain, within your plan's stated cap.
+These tools answer for the business behind a monitor's token (or the demo). An agency connection uses the network catalogue above instead, where `run_check` is the action.
+
+The MCP connection can never change your account, plan or billing. The only side effect available is queuing a re-measure of your own business, within your plan's cap.

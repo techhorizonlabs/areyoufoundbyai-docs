@@ -1,75 +1,59 @@
 ---
-title: 'Found by AI REST API: Base URL, Auth, and Error Codes'
+title: 'Are you found by AI? API: endpoints, access and errors'
 sidebarTitle: 'Overview'
-description: 'Base URL, authentication, content type, rate limits, error codes, and available endpoints for the Found by AI REST API, everything in one place.'
+description: 'Endpoints, access, rate limits and error format for the Are you found by AI? HTTP endpoints: the free scan, the x402 agent endpoints and the console data feeds.'
 ---
 
-The Found by AI REST API lets you trigger live AI-visibility scans programmatically, retrieve scores, and integrate results into your own tools, dashboards, and workflows. Every response is drawn from real-time queries to the AI engines. Nothing is cached or estimated.
+Are you found by AI? exposes a small set of HTTP endpoints alongside its [MCP server](/mcp/overview). The free scan endpoint lets you measure any public site programmatically; paid per-call agent endpoints run over x402; and each monitor's console is available as JSON or Markdown. For reading saved scores, verbatim answers and fix plans over time, use the MCP server.
 
 ## Base URL
 
-All API requests are made to:
-
 ```
-https://areyoufoundbyai.com/api
+https://areyoufoundbyai.com
 ```
-
-## Authentication
-
-Pass your API key as a Bearer token in the `Authorization` header:
-
-```
-Authorization: Bearer YOUR-API-KEY
-```
-
-The free tier requires no credentials at all. You can run your first scan with no setup. Paid tiers unlock more engines, more questions, and higher rate limits. Scoped keys for agency Fleet accounts are passed as part of the MCP endpoint URL rather than an `Authorization` header. See [Authentication](/api/authentication) for full details.
-
-Content-type for all requests is `application/json`.
-
-## Rate limits
-
-| Tier | Limit |
-|------|-------|
-| Free | Up to 15 scans per browser per day; a server-wide queue may apply on very busy days |
-| Monitoring ($79/mo) | Unaffected by the free-tier queue; weekly automated re-measurement included |
-
-<Note>
-  Paid tiers are never affected by the free-tier server-wide cap. Leave your email during a queued scan and your result arrives as soon as it clears.
-</Note>
 
 ## Available endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/scan` | Trigger a new AI Visibility + AI Readiness scan for a given URL |
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| `POST` | `/api/scan` | Free, no auth | One free measurement of a domain as JSON, in about 60 seconds. See [POST /api/scan](/api/scan) |
+| `POST` | `/api/agent/scan` | x402, paid per call | A deep measurement paid per call in USDC on Base, with no account and no API key. Currently a preview |
+| `GET` | `/api/agent/sov?kw=<category>` | x402, paid per call | AI share of voice for a category. Returns HTTP 402 without payment |
+| `GET` | `/monitor/<token>.json` | Monitor token | The whole console as one JSON document |
+| `GET` | `/monitor/<token>/context.md` | Monitor token | The same measurements as Markdown, sized to paste into a context window |
 
-<Note>
-  The API currently exposes the scan endpoint. Full read endpoints for scores, verbatim answers, and fix lists are available via the MCP server, see [MCP Tools](/mcp/tools).
-</Note>
+The site also publishes a skill card at `/.well-known/agent-skills`, and `/llms.txt` and `/llms-full.txt` for machines.
+
+## Access
+
+`/api/scan` needs no credentials at all: there are no API keys for it, and paid plans do not get a key for it. The other ways in are described in [Authentication](/api/authentication): monitor tokens for the console feeds and MCP, agency keys for the network catalogue, and x402 payment for `/api/agent/*`.
+
+Content-type for `POST` requests is `application/json`.
+
+## Rate limits for the free scan
+
+`/api/scan` is rate-limited per IP each hour, and fair use is 15 free scans per browser per day. On very busy days the free scan can also reach its daily capacity; leave your email and the scan runs automatically when capacity frees, with the result sent to you. A recent result for the same site may be returned from cache.
+
+Pro monitoring does not run through `/api/scan`. Pro re-measures up to 25 buyer questions across seven engines every week, and you read the results in your console or over MCP.
 
 ## Error format
 
-All API errors return a JSON body with a human-readable message and a machine-readable code:
+Errors from `/api/scan` return a JSON body with a human-readable message:
 
 ```json
 {
-  "error": "message",
-  "code": "ERROR_CODE"
+  "error": "Enter a valid website address."
 }
 ```
 
-### Common error codes
-
-| HTTP status | Code | Meaning |
-|-------------|------|---------|
-| `401` | `UNAUTHORIZED` | Missing or invalid API key |
-| `403` | `FORBIDDEN` | Valid key, but not permitted for the requested domain (scoped keys only) |
-| `422` | `INVALID_URL` | The `url` parameter is missing or malformed |
-| `429` | `RATE_LIMITED` | Rate limit reached for your tier |
-| `500` | `SCAN_ENGINE_ERROR` | The scan engine encountered an unexpected error |
+| HTTP status | Meaning |
+|-------------|---------|
+| `400` | The `url` is missing or is not a valid website address |
+| `429` | The hourly limit, the daily per-browser allowance or the daily scan capacity has been reached. The message says which |
+| `500` | The scan failed. The message carries the reason |
 
 <Tip>
-  A `422` response usually means the URL is missing a scheme (`https://`) or points to a private/non-public address. Always pass a fully-qualified public URL.
+  Pass a fully qualified public URL, including the scheme, for example `https://example.com`.
 </Tip>
 
 ## Explore further
@@ -80,20 +64,20 @@ All API errors return a JSON body with a human-readable message and a machine-re
     icon="radar"
     href="/api/scan"
   >
-    Full request and response reference for `POST /api/scan`, including all response fields and code examples.
+    Request and response reference for `POST /api/scan`, with code examples.
   </Card>
   <Card
     title="Authentication"
     icon="key"
     href="/api/authentication"
   >
-    How to create and pass API keys, free-tier limits, and scoped keys for agencies.
+    What authenticates where: monitor tokens, agency keys and x402.
   </Card>
   <Card
     title="MCP Tools"
     icon="plug"
     href="/mcp/tools"
   >
-    The MCP server exposes 18 tools for reading scores, verbatim answers, crawler access, fix lists, and more.
+    MCP tools for reading scores, verbatim answers, crawler access, fix plans and more: 20 on the demo, 23 on a customer token.
   </Card>
 </CardGroup>

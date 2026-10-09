@@ -1,83 +1,90 @@
 ---
-title: 'Run Your First AI Visibility Scan: Step-by-Step'
+title: 'Run Your First Free Scan on Are you found by AI?'
 sidebarTitle: 'First Scan'
-description: 'Run your first AI visibility scan, interpret your Visibility and Readiness scores, and know exactly what every section of your report means.'
+description: 'Run the free scan, read how often AI names your business, see who it names instead, and know what every part of your first report means.'
 ---
 
-Running your first scan takes about 60 seconds and gives you two scores that show where you stand with AI engines right now: an **AI Visibility Score** that measures whether AI assistants are actually naming your business when buyers ask, and an **AI Readiness Score** that measures how well your site is built to earn those recommendations. This page walks you through the entire process from entering your URL to understanding what every section of your first report means.
+The free scan takes about a minute. It asks two buyer questions on two engines (ChatGPT and Gemini) and shows how often they name your business, who they name instead, the answers behind the result, and a separate check of how well your website is set up for AI. This page walks you through the process from entering your URL to reading your first report.
 
 <Steps>
 
-  <Step title="Navigate to areyoufoundbyai.com">
-    Open [areyoufoundbyai.com](https://areyoufoundbyai.com) in your browser. You do not need an account to run a free scan, just land on the homepage and you are ready to start.
+  <Step title="Go to areyoufoundbyai.com">
+    Open [areyoufoundbyai.com](https://areyoufoundbyai.com) in your browser. You do not need an account to run a free scan.
   </Step>
 
   <Step title="Enter your website URL">
-    Type or paste your website URL into the scan field in the centre of the page and press **Scan**. Use your full domain (e.g. `https://example.com`). The scanner uses the URL to identify your business and pull together the signals it will check.
+    Type or paste your website URL into the scan field and select **Scan my site**. Use your full domain (for example `https://example.com`). The scan reads your website to identify your services, market and service area, so the questions match what you actually sell and where.
   </Step>
 
-  <Step title="Wait for the scan to complete (~60 seconds)">
-    The scanner queries the AI engines live. It does not use cached data. Because it is asking real engines real questions in real time, the scan takes roughly 60 seconds. A progress indicator shows you what is happening. Do not close the tab while the scan is running.
+  <Step title="Wait about a minute">
+    The engines are asked live, so the scan takes about a minute. Keep the tab open while it runs.
   </Step>
 
-  <Step title="View your Visibility and Readiness scores">
-    When the scan finishes, your report opens automatically. Two scores appear at the top: your **AI Visibility Score** (0–100) and your **AI Readiness Score** (0–100). These are the two numbers that matter most. One tells you where you stand today, the other tells you how much capacity your site has to improve.
+  <Step title="Read your result">
+    Your report opens with a percentage: the share of countable answers that name your business, with the counts beside it.
   </Step>
 
-  <Step title="Expand verbatim answers for each engine">
-    Scroll down to the **Engine answers** section. Each AI engine has an expandable card showing the verbatim text it returned when asked a buyer question. Open each one to read exactly what the engine said, and whether it named you, named a competitor, or gave a generic answer.
+  <Step title="See who AI named instead">
+    The competitors section lists the businesses the engines named in your answers, and says when they were named instead of you.
   </Step>
 
-  <Step title="Review competitor names and sources">
-    The **Competitors** section lists every business the engines named instead of you during this scan. The **Sources** section shows which pages on the web the engines cited in their answers. Together these two sections tell you who is winning your category right now, and where they are getting their authority from.
+  <Step title="Read the questions and answers">
+    The **What we asked AI** section shows each buyer question, the result on each engine, and the full answers behind it. Open them to read exactly what each engine said.
+  </Step>
+
+  <Step title="Start with the first fix">
+    The report gives you one fix to start with, with **Show me how** for the details, and your website's readiness score out of 100.
   </Step>
 
 </Steps>
 
 ## Understanding your first report
 
-### AI Visibility Score
+### How often AI names you
 
-Your AI Visibility Score reflects how often the engines named your business across the buyer questions asked during this scan. A score above **70** means you are regularly present in AI answers. A score between **40 and 70** means you appear sometimes but inconsistently. Below **40** means the engines are largely recommending others when your buyers ask.
+The headline is the **named share**: countable saved answers that name your business, divided by all countable saved answers. If AI names a business in 7 of 28 countable answers, its named share is 25%.
 
-Visibility is primarily driven by off-page signals, independent mentions, third-party citations, and brand authority signals that live outside your own website. A single scan gives you a snapshot; monitoring over time shows you whether your efforts are moving the needle.
+- Every saved answer counts on its own. An engine may be asked the same question more than once, and each saved answer counts.
+- A link to your website on its own does not count as your business being named in the answer.
+- Missing or incomplete evidence is left out, never counted as a no.
 
-### AI Readiness Score
+Read the number with the questions, engines, date and answer count beside it. A short free scan is a smaller sample than a full weekly check, so treat it as a starting point.
 
-Your AI Readiness Score is a composite of six dimensions that measure how well your site is built to earn AI recommendations. Unlike Visibility, Readiness is largely within your direct control. It reflects your content structure, technical setup, schema markup, and how well you signal authority. The dimensions and their weights are:
+### AI Readiness
 
-| Dimension | Weight |
-|---|---|
-| AI Citability | 25% |
-| Brand Authority | 20% |
-| Content E-E-A-T | 20% |
-| Technical GEO | 15% |
-| Schema & Structured Data | 10% |
-| Platform Optimization | 10% |
+AI Readiness (out of 100) measures how well your website itself is set up to be understood by AI, from the site alone. It is composed of five site signals: Quotable content (Citability), Trust and credibility (E-E-A-T), Site health (Technical), Machine-readable info (Schema) and AI-ready setup (Platform). A signal that could not be verified is left out rather than scored zero, and each report states the share each signal carries.
+
+Your off-site presence (Wikidata and Knowledge Graph, Google Business Profile, brand mentions, search demand, referring domains) is scored separately as **Footprint**. The free scan does not measure Footprint, so it is shown as not measured rather than zero.
+
+Readiness is the part you control on your own site. It is a separate check, not an extra percentage of AI recommendations, and a good Readiness score does not guarantee that an engine will name you.
+
+### The AI Visibility score in the API and MCP
+
+If you read your result through the [scan API](https://areyoufoundbyai.com/for-agents) or over MCP, you will also see an **AI Visibility** score out of 100. It is an older weighted diagnostic score, not a percentage of AI recommendations, and it cannot be converted into a named share. Being named in the answer prose counts in full toward it; a positive result recorded only as a list entry, citation or source title counts half. Its bands are 60 or more "Visible to AI", 25 or more "Partially visible", and below 25 "Rarely visible".
 
 ### What the competitors section shows
 
-The competitors section lists the businesses that AI engines recommended in your place during this scan. Each name represents a real answer an engine gave to a real buyer question. This is your page list for comparison and "alternatives" content, each competitor is a "you vs them" opportunity worth owning.
+The competitors section lists the businesses the engines named when your buyers' questions were asked. Each name comes from a real answer to a real buyer question. It is your list for comparison and "alternatives" content: each competitor is a "you vs them" page worth owning.
 
-### What the sources section shows
+### What the answers show
 
-The sources section lists the third-party pages the engines cited when forming their answers. These are the domains that have authority in your category right now. If you appear on few or none of them, earning a presence there (through reviews, listings, and editorial mentions) is one of the highest-leverage things you can do to improve your Visibility Score.
+The answers are the evidence behind the number. Read which engines named you, who they named instead and the words behind each result. Being named, being cited as a source and receiving a visit are different outcomes.
 
 <Note>
-  **Free tier limits:** The free scan asks 2 buyer questions across 2 engines (ChatGPT and Gemini) once per month. Each re-run resets monthly. The results are a reliable starting point, but a partial view of your full competitive landscape.
+  **Free plan:** 2 buyer questions on 2 engines (ChatGPT and Gemini), re-checked monthly, with an email when your result moves. Your own AI can read the result over MCP. Fair use is up to 15 free scans per browser per day. Every free scan also includes a starter `llms.txt` written from your site.
 </Note>
 
 <Tip>
-  For a complete picture across all 7 engines (ChatGPT, Perplexity, Gemini, Claude, Grok, DeepSeek, and Google AI Overviews) with up to 12 buyer questions multi-sampled weekly, upgrade to **Monitoring** at $79/mo, includes a 14-day free trial.
+  For the full picture across seven engines (ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek and Google AI Overviews), **Pro** asks up to 25 buyer questions every week for US$79 a month per site, or US$490 a year, with a 14-day free trial (card required). Prices exclude GST; Australian customers pay US$86.90 a month. For a one-off view, the **Snapshot** is US$29 once: one full report with 12 buyer questions across seven engines. See [pricing](https://areyoufoundbyai.com/pricing).
 </Tip>
 
 ## What to do next
 
 <CardGroup cols={2}>
-  <Card title="Fix Your AI Readiness Score" icon="wrench" href="/guides/fix-your-score">
-    Work through the six score dimensions in priority order. Learn exactly what to change on your site to earn more AI recommendations.
+  <Card title="Improve Your AI Readiness and Footprint" icon="wrench" href="/guides/fix-your-score">
+    Work through the five site signals and the off-site Footprint work, starting from your report's fix plan.
   </Card>
   <Card title="Visibility vs Readiness Explained" icon="chart-bar" href="/concepts/visibility-vs-readiness">
-    Understand the difference between the two scores, what drives each one, and how they work together over time.
+    Understand the difference between whether AI names you and how well your site is set up, and how they work together over time.
   </Card>
 </CardGroup>

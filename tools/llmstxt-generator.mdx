@@ -1,34 +1,46 @@
 ---
-title: "Generate an llms.txt File to Guide AI Crawlers Now"
-sidebarTitle: "llms.txt Generator"
-description: "Create a machine-readable llms.txt index that tells AI crawlers which pages matter most, generated from your sitemap, free, in seconds."
+title: "llms.txt: A Starter File With Every Free Scan"
+sidebarTitle: "llms.txt"
+description: "Every free scan from Are you found by AI? includes a starter llms.txt written from your site, and the full report generates the complete file. The open-source route is the thl-open geo-llmstxt skill."
 ---
 
-When an AI crawler visits your site, it faces the same problem a new researcher does: which pages are the important ones, and what is this site actually about? `llms.txt` solves this with a single, machine-readable file at your domain root that tells AI assistants exactly which pages matter most, what each one covers, and how your site is structured, all in a format that's cheaper to read than crawling dozens of HTML pages. The llms.txt Generator crawls your sitemap and produces a valid, ready-to-host `llms.txt` file in seconds.
+`llms.txt` is a plain Markdown file at the root of your domain that gives AI systems a short, structured guide to your site: what the business does and which pages matter. Are you found by AI? does not offer it as a separate tool page. It comes with the scan instead:
 
-## What llms.txt does
+- **Free scan:** "A starter llms.txt in every free scan, written from your site."
+- **Full report:** "The full report generates the complete file."
 
-`llms.txt` is a plain-text Markdown file proposed in September 2024 (by Jeremy Howard of fast.ai) as a standard for giving AI systems structured guidance about a website's content. It is analogous to `robots.txt` (which tells crawlers what not to access) but instead tells AI assistants what is most useful to understand about your site.
+[Run the free scan](https://areyoufoundbyai.com/) to get your starter file. It is written from your own pages, not from a template.
 
-A well-formed `llms.txt` delivers four benefits:
+<Note>
+  There is no standalone llms.txt generator page on areyoufoundbyai.com. If you have an old bookmark to a generator URL, use the free scan instead.
+</Note>
 
-1. **Faster AI comprehension**, an AI understands your site's purpose and structure from one file rather than dozens of pages.
-2. **Controlled narrative**. You choose which pages AI systems see first, shaping how they represent your brand.
-3. **Higher citation accuracy**, AI systems that consult `llms.txt` cite the correct, authoritative page for each topic.
-4. **Reduced hallucination**, key facts like pricing, services, and locations are stated explicitly.
+## The open-source route
 
-## How to use the generator
+If you would rather generate or check the file yourself, the open-source [thl-open](https://github.com/techhorizonlabs/thl-open) suite includes two ways to do it:
 
-Go to [areyoufoundbyai.com](https://areyoufoundbyai.com/?src=tools#top), run the free scan on your domain, and the tool crawls your sitemap, selects the most important pages, and generates a complete `llms.txt` file written from your actual page content, not a template. The full paid report generates the complete extended file, including `llms-full.txt`.
+| Where | What it does |
+|---|---|
+| [`skills/geo-llmstxt`](https://github.com/techhorizonlabs/thl-open/tree/main/skills/geo-llmstxt) | A Claude Code skill that validates an existing `llms.txt` or generates a new one by crawling the site. The format rules and a fill-in template are in `references/spec.md`. |
+| [`skills/geo/scripts/llmstxt_generator.py`](https://github.com/techhorizonlabs/thl-open/blob/main/skills/geo/scripts/llmstxt_generator.py) | A Python script with two modes, `validate` (the default) and `generate`, that prints its result as JSON. |
+
+```bash
+# Inside a clone of thl-open
+pip install -r skills/geo/requirements.txt
+python3 skills/geo/scripts/llmstxt_generator.py https://example.com validate
+python3 skills/geo/scripts/llmstxt_generator.py https://example.com generate
+```
+
+From Claude Code, with the suite installed, you can also run `/geo llmstxt https://example.com`. See [Claude Code Skills](/guides/claude-code-skills) for installation.
 
 ## The llms.txt format
 
-A valid `llms.txt` file follows this structure:
+The format below follows the spec bundled with the `geo-llmstxt` skill. A valid file starts with an H1 title, then a one-line blockquote description, then at least one H2 section of page links:
 
 ```markdown
 # Your Business Name
 
-> One clear sentence: what your business does, who it serves, and your primary value proposition.
+> One clear sentence: what your business does and who it serves.
 
 ## Docs
 
@@ -41,64 +53,40 @@ A valid `llms.txt` file follows this structure:
 - [Product A](https://yourdomain.com/products/a): What it does, who it's for, and how it's priced.
 - [Product B](https://yourdomain.com/products/b): What it does and how it differs from Product A.
 
-## Resources
-
-- [Blog](https://yourdomain.com/blog): Articles on industry topics and how-to guides.
-- [FAQ](https://yourdomain.com/faq): Answers to the most common customer questions.
-
 ## Key Facts
 
 - Founded in YYYY by Founder Name
 - Headquartered in City, Country
 - Key products: Product A, Product B
-- Industry: Your Industry
 
 ## Contact
 
 - Website: https://yourdomain.com
 - Email: hello@yourdomain.com
-- Support: support@yourdomain.com
 
 ## Optional
 
 - [Full index](https://yourdomain.com/llms-full.txt)
 ```
 
-Each page entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page (specific topics, data, or features) not marketing copy. The `## Docs` section holds your most important pages; `## Optional` is for supplementary content. `## Key Facts` and `## Contact` give AI systems quick-reference data they frequently need to answer buyer queries.
+Each page entry follows the pattern `- [Page Title](absolute-url): Brief factual description`. Descriptions should state what information is on the page, not marketing copy. Use full `https://` URLs, never relative paths. Keep the blockquote description under 200 characters.
 
 ## Where to host it
 
-Publish your `llms.txt` file at the root of your domain:
+Publish the file at the root of your domain:
 
 ```
 https://yourdomain.com/llms.txt
 ```
 
-It must be accessible without redirects and return an HTTP 200 response. Most static-site generators and CMS platforms let you place files in a `public/` or `static/` root folder. For WordPress, place it in `wp-content/uploads/` or use a plugin that serves static files from the root.
+It should return HTTP 200 without a redirect. Most static-site generators and CMS platforms let you place files in a `public/` or `static/` root folder.
 
-<Tip>
-  Keep your `llms.txt` under 150 lines for the concise version. AI crawlers don't follow infinite indexes, a focused, well-curated file outperforms an exhaustive one. Use `llms-full.txt` (linked from your main file) for the complete page inventory.
-</Tip>
-
-## The llms-full.txt extended version
-
-`llms-full.txt` is the comprehensive companion file. It lists every indexable page on your site with longer descriptions (30–100 words each). AI systems that want the complete inventory follow the link from your main `llms.txt` to fetch it. This separation keeps the primary file fast to read while making the full index available for deep-crawl scenarios.
-
-| Feature | llms.txt | llms-full.txt |
-|---|---|---|
-| Length | 50–150 lines | 150–500+ lines |
-| Page entries | 10–30 key pages | 30–100+ pages |
-| Descriptions | 10–30 words each | 30–100 words each |
-| Audience | Quick AI comprehension | Deep AI analysis |
-
-<Note>
-  Even a minimal `llms.txt` (just the H1 title, a one-line blockquote description, and links to your five most important pages) is meaningfully better than nothing. Start simple and expand it as you refine your content strategy.
-</Note>
+A longer companion file, `llms-full.txt`, can hold the complete page inventory with longer descriptions. Link it from the `## Optional` section of your main file.
 
 <Accordion title="How often should I update llms.txt?">
-  Update your `llms.txt` whenever you add significant new pages, remove pages that are listed, or change key facts about your business. For active content sites, a monthly review is a good cadence. After updating, submit your `llms.txt` URL via the [IndexNow Submitter](/tools/indexnow) so Bing re-crawls the updated file promptly.
+  Update it whenever you add significant new pages, remove pages that are listed, or change key facts about your business. After updating, you can submit the `llms.txt` URL with the [IndexNow Submitter](/tools/indexnow) so Bing re-crawls the updated file.
 </Accordion>
 
-<Accordion title="Does Google read llms.txt?">
-  Google has not officially adopted the `llms.txt` standard, but Google AI Overviews and Gemini crawl sites to inform answers. Google's crawlers can read a plain-text Markdown file at your root. The more immediate beneficiaries are ChatGPT (via its web browsing), Perplexity, and Claude, all of which actively check for `llms.txt` during site research. Maintaining a well-formed file benefits you across all of them.
+<Accordion title="Does llms.txt guarantee that AI will recommend me?">
+  No. It helps machines understand your site, but a website change does not guarantee that an engine will recommend you. Measure the answers again after you publish it to see whether anything changed.
 </Accordion>

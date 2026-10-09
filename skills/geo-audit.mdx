@@ -1,13 +1,17 @@
 ---
 title: "Run a Six-Dimension GEO Audit with the geo-audit Skill"
 sidebarTitle: "GEO Audit Skill"
-description: "Run 5 parallel subagents across all 6 GEO dimensions, compute a composite AI Readiness Score, and write a prioritised action plan to GEO-AUDIT-REPORT.md."
+description: "Run 5 parallel subagents across 6 GEO dimensions, compute thl-open's own composite GEO Score (not the Are you found by AI? Readiness score), and write a prioritised action plan to GEO-AUDIT-REPORT.md."
 ---
 
-The `geo-audit` skill is the orchestration layer at the heart of THL Open. Point it at any URL and it spins up five specialised subagents in parallel (one per GEO dimension group) each fetching evidence, scoring against the six-dimension formula, and returning a provenance-tagged result. The skill then computes your composite AI Readiness Score (0–100) and writes everything into a single `GEO-AUDIT-REPORT.md` you can act on immediately.
+The `geo-audit` skill is the orchestration layer at the heart of thl-open. Point it at any URL and it runs five specialised subagents in parallel (one per GEO dimension group), each fetching evidence, scoring its dimensions and returning a provenance-tagged result. The skill then computes a composite GEO Score (0 to 100) and writes everything into a single `GEO-AUDIT-REPORT.md` you can act on.
+
+<Warning>
+  **This composite is not the AI Readiness score in your Are you found by AI? report.** The geo-audit GEO Score is thl-open's own audit: six dimensions, including Brand Authority, combined with the repo's fixed weights. That AI Readiness score is a different measure, composed of five site signals (Citability, E-E-A-T, Technical, Schema and Platform), with off-site presence scored separately as Footprint. Do not compare the two numbers directly or present one as the other.
+</Warning>
 
 <Note>
-  The `geo-audit` skill measures **AI Readiness**, whether your site is built to earn AI recommendations. It reads public signals and infers how citable and recommendable you are. It does **not** query the AI engines live to confirm whether they actually name you right now. For live AI Visibility measurement, use the `found-by-ai` skill or run the free scan at [areyoufoundbyai.com](https://areyoufoundbyai.com).
+  Like AI Readiness, the geo-audit composite is a **readiness** measure: it reads public signals and infers how citable and recommendable a site is. It does **not** query the AI engines to confirm whether they actually name you right now. For that, use the `found-by-ai` skill or run the free scan at [areyoufoundbyai.com](https://areyoufoundbyai.com).
 </Note>
 
 ## Prerequisites
@@ -42,7 +46,7 @@ Claude Code begins a three-phase workflow:
     | **Content E-E-A-T Quality** | Content E-E-A-T (20%) |
     | **Schema & Structured Data** | Schema & Structured Data (10%) |
 
-    Every subagent returns its dimension score (0–100 or `—` when unmeasured), a **provenance tag**, and findings tied to the evidence that justifies them.
+    Every subagent returns its dimension score (0 to 100, or a placeholder dash instead of a number when unmeasured), a **provenance tag**, and findings tied to the evidence that justifies them.
   </Step>
   <Step title="Score Aggregation and Report Generation">
     The orchestrator collects all subagent results, applies the fixed composite formula, and writes `GEO-AUDIT-REPORT.md` to your working directory.
@@ -51,7 +55,7 @@ Claude Code begins a three-phase workflow:
 
 ## The Composite Formula
 
-Your overall GEO Score is a weighted average across six dimensions. The weights are fixed, subagents cannot change them:
+The overall GEO Score is a weighted average across six dimensions. These are thl-open's published weights for its own audit, and subagents cannot change them:
 
 | Dimension | Weight | What it measures |
 |---|---|---|
@@ -73,10 +77,10 @@ The skill writes a structured Markdown file containing:
 
 <CardGroup cols={2}>
   <Card title="Composite Score" icon="gauge-high">
-    Overall GEO Score (0–100) with a rating band: Excellent (90–100), Good (75–89), Fair (60–74), Poor (40–59), or Critical (0–39)
+    Overall GEO Score (0 to 100) with a rating band: Excellent (90 to 100), Good (75 to 89), Fair (60 to 74), Poor (40 to 59), or Critical (0 to 39)
   </Card>
   <Card title="Per-Dimension Scores" icon="table-cells">
-    Each of the six dimensions scored with its provenance tag, `[scan]`, `[partial-scan]`, `[heuristic]`, or `[unmeasured]`. Unmeasured dimensions show `—`, never an invented number
+    Each of the six dimensions scored with its provenance tag: `[scan]`, `[partial-scan]`, `[heuristic]`, or `[unmeasured]`. Unmeasured dimensions show a placeholder dash, never an invented number
   </Card>
   <Card title="Prioritised Findings" icon="triangle-exclamation">
     Issues classified as Critical, High, Medium, or Low, each with specific page URLs and the evidence behind the finding
@@ -111,17 +115,17 @@ Every score the audit emits carries one of four provenance tags. These tell you 
   | `[scan]` | Scored from data actually fetched during this audit run |
   | `[partial-scan]` | Some pages were sampled; others were inferred |
   | `[heuristic]` | Model judgement from signals, no raw data fetched |
-  | `[unmeasured]` | The data source needed was unavailable; score shows `—` |
+  | `[unmeasured]` | The data source needed was unavailable; the score shows a placeholder dash |
 
-  A `[heuristic]` tag is not a failure. It means informed model judgement based on available signals. But treat it differently from `[scan]`: a heuristic score is a useful pointer, not a measured fact. When a category is `[unmeasured]`, the report emits `—` rather than a number, because a number with weak provenance still reads as hard data.
+  A `[heuristic]` tag is not a failure. It means informed model judgement based on available signals. But treat it differently from `[scan]`: a heuristic score is a useful pointer, not a measured fact. When a category is `[unmeasured]`, the report emits a placeholder dash rather than a number, because a number with weak provenance still reads as hard data.
 </Accordion>
 
 ## Combining with the THL Method
 
 The `geo-audit` skill is the first layer of the three-layer THL GEO Method:
 
-1. **Dimensional audit** (`geo-audit`), six GEO dimensions → composite 0–100 + action plan
-2. **External benchmark** (`agent-readiness-scan`), Cloudflare's independent 0–100, tracked as a delta across re-audits
-3. **Deliverable** (`audit-report-kit`), branded PDF + compile-checked JSON-LD from the audit data
+1. **Dimensional audit** (`geo-audit`): six GEO dimensions, a composite 0 to 100 and an action plan
+2. **External benchmark** (`agent-readiness-scan`): Cloudflare's independent 0 to 100, tracked as a delta across re-audits
+3. **Deliverable** (`audit-report-kit`): a branded PDF and compile-checked JSON-LD from the audit data
 
 Run the `agent-readiness-scan` skill alongside `geo-audit` so you have two independent scores: one from your own dimensional analysis and one from Cloudflare's public benchmark. On a re-audit, the delta on each is the proof of progress.

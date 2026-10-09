@@ -1,10 +1,14 @@
 ---
 title: 'Run GEO Audits Inside Claude Code with thl-open Skills'
 sidebarTitle: 'Claude Code Skills'
-description: 'Install the open-source thl-open skill suite to run GEO audits, live scans, and automated fix-deploy-rescan loops directly inside Claude Code.'
+description: 'Install the open-source thl-open skill suite to run GEO readiness audits and live free scans from Claude Code, and add the fix-and-re-measure loop for a monitored site.'
 ---
 
-The Found by AI open-source skill suite brings AI visibility measurement directly into your coding workflow. Instead of switching between your terminal and a browser dashboard, you run GEO audits, read live scores, and apply fixes, all from inside Claude Code. The suite ships 17 skills via the `thl-open` package; this guide covers the three most important ones for improving your AI visibility.
+[thl-open](https://github.com/techhorizonlabs/thl-open) is the open-source skill suite from Tech Horizon Labs, the team behind Are you found by AI?. It ships 17 skills that run inside Claude Code, Codex, Cursor, Gemini CLI or any agent that reads `SKILL.md`. This guide covers the two you are most likely to start with, `found-by-ai` and `geo-audit`, plus the fix-and-re-measure loop for a monitored site.
+
+<Note>
+  Only the readiness method and the audit suite are open source. The measurement engine behind Are you found by AI?, including its sampling and regression evaluation set, is not in the repo. The `found-by-ai` skill calls the hosted scan; it does not contain it.
+</Note>
 
 ## Install the skill suite
 
@@ -14,48 +18,60 @@ Run this command in your terminal to install the full suite:
 npx skills add techhorizonlabs/thl-open
 ```
 
-This installs all 17 skills into your Claude Code environment. You can also install the suite as a Claude Code plugin via the marketplace, search for **thl-open** in the Claude Code plugin directory.
+This installs all 17 skills. To install the suite as a Claude Code plugin instead, run these as **two separate commands** (paste the first, press Enter, then paste the second):
 
-<Note>
-  The skills are open-source. You can read the source for every skill at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open) and verify exactly what each one does before running it.
-</Note>
-
-## The Found by AI skill
-
-The `found-by-ai` skill is a live scan wrapper that connects Claude Code directly to the Found by AI API. It runs a real-time scan against any URL and returns the full measurement, no account or authentication required.
-
-**What it does:** Calls `POST https://areyoufoundbyai.com/api/scan` with your URL, waits for the engines to respond (approximately 60 seconds), and returns a structured report with everything you need to understand your AI visibility and know what to fix.
-
-**How to use it:**
-
-```bash
-@found-by-ai scan https://example.com
+```text
+/plugin marketplace add https://github.com/techhorizonlabs/thl-open
 ```
 
-**What it returns:**
+```text
+/plugin install thl-open@thl-open
+```
+
+<Note>
+  The skills are open source under MIT. Read the source for every skill at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open) before running it: skills can run code and fetch the open web.
+</Note>
+
+## The found-by-ai skill
+
+The `found-by-ai` skill connects your agent to the free scan at areyoufoundbyai.com. It runs a live scan for any URL and returns the result, with no account or authentication required.
+
+**What it does:** Calls `POST https://areyoufoundbyai.com/api/scan` with your URL, waits for the engines to answer (about 60 seconds), and returns structured JSON your agent can read and act on.
+
+**How to use it:** ask in plain language, for example:
+
+```text
+Is example.com found by AI? Run the free scan and show me who AI names instead.
+```
+
+**What it returns (main fields):**
 
 | Field | Description |
 |---|---|
-| `visibility` | AI Visibility Score (0–100) |
-| `readiness` | AI Readiness Score (0–100) |
+| `visibility` | AI Visibility score (0-100), an older weighted diagnostic score, not a percentage of AI recommendations |
+| `readiness` | AI Readiness score (0-100), how well the site itself is set up to be understood by AI |
 | `verdict` | `present`, `weak`, or `absent` |
 | `queries` | The buyer questions the engines were asked |
 | `competitors` | Businesses the engines named instead of you |
-| `agentReadiness` | Agent readiness level (0–5) |
+| `agentReadiness` | Agent readiness level (0-5) |
 | `fixes` | Prioritised fix list in plain language |
 | `report` | Shareable URL to the full human-readable report |
 
 <Tip>
-  Always share the `report` URL with your client or stakeholder. It opens a full formatted report they can read without needing any technical context.
+  Always share the `report` URL with your client or stakeholder. It opens the readable report, with the answers behind the result, without needing any technical context.
 </Tip>
 
-The free tier asks 2 buyer questions across 2 engines once per IP. For a complete picture across all 7 engines with up to 12 buyer questions, you need a Monitoring or Snapshot plan.
+The free scan asks 2 buyer questions on 2 engines (ChatGPT and Gemini). The scan API is rate-limited per IP, and fair use is up to 15 free scans per browser per day. For seven engines, **Pro** (trial included) runs up to 25 buyer questions every week, and the US$29 **Snapshot** is one full report with 12 buyer questions. See the [found-by-ai skill page](/skills/found-by-ai-skill) for the paid per-call endpoints and MCP.
 
-## The GEO Audit skill
+## The geo-audit skill
 
-The GEO Audit skill runs a deep parallel audit of your site across all six GEO dimensions simultaneously, using five subagents working in parallel. It produces a comprehensive report with a composite score and per-dimension findings.
+The `geo-audit` skill runs a parallel audit of your site across six GEO dimensions, using five subagents, and produces a composite GEO Score (0-100) with per-dimension findings.
 
-**What it does:** Launches five subagents to evaluate all six GEO dimensions, Subagent 1 covers both AI Citability and Brand Authority, while Subagents 2–5 each handle Platform Optimization, Technical GEO, Content E-E-A-T, and Schema & Structured Data respectively. Each subagent returns weighted findings that are assembled into a composite score.
+<Warning>
+  The geo-audit composite is **thl-open's own audit score**. It is not the AI Readiness score in your Are you found by AI? report, which is composed of five site signals with Footprint scored separately. The two use different inputs and weights, so do not compare them number for number.
+</Warning>
+
+**What it does:** Launches five subagents to evaluate six dimensions. Subagent 1 returns both AI Citability and Brand Authority, while subagents 2 to 5 handle Platform Optimization, Technical GEO, Content E-E-A-T, and Schema and Structured Data respectively. Each returns a score with a provenance tag and evidence-backed findings, and the orchestrator assembles them with a fixed formula.
 
 **How to use it:**
 
@@ -64,43 +80,43 @@ The GEO Audit skill runs a deep parallel audit of your site across all six GEO d
 ```
 
 **Output:** A file named `GEO-AUDIT-REPORT.md` in your working directory, containing:
-- Composite GEO score
-- Per-dimension scores with the specific issues found
-- Prioritised fix recommendations ordered by expected impact
-- Technical findings your developers can act on immediately
+- The composite GEO Score with its rating band
+- Per-dimension scores with provenance tags and the specific issues found
+- Prioritised issues by severity, quick wins and a 30-day action plan
+- An appendix of the pages analysed
 
-The report is written to a Markdown file so you can commit it to your repository, share it with teammates, or feed it to another skill as input.
+The report is written to a Markdown file so you can commit it to your repository, share it with teammates, or feed it to `audit-report-kit` for a branded PDF.
 
-## The AI Loop skill
+## The fix-and-re-measure loop
 
-The AI Loop skill automates the full fix-deploy-rescan cycle. It reads your prioritised fix plan over the MCP connection, applies the fixes it can make in your repository, shows you every change as a diff, deploys after your approval, triggers a re-measure, and compares the new score against the baseline. It repeats until it reaches a target you set or hits a stop condition.
+The loop is not one of the 17 thl-open skills. It is a separate skill file published at [areyoufoundbyai.com/guides/ai-loop](https://areyoufoundbyai.com/guides/ai-loop) (agent-readable at `/guides/ai-loop/skill.md`), written for a site on Pro, where the weekly deep measurement supplies the fix plan. It automates the fix, deploy, re-measure cycle over your site's MCP connection, with you approving every change.
 
-**What it does:** Connects to your Found by AI MCP endpoint, reads `get_fix_plan`, classifies each fix as either in-repo (it applies these) or requiring your action (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, presents the diff, deploys on your approval, calls `request_rescan`, polls for results, and records the measured delta for each fix shipped.
+**What it does:** Reads `get_fix_plan`, classifies each fix as in-repo (it applies these) or yours to do (DNS, directory listings, Google Business Profile), applies in-repo fixes on a branch, shows you the diff, deploys after your approval, calls `request_rescan`, polls `get_visibility` until the new measurement lands, and records the measured change for each fix shipped.
 
-**How to use it:** Set it as a standing instruction in Claude Projects, or invoke it directly:
+**How to use it:** save the skill file in your site's repository at `.claude/skills/found-by-ai-loop/SKILL.md`, connect your site's MCP endpoint (see [MCP Integration](/guides/mcp-integration)), then ask:
 
-```bash
-"Run the found-by-ai loop. Target readiness 75. Max 3 iterations."
+```text
+Run the found-by-ai loop. Target readiness 75. Max 3 iterations.
 ```
 
 Before starting, the skill:
-1. Calls `get_visibility_score` to record your baseline scores.
-2. Confirms `protected-pages.txt` exists (listing paths it must never edit, pricing, legal, checkout).
-3. Agrees run parameters with you: target score, iteration cap, rescan budget.
+1. Calls `get_visibility` to record your baseline scores and the time of the last full scan.
+2. Confirms `protected-pages.txt` exists beside the skill file, listing paths it must never edit (pricing, legal, checkout). It refuses to start without it.
+3. Agrees run parameters with you: target score, iteration cap and rescan budget.
 
 <Warning>
-  **Every change requires your approval before it deploys.** This is an absolute rule built into the skill, no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
+  **Every change requires your approval before it deploys.** This is a hard rule in the skill, with no exceptions, including changes the agent judges trivial. You review the full diff, approve, and only then does deployment proceed.
 </Warning>
 
-The loop stops when any one of these conditions is met:
+Re-measures are capped: `request_rescan` allows 5 per rolling 7 days, is refused when the freshest scan is under 20 minutes old, and queues one at a time. The loop stops when any one of these conditions is met:
 - Your target score is reached
-- Two consecutive iterations move the score by zero
+- Two consecutive iterations move the targeted score by nothing
 - The iteration cap is hit
 - The rescan budget is spent
-- All remaining fix plan items require your action (off-repo work only)
+- All remaining fix plan items are yours to do (off-repo work only)
 
-At the end of each run, the skill produces a run report showing your baseline scores, final scores, each fix shipped with its measured delta, the items on your action list with reasons, and the rescan budget used.
+At the end of each run, the skill produces a run report showing your baseline scores, final scores, each fix shipped with its measured change, the items on your list with reasons, and the rescan budget used.
 
 <Note>
-  17 skills are included in the suite, see the full skill reference at [/skills/overview](/skills/overview) for documentation on all of them.
+  See the full skill reference at [/skills/overview](/skills/overview) for documentation on all 17 skills.
 </Note>

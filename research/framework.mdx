@@ -1,157 +1,83 @@
 ---
-title: "THL AI-Visibility Framework: Six Signals Explained"
+title: "Framework: how we measure whether AI names your business"
 sidebarTitle: "Framework"
-description: "Six signals decide whether AI recommends you. Learn the exact scoring formula, what 2,354 real scans prove, and which levers actually move the number."
+description: "Start with the answer a buyer actually receives. The named share, the site checks that explain what to work on, and what the public benchmarks can and cannot tell you."
 ---
 
-When someone asks ChatGPT, Claude, or Perplexity for "the best \[category\] in \[your city\]," a handful of businesses get named and the rest are invisible. That outcome isn't random, it's driven by six measurable signals. The THL AI-Visibility Framework defines those signals, weights them by their proven impact on real AI citations, and gives you a reproducible score so you can track improvement over time. The methodology is open-source at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open).
+When someone asks ChatGPT, Claude or Perplexity for "the best \[category\] in \[your city\]", a handful of businesses get named. The Are you found by AI? framework starts with the answer a buyer actually receives. Does it name your business, and who else does it name?
 
-## The Six Dimensions
+## One percentage, with the counts beside it
 
-Every AI Readiness Score is a weighted composite of six dimensions. Here is what each one measures, why it matters, and how to earn it.
+The headline measure is the **named share**: countable saved answers that name the business, divided by all countable saved answers. If AI names a business in 7 of 28 countable answers, its named share is 25%.
+
+- Every saved repetition counts. An engine may be asked the same question more than once, and each saved answer counts on its own. There is no majority vote.
+- A link to the website on its own does not count as the business being named in the answer.
+- Missing or incomplete evidence is left out, never counted as a no.
+
+Read the saved answers alongside the number. The questions, engines, date and answer count tell you what was measured. A short free scan is a smaller sample than a full weekly check.
+
+## Site checks explain what to work on
+
+Crawler access, readable content, business facts, structured data and independent mentions are separate checks. They are not extra percentages of AI recommendations, and an older weighted score cannot be converted into a named share.
+
+The report groups the on-site checks into **AI Readiness** (out of 100), measured from your site alone and composed of five site signals:
 
 <AccordionGroup>
-  <Accordion title="AI Citability: 25% (highest weight)">
-    **What it measures:** How quotable and self-contained your content is, how easily an AI can lift a clear, factual passage straight into its answer.
-
-    **Why it matters:** AI answers are assembled from quotable passages. Thin, vague, or purely promotional copy gives the model nothing to use, so it reaches for a competitor who wrote a clear answer instead.
-
-    **How to earn it:** Answer real buyer questions directly, lead with the conclusion, use headings, lists, statistics, and specifics. Write the paragraph you'd want the AI to quote verbatim.
+  <Accordion title="Citability (quotable content)">
+    How quotable and self-contained your content is, and how easily an engine can lift a clear, factual passage into its answer. Answer real buyer questions directly, lead with the conclusion and back claims with specifics.
   </Accordion>
-
-  <Accordion title="Brand Authority: 20%">
-    **What it measures:** Whether AI recognises you as a real, distinct entity, and whether trusted third parties (Wikipedia, Wikidata, Reddit, YouTube, review platforms, industry directories) reference you.
-
-    **Why it matters:** AI recommends what others vouch for. A business with no third-party footprint reads as unknown and risky to name, however polished its own site. Brand Authority is, by a wide margin, the strongest predictor of AI visibility in our own data.
-
-    **How to earn it:** Earn citations off your own domain: authoritative directory listings, industry-association profiles, genuine reviews and press mentions, a consistent entity (same name, address, links) everywhere, and (where realistic for your size) a Wikipedia or Wikidata entry.
+  <Accordion title="E-E-A-T (trust and credibility)">
+    Whether your site shows who is behind the business and why customers can trust it: named people and credentials, a real About page, visible contact details and provenance.
   </Accordion>
-
-  <Accordion title="Content E-E-A-T: 20%">
-    **What it measures:** Experience, Expertise, Authoritativeness, and Trust. Author credentials, a real About page, visible contact details, content provenance, and a privacy policy.
-
-    **Why it matters:** Recommending a business is a trust decision. AI is built to avoid endorsing the untrustworthy, so it favours sites that prove who's behind them.
-
-    **How to earn it:** Name your people and their credentials, show how you know what you claim, and make it obvious you're a real, contactable operation with a physical address or a verifiable business identity.
+  <Accordion title="Technical (site health)">
+    Whether AI crawlers can cleanly read and load your website. Serve content in the initial HTML response: most AI crawlers fetch raw HTML and do not run JavaScript.
   </Accordion>
-
-  <Accordion title="Technical GEO: 15%">
-    **What it measures:** Whether AI crawlers can cleanly access and read your site, HTTPS, sitemaps, canonical URLs, mobile-friendliness, security headers, server-side rendering, and Core Web Vitals.
-
-    **Why it matters:** If your content only appears after heavy JavaScript executes, or your crawler is blocked or timing out, none of the other signals matter because the AI never sees them.
-
-    **How to earn it:** Serve content in the initial HTML response, keep pages fast and crawlable, and fix the plumbing. Your platform choice determines how easily you can do this.
+  <Accordion title="Schema (machine-readable business facts)">
+    Structured data (JSON-LD) such as Organization and LocalBusiness that states what you are, where you operate and what you offer. Deliver it in the server HTML or inject it at the edge, not with client-side JavaScript.
   </Accordion>
-
-  <Accordion title="Schema & Structured Data: 10%">
-    **What it measures:** Structured data (JSON-LD) (Organization, LocalBusiness, Product, FAQ) that states what you are, where you operate, and what you offer in machine-readable form.
-
-    **Why it matters:** Schema removes guesswork. It hands AI a clean, unambiguous fact sheet about your entity instead of making it infer everything from prose. On its own it is necessary, not sufficient. Our data shows why below.
-
-    **How to earn it:** Add valid Organization and LocalBusiness JSON-LD with `sameAs` links to your verified profiles. Deliver it server-side or via edge injection, client-side JavaScript injection is invisible to AI crawlers.
-  </Accordion>
-
-  <Accordion title="Platform Optimization: 10%">
-    **What it measures:** Readiness for each AI surface, crawler access (robots.txt permissions for GPTBot, Google-Extended, PerplexityBot, ClaudeBot), a published `llms.txt`, and answer-shaped content tuned to how each engine retrieves.
-
-    **Why it matters:** Each assistant sources answers differently. Quietly blocking AI crawlers, or never telling them what you do, guarantees you're absent from that surface entirely.
-
-    **How to earn it:** Open the right crawlers, publish an `llms.txt`, and structure pages as direct answers to the questions customers actually ask AI.
+  <Accordion title="Platform (AI-ready setup)">
+    Your published crawler permission in `robots.txt`, a published `llms.txt` and answer-shaped content.
   </Accordion>
 </AccordionGroup>
 
-## The GEO Score Formula
+A signal that could not be verified (the page could not be read, the site is a JavaScript shell, or `robots.txt` was unreadable) is left out of Readiness rather than scored zero, so which signals count can differ from scan to scan. Each report states the share each signal carries.
 
-Your **AI Readiness Score** (0–100) is a weighted composite of the six dimensions above:
+Your off-site presence is scored separately as **Footprint** (out of 100): Wikidata and Knowledge Graph entity, Google Business Profile, brand mentions, search demand and referring domains. Footprint is scored beside Readiness, not inside it. See [AI Readiness and Footprint](/concepts/geo-score).
 
-```
-AI Readiness Score =
-  (AI Citability  × 0.25) +
-  (Brand Authority × 0.20) +
-  (Content E-E-A-T × 0.20) +
-  (Technical GEO   × 0.15) +
-  (Schema & Data   × 0.10) +
-  (Platform Optim. × 0.10)
-```
+Reports and the API also carry an older **AI Visibility score** out of 100. It is a weighted diagnostic score, not a percentage of AI recommendations, and it cannot be converted into a named share. See [AI Visibility vs AI Readiness](/concepts/visibility-vs-readiness).
 
-Your **AI Visibility Score** (0–100) is measured separately and independently. It reflects how often AI engines actually name your business when real buyer questions are asked. Readiness predicts potential; Visibility measures outcome.
+## What to check next
 
-## AI Visibility vs AI Readiness
+<Steps>
+  <Step title="Your business facts">
+    Make your name, services, locations and contact details clear and consistent.
+  </Step>
+  <Step title="Your buyers' questions">
+    Give useful answers on pages people can read and share.
+  </Step>
+  <Step title="Independent mentions">
+    Review the sources saved with the answers and identify relevant places where buyers could find you.
+  </Step>
+  <Step title="Access and structure">
+    Check what a crawler receives, the site's published access rules and its structured data.
+  </Step>
+  <Step title="The next measurement">
+    Compare the same questions and engines over time. Keep changes in coverage separate from changes in results.
+  </Step>
+</Steps>
 
-These are two different questions with two different scores. Most "SEO audits" conflate them, which is why they fail to predict whether AI actually recommends you.
+These checks guide the work. None guarantees a recommendation, and a change in an answer does not by itself prove which edit caused it.
 
-<CardGroup cols={2}>
-  <Card title="AI Visibility Score" icon="eye">
-    **Are you in the answer right now?**
+## See measured business results
 
-    Whether AI assistants actually name or cite you when a real customer asks. Measured live across up to seven engines, ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek, and Google AI Overviews. This is the outcome that wins customers.
-  </Card>
-  <Card title="AI Readiness Score" icon="gauge">
-    **Is your site built to earn AI recommendations?**
+The public benchmarks count saved answers directly. Each business gets a percentage: answers that name it divided by countable answers. Missing evidence is left out, never treated as a negative answer.
 
-    How well your site and off-site presence support being recommended, five site signals plus your external entity footprint, each scored 0–100. You can be highly ready yet still invisible: a well-built site that AI doesn't yet know or trust.
-  </Card>
-</CardGroup>
-
-The gap between the two scores is the work. Readiness is what you control; Visibility is what it earns you. Our corpus of 2,354+ businesses shows an average Readiness of 67/100 alongside an average Visibility of 40.8/100, a 26-point gap that represents real citation opportunity being left on the table.
-
-The most common way this gap manifests: a technically excellent site with no third-party footprint. The AI can read you perfectly; it just has no reason to trust or name you. Off-page brand recognition closes that gap. On-page improvements alone cannot.
-
-## Key Research Findings from 2,354 Businesses
-
-Found by AI has measured over 3,268 scored scans across distinct businesses. These are live measurements (not a survey, not a sample) from every business that has run a scan. The findings below recompute continuously from the live index.
-
-<CardGroup cols={3}>
-  <Card title="11× Visibility Gap" icon="chart-bar">
-    Businesses scoring ≥70 on Brand Authority average **59.5** AI Visibility. Businesses scoring below 40 on Brand average just **5.3**, an eleven-times gap driven entirely by off-page recognition.
-  </Card>
-  <Card title="24% Score Near Zero" icon="eye-slash">
-    **24% of measured businesses** score effectively invisible to AI (≤10/100) when a customer asks who to trust in their category. Most owners have never checked even once.
-  </Card>
-  <Card title="2-Point Technical Gap" icon="wrench">
-    The Technical GEO gap between AI-named and AI-ignored businesses is just **2 points** (80 vs 78). Invisible businesses are as technically sound as named ones.
-  </Card>
-</CardGroup>
-
-**Brand Authority buckets, the real distribution:**
-
-| Brand Score | Average AI Visibility |
-|---|---|
-| Brand ≥70 (strong third-party recognition) | **59.5 / 100** |
-| Brand 40–69 (moderate recognition) | **33.0 / 100** |
-| Brand &lt;40 (limited recognition) | **5.3 / 100** |
-
-**The 41-point brand recognition gap:** Among businesses AI names consistently versus businesses it ignores, the Brand Authority gap is 41 points (79 vs 38). The E-E-A-T gap is a real but smaller 16 points (75 vs 59). Technical SEO and Schema are essentially flat.
-
-**Schema alone shows near-flat results:** Across every schema-score bucket in our corpus, AI Visibility ranges from 42 to 47.5, nearly flat. Schema helps AI read you correctly; it does not make AI recommend you. This is why we score it as a 10% dimension and are transparent about it: schema is table stakes, not a lever. Google's own May 2026 guidance reached the same conclusion independently.
-
-## The SEO Tier List Reality Check
-
-A widely-shared 2026 SEO tier list ranks tactics from S to F. We checked every tier against our live corpus of 3,283 businesses. Here is what the data actually shows:
-
-<Tabs>
-  <Tab title="What moves AI naming">
-    **Off-page brand recognition (S-tier, confirmed):** The largest gap in our data. Businesses AI names average 79/100 on off-page brand signals versus 38/100 for invisible businesses, a 41-point gap. Being talked about elsewhere is the strongest measured predictor of being named.
-
-    **Entity anchoring:** Consistent name, address, and entity signals across every platform help AI recognise you as a real, distinct entity rather than a generic description. Generic-word brand names create entity collisions our scanner flags.
-
-    **Buyer-question-shaped pages (programmatic SEO, A-tier, confirmed):** Engines retrieve pages shaped like the questions buyers type. Use-case and comparison pages at scale match that shape.
-
-    **JS-free HTML for crawlers (Technical, table stakes):** GPTBot, OAI-SearchBot, ClaudeBot, and PerplexityBot fetch raw HTML. Content that only appears after JavaScript executes is invisible to the major AI crawler families.
-
-    **Multi-sample measurement:** AI answers vary ask-to-ask. Schulte et al. (2026) confirm that AI-search visibility must be measured as a distribution across repeated queries, a single snapshot proves nothing. Found by AI multi-samples and majority-votes every question for this reason.
-  </Tab>
-  <Tab title="What does NOT move AI naming">
-    **Keyword stuffing (confirmed harmful):** Ranked at the bottom of every tier list, and our data confirms it costs more than rankings. One measured business's keyword-stuffed homepage title corrupted how AI reads its brand name, making every mention-counting system struggle to attribute it. Keyword stuffing now actively damages your entity.
-
-    **Schema markup alone (C-tier, confirmed):** The schema gap between named and invisible businesses is just 10 points (76 vs 66). Schema helps engines read you correctly and does very little to make them recommend you.
-
-    **Exact-match domains (S-tier claimed, unmeasured):** No one sharing the tier list has published a measurement of EMD lift for AI visibility. What we measure cuts the other way: generic-word names create entity collisions that hurt attribution.
-
-    **Technical SEO beyond baseline (diminishing returns):** The technical gap between AI-named and AI-ignored businesses is 2 points. Fast, crawlable sites are table stakes, but beyond that, no amount of technical polish substitutes for off-page authority.
-  </Tab>
-</Tabs>
+The current public snapshot was compiled on 29 September 2026. It covers 271 businesses in Australia, 134 in the United States and 105 in the United Kingdom. Different businesses have different questions, dates and answer counts, so these are observed results, not a controlled comparison. See [Benchmarks](/research/benchmarks).
 
 <Note>
-  The full methodology (including query sets, scoring rubrics, and the multi-sample majority-voting approach) is open-source at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open). The foundational academic grounding comes from Aggarwal et al., "GEO: Generative Engine Optimization," ACM SIGKDD 2024.
+  **Earlier scoring research.** Earlier articles compared weighted visibility and site-check scores. Those values were not percentages of answers and are not carried into the current benchmarks. Current pages use counted answers or state that no comparable count is available.
 </Note>
+
+## Open method
+
+The readiness method and the audit suite are open source at [github.com/techhorizonlabs/thl-open](https://github.com/techhorizonlabs/thl-open). The measurement engine, question sampling and regression eval set are not in that repository. The term GEO comes from Aggarwal et al., "GEO: Generative Engine Optimization," ACM SIGKDD 2024.
