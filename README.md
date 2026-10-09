@@ -3,7 +3,7 @@
 Source for the public documentation of [Are you found by AI?](https://areyoufoundbyai.com), the
 AI visibility measurement built and operated by [Tech Horizon Labs](https://techhorizonlabs.com).
 The site is built with [Mintlify](https://mintlify.com) and published at
-<https://foundbyai.mintlify.app/>.
+<https://areyoufoundbyai.com/docs>.
 
 The product asks AI engines the questions a business's buyers type, saves the answers, and shows
 whether the business is named, who is named instead and what to fix. These pages cover how the
