@@ -210,7 +210,7 @@ The demo's one action. It queues a fresh deep measurement now instead of waiting
 **Parameters:** none.
 
 <Warning>
-  On a token account, `request_rescan` queues nothing and spends nothing: it replies that the token price needs to be reviewed and confirmed in your workspace. Use `quote_token_run` and `confirm_token_run`, or the workspace itself, to run a paid check. On a subscription that keeps its earlier terms, on-demand rescans are capped at 5 per rolling 7 days. A rescan is refused when the freshest scan is under 20 minutes old, and only one can be queued at a time. If the server refuses, wait for the cooldown or the next weekly scan rather than retrying, and never call `request_rescan` again while polling for a rescan already in progress. On the demo endpoint it returns a worked example and queues nothing.
+  On a token account, `request_rescan` queues nothing and spends nothing: it replies that the token price needs to be reviewed and confirmed in your workspace. Use `quote_token_run` and `confirm_token_run`, or the workspace itself, to run a paid check. On a subscription that keeps its earlier terms, on-demand rescans are capped at 5 per rolling 7 days. A rescan is refused when the freshest scan is under 20 minutes old, and only one can be queued at a time. If the server refuses, wait for the cooldown or the next scheduled check rather than retrying, and never call `request_rescan` again while polling for a rescan already in progress. On the demo endpoint it returns a worked example and queues nothing.
 </Warning>
 
 ## More tools on a customer token
