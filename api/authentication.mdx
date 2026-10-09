@@ -1,75 +1,74 @@
 ---
-title: 'API Authentication: Free, Bearer Token, and Scoped Keys'
+title: 'Authentication: what each Are you found by AI? endpoint needs'
 sidebarTitle: 'Authentication'
-description: 'How to authenticate with the Found by AI API, free-tier access, Bearer token API keys for paid tiers, and scoped read-only keys for agencies.'
+description: 'What authenticates where: the free /api/scan needs nothing, monitor tokens open MCP and the console feeds, agency keys open the network catalogue, and x402 pays for /api/agent/*.'
 ---
 
-The Found by AI API uses straightforward Bearer-token authentication. The free tier requires no credentials at all, making it easy to run your first scan without any setup. Paid tiers unlock more engines, more questions, and higher rate limits by attaching an API key to each request.
+Are you found by AI? has no API keys to create and no API key settings screen. Each surface uses one of four kinds of access:
 
-## Free tier, no authentication
+| Surface | Access |
+|---------|--------|
+| `POST /api/scan` | None. Free, no auth |
+| MCP server and console feeds (`/mcp`, `/monitor/<token>.json`, `/monitor/<token>/context.md`) | The monitor's token |
+| Agency network catalogue over MCP | Your network link or a per-staff scoped key |
+| `POST /api/agent/scan`, `GET /api/agent/sov` | x402 payment per call |
 
-The `/api/scan` endpoint is publicly accessible without any API key. Submit a `POST` request with just the `url` body parameter and the scan runs immediately.
+## Free scan, no authentication
 
-<Note>
-  Free-tier scans are subject to fair-use limits: up to **15 scans per browser per day**. On very busy days a server-wide queue may delay new scans, leave your email address during the scan and your result is emailed as soon as it clears. Paid tiers are never affected by either cap.
-</Note>
-
-## Paid tier, API key
-
-Monitoring ($79/mo) and Fleet ($149/mo) plans include an API key. To create one:
-
-<Steps>
-  <Step title="Log in to your dashboard">
-    Go to [areyoufoundbyai.com](https://areyoufoundbyai.com) and sign in to your account.
-  </Step>
-  <Step title="Open API Keys">
-    Navigate to **Settings → API Keys**.
-  </Step>
-  <Step title="Create a key">
-    Click **Create key**, give it a label, and copy the value. It is only shown once.
-  </Step>
-  <Step title="Pass the key in your requests">
-    Add an `Authorization: Bearer` header to every API request.
-  </Step>
-</Steps>
-
-Pass your key as a Bearer token in the `Authorization` header:
+`POST /api/scan` is publicly accessible with no credentials. Send a JSON body with the `url` and the scan runs. Paid plans do not get a key for it, because none is needed.
 
 ```bash
 curl -X POST https://areyoufoundbyai.com/api/scan \
-  -H 'Authorization: Bearer YOUR-API-KEY' \
   -H 'Content-Type: application/json' \
   -d '{"url": "https://example.com"}'
 ```
 
-<Warning>
-  Keep your API key secret. Do not commit it to source control or expose it in client-side code. Rotate it immediately from **Settings → API Keys** if it is ever compromised.
-</Warning>
+<Note>
+  The free scan is rate-limited per IP each hour, with a fair-use allowance of **15 free scans per browser per day**. On very busy days the free scan can reach its daily capacity; leave your email and the scan runs automatically when capacity frees, with the result sent to you.
+</Note>
 
-## Scoped keys (for agencies)
+## Monitor tokens: MCP and console feeds
 
-Fleet plan accounts can issue **scoped keys**, read-only credentials restricted to specific client domains. Scoped keys are designed so that team members and contractors can access only the sites assigned to them.
+Each monitored site has its own token, on the free plan as well as Pro. Your console's **Connect your AI** section shows it, and it is also the part after `/monitor/` in your console link or any monitoring email link.
 
-To create a scoped key:
+For MCP, the recommended form is the static endpoint with the token in a header:
 
-1. Open your Fleet console and go to the **Network** page.
-2. Select the client site you want to grant access to.
-3. Click **AI access** to generate a scoped key for that domain.
-
-Scoped keys are used as the MCP endpoint URL, not as an `Authorization` header:
-
-```
-https://areyoufoundbyai.com/mcp/YOUR-SCOPED-KEY
+```bash
+curl -X POST https://areyoufoundbyai.com/mcp \
+  -H "authorization: Bearer YOUR-TOKEN" \
+  -H "content-type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
 
+`x-api-key: YOUR-TOKEN` works too. URLs end up in server logs, proxies and browser history, and headers do not. The path form, `https://areyoufoundbyai.com/mcp/YOUR-TOKEN`, keeps working for clients that only take a URL.
+
+The same token opens the console as data:
+
+- `https://areyoufoundbyai.com/monitor/YOUR-TOKEN.json`: the whole console as one JSON document
+- `https://areyoufoundbyai.com/monitor/YOUR-TOKEN/context.md`: the same measurements as Markdown
+
+The public demo, `https://areyoufoundbyai.com/mcp/demo`, needs no token at all.
+
 <Warning>
-  Scoped keys grant **read-only MCP access** only. They cannot be used to trigger a new scan via `POST /api/scan`. Use a full API key (from Settings → API Keys) for write operations.
+  A token is effectively a password to your own data: anyone who holds it can read your measurements. Do not commit it to source control, post it publicly or put it in client-side code. Sharing it with your own AI tool, or a teammate you trust, is what it is for.
 </Warning>
+
+## Agency keys: the network catalogue
+
+An agency network page is itself an MCP server. Its link reaches the [network catalogue](/mcp/tools#agency-network-catalogue) for every site in the network. For staff and clients, issue **scoped keys** instead: each key reaches only the sites you tick when you create it, can be audited (use count and last use), and can be revoked in one click, effective immediately.
+
+To create one, open **AI access** on your network page, name the key, tick the sites it should reach, and press **Copy setup** to copy a ready-made handoff message. See [Scoped keys](/guides/scoped-keys) for the details.
+
+A scoped key is used the same way as a monitor token: in an `Authorization: Bearer` or `x-api-key` header against `https://areyoufoundbyai.com/mcp`, or in the path as `https://areyoufoundbyai.com/mcp/YOUR-SCOPED-KEY`. It works only on MCP; it is not a key for `/api/scan`, which needs none.
+
+## x402: paid per call for agents
+
+`POST /api/agent/scan` (a deep measurement) and `GET /api/agent/sov?kw=<category>` (AI share of voice for a category) are paid per call over the x402 payment protocol, in USDC on Base. There is no signup, no key and no subscription. A request without an `X-PAYMENT` header returns HTTP 402 with the payment requirements. `/api/agent/scan` is currently a preview.
 
 ## Error responses
 
-| HTTP status | Meaning |
-|-------------|---------|
-| `401 Unauthorized` | The API key is missing or invalid. Check that the `Authorization` header is present and the key has not been revoked. |
-| `403 Forbidden` | The key is valid but not permitted for the requested domain. This applies to scoped keys used outside their assigned domain. |
-| `429 Too Many Requests` | The rate limit for your tier has been reached. Wait for the reset window or upgrade your plan. |
+| HTTP status | Where | Meaning |
+|-------------|-------|---------|
+| `404` | MCP | The token or key is not recognised (missing, mistyped or revoked). The JSON-RPC error message explains how to connect |
+| `402` | `/api/agent/*` | Payment required: the response carries the x402 payment requirements |
+| `429` | `/api/scan` | A free-scan limit has been reached. The message says which and when it resets |

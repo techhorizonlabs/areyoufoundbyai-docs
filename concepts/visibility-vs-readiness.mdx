@@ -1,76 +1,82 @@
 ---
-title: "AI Visibility vs. AI Readiness: Understanding the Gap"
+title: "AI Visibility vs AI Readiness: what each result measures"
 sidebarTitle: "Visibility vs Readiness"
-description: "AI Visibility asks: are you named right now? AI Readiness asks: is your site built to earn it? Learn why the gap between the two scores is the work."
+description: "The named share tells you whether AI engines name you. AI Readiness tells you how well your website is set up to be understood. Learn what each result measures and how to read them together."
 ---
 
-Found by AI produces two scores for every business it measures, and they answer two completely different questions. Your **AI Visibility Score** tells you whether AI engines are naming you in answers right now. Your **AI Readiness Score** tells you whether your site is built to earn those names. Most businesses assume that fixing their website is enough, but the data from 2,354 real scans shows an average readiness of 67/100 and an average visibility of just 40.8/100. Being ready and being recommended are not the same thing, and the gap between them is almost entirely earned off your own site.
+An Are you found by AI? report answers two different questions. The first is the outcome: when buyers ask AI engines about your category, do the answers name your business? That is measured by the **named share**. The second is the input you control on your own site: is your website set up so AI can understand it? That is **AI Readiness**. Your off-site **Footprint** is scored separately again. Being ready and being named are not the same thing.
 
-## AI Visibility Score
+## Named share: the headline measure
 
-Your AI Visibility Score measures the **outcome**: when real buyers ask ChatGPT, Claude, Perplexity, Gemini, Grok, DeepSeek, or Google AI Overviews for "the best \[category\] in \[your location\]," does the engine say your name? Found by AI asks those questions across up to seven engines, samples each question multiple times, and majority-votes the results. The score runs from 0 to 100.
+Named share is the number of countable saved answers that name your business, divided by all countable saved answers. If AI names a business in 7 of 28 countable answers, its named share is 25%.
 
-| Score range | What it means |
-|-------------|---------------|
-| 0–10 | Effectively invisible, no engine is naming you |
-| 11–30 | Occasionally named on one or two engines |
-| 31–60 | Named sometimes, momentum is fragile |
-| 61–80 | Named consistently across several engines |
-| 81–100 | Strongly recommended across the engine landscape |
+- Every saved repetition counts. An engine may be asked the same question more than once, and each saved answer counts on its own. There is no majority vote.
+- A link to your website on its own does not count as your business being named in the answer.
+- Missing or incomplete evidence is left out, never counted as a no.
 
-A single scan is a point-in-time measurement. Because AI engines are stochastic, the same question can yield a different answer on a different run. Monitoring re-asks your pinned questions every week so you track genuine trends rather than single-run noise.
+Read the named share with the questions, engines, date and answer count beside it. A short free scan (2 questions on ChatGPT and Gemini) is a smaller sample than a full weekly check across seven engines. AI answers can vary between runs, so Pro re-asks your pinned questions every week to help you tell an isolated answer from a wider trend.
 
-## AI Readiness Score
+## The AI Visibility score
 
-Your AI Readiness Score measures the **inputs you control**: is your site and entity built so that AI engines can find, trust, and cite you? It is a composite of six weighted dimensions, see [How the GEO Readiness Score Is Calculated](/concepts/geo-score) for the full formula. The score also runs from 0 to 100.
+Reports, the scan API and the MCP server also return an **AI Visibility score** out of 100. It is an older weighted diagnostic score. It is not a percentage of AI recommendations, and it cannot be converted into a named share.
 
-| Score range | What it means |
-|-------------|---------------|
-| 0–39 | Critical, fundamental signals are missing |
-| 40–59 | Needs Work, foundation gaps are suppressing visibility |
-| 60–79 | Good, most signals in place; focus on brand footprint |
-| 80–100 | Excellent, well-positioned to earn AI recommendations |
+Its scoring basis: being named in the answer prose counts in full toward your visibility score. A positive result recorded only as a list entry, citation or source title counts half. Older results without this distinction retain their recorded scoring basis.
 
-Readiness is what you control directly through site changes, structured data, content strategy, and off-page citations. Visibility is what that work earns you over time.
+Public surfaces describe the score with three bands:
 
-## Why the Two Scores Diverge
+| AI Visibility score | Band |
+|---|---|
+| 60 or more | Visible to AI |
+| 25 or more | Partially visible |
+| Below 25 | Rarely visible |
 
-The most important insight in the THL framework is that visibility and readiness are correlated but not identical, and the gap between them tells you exactly what kind of problem you have.
+The scan API also returns a verdict of `present`, `weak` or `absent`.
+
+## AI Readiness
+
+AI Readiness (out of 100) is how well your website itself is set up to be understood by AI, measured from the site alone. It is composed of five site signals: Citability (quotable content), E-E-A-T (trust and credibility), Technical (site health), Schema (machine-readable business facts) and Platform (AI-ready setup).
+
+A signal that could not be verified, for example because the page could not be read, the site is a JavaScript shell, or robots.txt was unreadable, is left out of Readiness rather than scored zero. Which signals count can therefore differ from scan to scan, and each report states the share each signal carries. See [AI Readiness and Footprint](/concepts/geo-score) for the detail.
+
+## Footprint
+
+Footprint (out of 100) is the separate off-site score: Wikidata and Knowledge Graph entity, Google Business Profile, brand mentions, search demand and referring domains. It is scored beside Readiness, not inside it. The free scan does not measure Footprint, so it shows as not measured rather than zero.
+
+## Why the results diverge
+
+Site checks explain what to work on. Crawler access, readable content, business facts, structured data and independent mentions are separate checks. They are not extra percentages of AI recommendations, and an older weighted score cannot be converted into a named share.
 
 <CardGroup cols={2}>
-  <Card title="High Readiness, Low Visibility" icon="clock">
-    Your signals are right but the engines haven't fully indexed or trusted you yet. Your site is crawlable, your content is quotable, your schema is valid, but your off-page brand footprint hasn't built the third-party evidence AI needs to confidently name you. This is the most common state: the average business we scan scores 67/100 on readiness and only 40.8/100 on visibility.
+  <Card title="High Readiness, low named share" icon="clock">
+    You can be highly ready yet still rarely named: a well-built site the engines do not yet know or trust. Review the sources saved with the answers to find the independent places where buyers, and engines, could find you.
   </Card>
-  <Card title="Low Readiness, High Visibility" icon="triangle-exclamation">
-    Your momentum is fragile. You're being named because the wider web already talks about you (reputation is carrying you) but your site's signals don't reinforce that trust. A competitor who outbuilds you on readiness can displace you as engines update their training data and retrieval indexes.
+  <Card title="Low Readiness, high named share" icon="triangle-exclamation">
+    The engines name you, but your own site is not making your business easy to understand. Make your name, services, locations and contact details clear and consistent, and check what a crawler receives.
   </Card>
 </CardGroup>
 
-## The Two Scores Side by Side
+None of these checks guarantees a recommendation, and a change in an answer does not by itself prove which edit caused it.
 
-| | AI Visibility Score | AI Readiness Score |
-|--|--|--|
-| **Question answered** | Are you named by AI engines right now? | Is your site built to earn AI recommendations? |
-| **What it measures** | Live engine answers, verbatim, majority-voted | 30+ signals across 6 weighted dimensions |
-| **Primary drivers** | Off-page brand recognition, third-party mentions, entity authority | Citability, Brand signals, E-E-A-T, Technical GEO, Schema, Platform |
-| **How to improve it** | Earn citations, build entity footprint, get listed on AI-trusted directories | Fix crawlability, publish quotable content, add valid JSON-LD, open AI crawlers |
-| **How fast it moves** | Weeks to months (engine retrieval and training cycles) | Days to weeks (site changes are measurable immediately) |
-| **Measured by** | Querying the 7 engines live with buyer questions | Auditing your site and entity against the GEO readiness model |
+## The results side by side
 
-## The 3-Layer THL Method
+| | Named share | AI Readiness | Footprint |
+|--|--|--|--|
+| **Question answered** | Do the engines name you in their answers? | Is your website set up to be understood by AI? | How present is your business off your own site? |
+| **What it measures** | Countable saved answers that name you, divided by all countable saved answers | Five site signals, measured from your site alone | Entity, Google Business Profile, brand mentions, search demand, referring domains |
+| **Form** | A percentage with its counts | Out of 100 | Out of 100 |
+| **How to work on it** | Act on the fix plan, then measure the same questions again | Fix crawler access, readable content, business facts and structured data | Review the sources in your market's answers and the profiles and listings they point to |
+| **Measured by** | Asking the engines buyer questions and saving the answers | Reading your website | Off-site checks in the full report |
 
-<Note>
-Found by AI structures its workflow around three layers that follow directly from this distinction. Run them in order to move from outcome to diagnosis to fix.
-</Note>
+## Read, fix, measure again
 
 <Steps>
   <Step title="Measure: areyoufoundbyai.com">
-    Run a live scan to get your AI Visibility Score. This tells you the outcome: are you being named, who's being named instead, and on which engines? This is the only way to know, on-page signals predict visibility but don't prove it.
+    Run a scan to see which engines named you, who they named instead and the words behind each result.
   </Step>
-  <Step title="Diagnose: GEO Readiness Audit">
-    Your AI Readiness Score breaks down across 6 dimensions and surfaces the specific signals holding you back. This is the "why". It tells you which lever to pull first, with fixes ordered by impact and effort.
+  <Step title="Diagnose: site checks">
+    Your AI Readiness signals and Footprint show which checks need attention. The fix plan orders the work.
   </Step>
-  <Step title="Fix: Implement and Re-measure">
-    Apply the prioritised fixes from your report. Monitoring re-asks your pinned buyer questions every week so that when a change ships, you see exactly which questions moved and on which engines, the change you made, confirmed.
+  <Step title="Fix and measure again">
+    Apply the fixes from your report. Pro re-measures your pinned buyer questions every week, so you can compare the same questions and engines over time. Keep changes in coverage separate from changes in results.
   </Step>
 </Steps>

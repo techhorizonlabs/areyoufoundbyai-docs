@@ -1,121 +1,120 @@
 ---
-title: "How Found by AI Measures Your AI Search Visibility"
+title: "How Are you found by AI? measures whether AI names your business"
 sidebarTitle: "How It Works"
-description: "Found by AI runs a five-agent pipeline (ARGOS, NAVIGATOR, SOUNDER, ASSESSOR, and PILOT) to measure your AI search visibility across 7 engines."
+description: "Read your website, ask buyer questions, inspect the evidence, work through the fixes, measure again: the five steps behind every Are you found by AI? measurement."
 ---
 
-Every Found by AI scan runs a coordinated pipeline of five specialised agents. Each agent owns one stage of the measurement, and the stages are deliberately separate: reading your site, writing buyer questions, asking the engines, scoring the signals, and ordering the fixes. Nothing is estimated. Every score traces back to a live engine answer, a public registry, or a named data source.
+Are you found by AI? starts with your website, measures what AI tells your buyers, keeps the answers, and gives you a plan for what to improve. Every measurement follows the same five steps: read, ask, inspect, fix and measure again.
 
-## The five agents
+## The five steps
 
 <Steps>
-  <Step title="ARGOS: reads your site">
-    ARGOS opens your site the way AI crawlers do. It reads your page content, structured data (schema.org markup), `robots.txt`, `llms.txt`, and crawler access rules to determine whether AI engines can read and understand your business at all.
+  <Step title="01 Read your website">
+    We read your website to identify your services, market and service area, then check the signals that help machines understand it.
 
-    From that read it resolves what you do, who your buyers are, and where you operate. If your site can't be read (blocked crawlers, missing schema, no llms.txt) the scan reports that clearly instead of guessing at a score.
-
-    **What ARGOS reads:** content · schema · robots.txt · llms.txt · crawler access rules · service areas
+    For example, a Brisbane mortgage broker who helps first-home buyers should be asked about that service in Brisbane, rather than an unrelated industry or location.
   </Step>
-  <Step title="NAVIGATOR: writes buyer questions">
-    NAVIGATOR takes what ARGOS learned about your business and generates the actual questions a buyer would ask an AI assistant when looking for your category. These are not generic prompts, they're built from your site's signals and, for local businesses, localised to the areas you serve.
+  <Step title="02 Ask buyer questions">
+    The free scan asks buyer questions on ChatGPT and Gemini. The full measurement extends the question set across seven engines.
 
-    On the free scan, NAVIGATOR produces 2 questions. A full scan produces up to 12; Monitoring tracks up to 25 pinned questions weekly, so your trend line reflects real movement rather than freshly re-generated questions pretending to be a trend.
+    **Engines covered by the full measurement:** ChatGPT, Claude, Gemini, Perplexity, Grok, DeepSeek and Google AI Overviews. Available answers and sources depend on the completed measurement, and engine availability varies.
+
+    We keep the answers and the sources returned with them. Where an engine returns its search queries, those are kept too.
   </Step>
-  <Step title="SOUNDER: asks all 7 engines">
-    SOUNDER sends each buyer question to the AI engines and collects the full verbatim replies, not a summary, the actual answers, word for word, including which sources the engine cited before answering.
-
-    **Engines covered:** ChatGPT · Perplexity · Gemini · Claude · Grok · DeepSeek · Google AI Overviews
-
-    Because AI engines are probabilistic (the same question can produce different answers on different runs) SOUNDER asks each question more than once and records every reply. The free scan sends each question twice per engine; the full scan samples up to three times per engine and applies majority voting so single-run noise doesn't masquerade as signal.
+  <Step title="03 Inspect the evidence">
+    Your console brings the measurement together: which engines named you, who they named instead and the words behind each result. Being named, being cited as a source and receiving a visit are different outcomes.
   </Step>
-  <Step title="ASSESSOR: scores 30+ signals">
-    ASSESSOR runs the composite GEO (generative engine optimisation) formula across your scan results. It evaluates more than 30 signals and produces both your **AI Visibility Score** and your **AI Readiness Score**, each out of 100.
+  <Step title="04 Work through the fixes">
+    The report separates AI Visibility, whether the engines name you, from AI Readiness, how well your website is set up to be understood. The fix plan turns the measurement into specific work.
 
-    The Readiness Score is a weighted composite across six dimensions:
+    **On your website:** check how clearly you explain your services and service areas, and use the generated schema and llms.txt where they fit your site.
 
-    | Dimension | Weight |
-    |---|---|
-    | AI Citability | 25% |
-    | Brand Authority | 20% |
-    | Content E-E-A-T | 20% |
-    | Technical GEO | 15% |
-    | Schema & Structured Data | 10% |
-    | Platform Optimization | 10% |
+    **Beyond your website:** inspect the sources in your market's answers, and use that evidence to decide which profiles, listings or other references need attention.
 
-    Visibility reflects what the engines said right now. Readiness reflects whether your site is built to earn recommendations over time. The two scores move on different timescales: Readiness responds within days of a site change; Visibility moves more slowly as third-party pages start citing you.
+    These are examples of the work a plan can identify. A website change does not guarantee that an engine will recommend you.
   </Step>
-  <Step title="PILOT: orders your fixes">
-    PILOT takes ASSESSOR's findings and ranks them by impact, producing your prioritised fix plan. Quick copy-paste items appear first: your Organization JSON-LD schema and llms.txt, generated specifically for your business entity and ready to publish. Slower off-site actions (earning citations on the directories and communities the engines already read in your market) are listed with the specific platforms your category relies on.
-
-    When you're on Monitoring, you mark fixes done in your console and the next weekly measure verifies whether they cleared. Fixed items are struck through while Found by AI keeps checking, and they're never hidden from your history.
+  <Step title="05 Measure again">
+    Pro re-measures your pinned buyer questions weekly. Your console keeps the results together so you can inspect changes over time. Compare the same questions and engines, and keep changes in coverage separate from changes in results.
   </Step>
 </Steps>
 
-## Majority-voted sampling
+## How answers are counted
 
-AI engines don't return a deterministic answer. The same question put to the same engine on two consecutive days can produce meaningfully different results. To give you a stable, statistically grounded score rather than the noise of a single run, SOUNDER applies majority-voted sampling:
+The headline measure is the **named share**: the countable saved answers that name your business, divided by all countable saved answers. If AI names a business in 7 of 28 countable answers, its named share is 25%.
 
-- Each question is asked multiple times per engine within the same scan
-- The results are aggregated. A business is recorded as "named" only if it appears in a majority of runs
-- The Visibility and Readiness scores are computed from the aggregated results, not from any single answer
+- Every saved answer counts on its own. An engine may be asked the same question more than once, and each saved repetition counts. There is no majority vote.
+- A link to your website on its own does not count as your business being named in the answer.
+- Missing or incomplete evidence is left out, never counted as a no.
+- Read the number with the questions, engines, date and answer count. A short free scan is a smaller sample than a full weekly check.
 
-This means your score reflects a genuine signal. When a question flips (when an engine starts naming you that didn't before) the weekly email tells you so, along with the change you shipped that coincided with the movement.
+AI answers can vary between runs. Repeating the same buyer questions over time helps you tell an isolated answer from a wider trend.
 
-## Free vs paid scan depth
+<Note>
+  Site checks (crawler access, readable content, business facts, structured data and independent mentions) are separate checks. They are not extra percentages of AI recommendations, and an older weighted score cannot be converted into a named share. See [AI Visibility vs AI Readiness](/concepts/visibility-vs-readiness).
+</Note>
+
+## Free vs paid depth
 
 <Tabs>
   <Tab title="Free">
     | Attribute | Value |
     |---|---|
     | Questions | 2 |
-    | Engines | 2 (ChatGPT + Gemini) |
-    | Sampling runs | 2 per engine |
-    | Cadence | Monthly re-check |
+    | Engines | 2 (ChatGPT and Gemini) |
+    | Cadence | Re-checked monthly |
     | Signup required | No |
+    | Price | US$0 |
 
-    The free scan is the same instrument run shallower. Both scores appear, verbatim answers are shown, and competitors are named. Nothing is held back to make it disappointing.
+    Your result in about a minute, who AI names instead of you, an email when your result moves, and your own AI can read it over MCP.
   </Tab>
   <Tab title="Snapshot">
     | Attribute | Value |
     |---|---|
     | Questions | 12 |
-    | Engines | 7 (all) |
-    | Sampling runs | Up to 3 (majority vote) |
-    | Cadence | One-time |
+    | Engines | Seven |
+    | Cadence | Once |
     | Price | US$29 |
 
-    A full one-time scan across every engine, with every answer kept and the complete fix list in order. Offered from your free scan results.
+    One full report: 12 buyer questions asked across seven engines, with the answers, your competitors and the fixes.
   </Tab>
-  <Tab title="Monitoring">
+  <Tab title="Pro">
     | Attribute | Value |
     |---|---|
     | Questions | Up to 25 (pinned) |
-    | Engines | 7 (all) |
-    | Sampling runs | Multiple (majority vote) |
+    | Engines | Seven |
     | Cadence | Weekly |
-    | Price | US$79/mo |
+    | Price | US$79 a month per site, or US$490 a year |
+    | Trial | 14 days free, card required |
 
-    The same pinned questions re-asked every week. Trend lines are real movement, not freshly generated questions. Competitors tracked side by side; daily mention sweep; AI-traffic beacon; 14-day free trial; 5-findings-or-refund guarantee on month one.
+    What each engine said and what changed, who AI names instead of you and how often, new pages that mention you, the fix plan, a count of the visitors AI sends you, and your own AI over MCP. Plus GST in Australia (US$86.90 a month). If your first month's report does not give you at least five specific things you did not already know, reply within seven days for a full refund.
   </Tab>
 </Tabs>
 
-<Note>
-  **BOSUN** is the halting system that runs throughout every scan. If ARGOS can't read your site, if an engine is unreachable, or if a scan produces degraded results, BOSUN stops the pipeline and reports the failure clearly, rather than printing a confident wrong number. On Monitoring, scans that BOSUN halts do not count against your weekly allowance, and we email you what stopped the measure and how to fix it.
-</Note>
+Agencies and groups with several sites can [ask us for a rate](https://areyoufoundbyai.com/pricing).
+
+## Bring the evidence into your own AI
+
+Connect a compatible assistant through MCP, a standard for connecting AI tools to data. It can read your measurement and help you work through the findings. Your assistant's advice is separate from the engine answers we measured. To try the public demo in Claude Code:
+
+```bash
+claude mcp add --transport http found-by-ai https://areyoufoundbyai.com/mcp/demo
+```
+
+This command opens the public demo, not your private report.
 
 ## Where to go next
 
 <CardGroup cols={2}>
   <Card title="Core Concepts" icon="book-open" href="/concepts/visibility-vs-readiness">
-    Understand what the Visibility and Readiness scores measure, how they differ, and how to read them together.
+    Understand what the named share, AI Readiness and the older AI Visibility score each measure.
   </Card>
   <Card title="Fix Your Score" icon="wrench" href="/guides/fix-your-score">
-    Act on your PILOT fix plan, from copy-paste schema and llms.txt to earning the citations that move Visibility.
+    Act on your fix plan, on your website and beyond it.
   </Card>
   <Card title="API Overview" icon="code" href="/api/overview">
     Trigger scans programmatically with the public scan API.
   </Card>
   <Card title="MCP Overview" icon="plug" href="/mcp/overview">
-    Connect your own AI agent to the live measurement with the Found by AI MCP server.
+    Connect your own AI agent to the measurement with the Are you found by AI? MCP server.
   </Card>
 </CardGroup>

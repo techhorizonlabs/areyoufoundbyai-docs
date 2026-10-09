@@ -1,10 +1,12 @@
 ---
-title: "Free AI Visibility Tools for Your Site: No Signup"
+title: "Free AI Visibility Tools From Are you found by AI?"
 sidebarTitle: "Overview"
-description: "Six free tools to check AI crawler access, DNS-AID records, IndexNow submissions, llms.txt, and JSON-LD schema, no account required."
+description: "Three free standalone tools (AI crawler checker, IndexNow submitter, DNS-AID checker), plus the starter llms.txt and schema that come with the scan, and a Chrome extension."
 ---
 
-Found by AI offers six standalone tools that run the same checks powering the full paid report, for free, instantly, and with no sign-up required. Each tool targets one specific gap in your AI visibility setup and ends with a clear next action you can take today.
+Are you found by AI? offers three free standalone tools: the AI crawler checker, the IndexNow submitter and the DNS-AID checker. A starter `llms.txt` comes with every free scan, and Organization or LocalBusiness JSON-LD is generated with the full report. There is also a free Chrome extension. The tools need no account, and each one ends with the thing to do next.
+
+## Standalone tools
 
 <CardGroup cols={2}>
   <Card
@@ -12,59 +14,69 @@ Found by AI offers six standalone tools that run the same checks powering the fu
     icon="robot"
     href="/tools/ai-crawler-checker"
   >
-    See which of the 15 major AI crawlers your robots.txt allows or blocks, and get the exact snippet to fix any that are blocked.
-  </Card>
-  <Card
-    title="DNS-AID Checker"
-    icon="server"
-    href="/tools/dns-aid-checker"
-  >
-    Verify whether your domain publishes the IETF DNS-AID record that tells AI agents where your machine entry point lives.
+    Checks the published robots.txt rules for 15 search, training and user-request controls on the page you enter. Search access and training preferences are shown separately.
   </Card>
   <Card
     title="IndexNow Submitter"
     icon="bolt"
     href="/tools/indexnow"
   >
-    Ping Bing (and by extension ChatGPT search) the moment you publish or fix a page, so your updates are indexed within minutes.
+    Ping Bing and every IndexNow engine the moment you publish or fix a page. The tool generates your key and you host one small file.
   </Card>
   <Card
-    title="llms.txt Generator"
+    title="DNS-AID Checker"
+    icon="server"
+    href="/tools/dns-aid-checker"
+  >
+    Looks up the experimental DNS-AID SVCB index record. This is an unscored DNS observation, not an endpoint check.
+  </Card>
+</CardGroup>
+
+## Included with the scan
+
+<CardGroup cols={2}>
+  <Card
+    title="llms.txt"
     icon="file-lines"
     href="/tools/llmstxt-generator"
   >
-    Generate a valid llms.txt index file from your sitemap so AI crawlers immediately know which pages matter most on your site.
+    A starter llms.txt in every free scan, written from your site. The full report generates the complete file.
   </Card>
   <Card
-    title="Schema Generator"
+    title="Schema (JSON-LD)"
     icon="code"
     href="/tools/schema-generator"
   >
-    Build server-ready Organization, LocalBusiness, Product, Article, SaaS, or WebSite JSON-LD from your real business details.
+    Organization or LocalBusiness markup built from your real business details, generated with your full report.
   </Card>
+</CardGroup>
+
+## Browser extension
+
+<CardGroup cols={2}>
   <Card
     title="Chrome Extension"
     icon="chrome"
     href="https://chromewebstore.google.com/detail/bpgcknhknpopfnkbclphbbbhgfianaoo"
   >
-    Check any site's AI visibility without leaving the page, see scores, engine mentions, and copy any page as clean Markdown.
+    Check any site without leaving it, and copy any page as clean Markdown for your own AI.
   </Card>
 </CardGroup>
 
-## What each tool does
+## What each one does
 
-**AI Crawler Checker** parses your live robots.txt against 15 AI user-agents (including GPTBot, ClaudeBot, PerplexityBot, Applebot, bingbot and CCBot) and tells you the access status for each one. If a crawler is blocked, you can't be cited by the engine it feeds, no matter how good your content is.
+**AI Crawler Checker** reads the robots.txt rules that apply to one page and matches them against 15 published crawler controls, grouped as search, training and grounding, and user requests. It reports the published rules only: it does not test a verified crawler, login restrictions or bot protection.
 
-**DNS-AID Checker** looks up the `_index._agents` HTTPS DNS record on your domain. This emerging IETF standard lets AI agents discover your site's machine entry point before crawling a single page. Almost no sites have it yet, which makes adding it a quick differentiator.
+**IndexNow Submitter** generates an IndexNow key, tells you where to host the one-line key file, then submits your URLs. ChatGPT search reads Bing's index, so this is a quick way to tell Bing about a new or fixed page.
 
-**IndexNow Submitter** generates your unique API key, walks you through hosting the one-line key file, and lets you submit any set of URLs directly to Bing's real-time index. Because ChatGPT's web search reads Bing's index, this is the fastest path to getting freshly updated pages discovered.
+**DNS-AID Checker** looks for an SVCB record (type 64) at `_index._agents.yourdomain.com`, following DNS-AID draft-02. The draft is a work in progress, not a published standard, and the record does not affect your scores.
 
-**llms.txt Generator** crawls your sitemap and produces a formatted `llms.txt` file, a machine-readable map of your most important pages, written in a format AI crawlers read at a fraction of the token cost of crawling your entire site.
+**llms.txt** is written from your own pages in every free scan as a starter file. The full report generates the complete file.
 
-**Schema Generator** offers six JSON-LD templates: Organization, Local Business, Article + Author, Product (E-commerce), Software / SaaS, and Website with SearchAction, filled in from your real business details and ready to paste into your server-rendered HTML.
+**Schema (JSON-LD)** is generated with the full report from your real business details, ready to paste into your server-rendered HTML.
 
-**Chrome Extension** overlays AI visibility data on any page you browse: measured visibility score, whether AI engines name the business, a verbatim excerpt from an engine answer, and a one-click copy of the page as clean Markdown.
+**Chrome Extension** shows, for any site you visit, the measured visibility score, whether the engines name it, a verbatim answer and the readiness checks. It also copies any page as clean Markdown.
 
 <Note>
-  All six tools are completely free and require no account. They use the same underlying engine as the [full AI-visibility scan](https://areyoufoundbyai.com/), which has measured more than 3,800 businesses.
+  The tools use the same engine as the [full AI-visibility scan](https://areyoufoundbyai.com/), with [4,400+ websites measured](https://areyoufoundbyai.com/methodology/website-counts). That count is of websites (hostnames), not businesses.
 </Note>

@@ -5,3 +5,6 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Old copies of site pages kept for reference, not published (Huxley, 9 Oct 2026)
+sources/
