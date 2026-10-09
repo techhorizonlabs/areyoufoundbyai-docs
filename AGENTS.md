@@ -16,8 +16,8 @@ those, do not publish it.
 
 - The product is "Are you found by AI?", with the question mark. Use the full name in titles and
   first mentions.
-- The paid plan is "Pro". Agencies and groups with several
-  sites ask for a rate; there is no public agency price.
+- The paid plan is "Pro". Agencies use the same shared account for all their client
+  sites; do not offer a separate agency rate.
 - Pro is one account that receives tokens every month, and every site on the account spends from
   the same tokens. Each check spends tokens; the customer chooses how often checks run. Token
   packs add tokens without a subscription. Take every price, token amount and expiry from the
